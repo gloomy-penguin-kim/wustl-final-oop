@@ -1,0 +1,72 @@
+from collections import defaultdict
+import json
+from pathlib import Path
+from typing import Any, Dict
+
+from app.domain.application import LoanApplication
+
+class JsonStore:
+
+    def __init__(self, filename):
+        self.filename = filename
+
+    def append(self, record): 
+        with open(self.filename, "a", encoding="utf-8") as f:
+            json.dump(record, f, sort_keys=True)
+            f.write("\n")
+
+    def save(self, record): 
+        with open(self.filename, "a", encoding="utf-8") as f:
+            json.dump(record, f, sort_keys=True)
+            f.write("\n")
+
+    def update_file(self, items: dict): 
+        with open(self.filename, "w", encoding="utf-8") as f: 
+            for _,item in items.items():  
+                json.dump(item, f, sort_keys=True)
+                f.write("\n") 
+
+    def load_all(self): 
+        records = [] 
+        path = Path(self.filename)
+        # print("Filename", self.filename, self.__class__.__name__)
+        if path.is_file(): 
+            with open(self.filename, "r", encoding="utf-8") as f:
+                for line in f: 
+                    if len(line.strip()) == 0: continue 
+                    records.append(json.loads(line))
+        return records
+
+    def load_by_type(self) -> dict: 
+        r = {}  
+        for record in self.load_all():   
+            if "type" in record and "id" in record and "data" in record and record["type"] == self.__class__.__name__: 
+                r[record["id"]] = record["data"] # cls.from_dict()   
+        return r 
+     
+    
+    def load_application(self, application_id: str): 
+        for record in self.load_all(): 
+            if record["type"] == "application" and record["id"] == application_id: 
+                return LoanApplication.from_dict(record["data"]) 
+        raise ValueError(f"Application not found: {application_id}")
+    
+    def load_events(self, application_id: str): 
+        events = [] 
+        for record in self.load_all(): 
+            if record["type"] == "audit" and record["id"] == application_id:
+                events.append(record) 
+        return events
+    
+    def load_policy(self, version: str): 
+        for record in self.load_all(): 
+            if "type" in record and record["type"] == "policy" and record["id"] == version: 
+                return record["data"] 
+        raise ValueError(f"Policy not found: {version}")
+    
+    def load_policies(self) -> Dict: 
+        d = {} 
+        for record in self.load_all(): 
+            if "type" in record and record["type"] == "policy": 
+                d[record["id"]] = record["data"]
+        return d 

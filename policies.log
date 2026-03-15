@@ -1,0 +1,2 @@
+{"data": {"created_at": "2026-03-14T03:35:09.189673+00:00", "rules": ["CreditScoreRule", "DtiRule"], "type": "RuleBasedPolicy", "version": "rule_based_123"}, "id": "rule_based_123", "type": "Policies", "version": "rule_based_123"}
+{"data": {"created_at": "2026-03-14T03:35:09.189673+00:00", "rules": [], "type": "ScorecardPolicy", "version": "scorecard"}, "id": "scorecard", "type": "Policies", "version": "scorecard"}

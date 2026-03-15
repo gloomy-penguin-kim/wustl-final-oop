@@ -1,0 +1,74 @@
+from __future__ import annotations
+
+from collections import defaultdict
+from decimal import Decimal
+from typing import Tuple, cast
+
+from app.domain.decision import Decision
+from app.policies.policy_base import Policy 
+from app.policies.policy_registry import register_policy 
+from app.rules.rule_base import Rule
+from app.domain.application import LoanApplication
+from app.rules.rule_registry import RULE_REGISTRY
+from app.rules.rule_result import Status, RuleResult 
+
+@register_policy 
+class RuleBasedPolicy(Policy):
+
+    def __init__(self, version: str, rules: list[Rule] | list[str] | None = None):  
+        cn = self.__class__.__name__  
+        rr = [] 
+        if Policy.is_list_of_strings(rules):
+            r = [] 
+            for s in (rules or []): 
+                r.append(RULE_REGISTRY[s]())
+            rr = r   
+        else:
+            rr = cast(list[Rule], rules) 
+        super().__init__(version=version, type=cn, rules=rr) 
+ 
+
+    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
+  
+        result = RuleResult(Status.APPROVE, "")
+        ctx = defaultdict(dict)
+        reason_codes = []
+        apr = Decimal(0.15) 
+        requested_amount = app.requested_amount
+
+        for rule in (self._rules or []):
+
+            result = rule.apply(app, ctx) 
+  
+            if result.status == Status.DECLINE: 
+                apr = None 
+                requested_amount = None 
+                break
+            
+            elif result.status == Status.REFER: 
+                apr = Decimal(0) 
+                requested_amount = Decimal(0) 
+                break
+
+            reason_codes.append(result.code)
+ 
+        human = ctx[result.status]
+        reason_codes = list(human.keys()) 
+          
+        self.emit({
+            "event": "POLICY_EVALUATED",
+            "id": app.application_id,
+            "policy_version": self.version,
+            "policy": self.to_dict() 
+        }) 
+
+        return (
+            Decision(
+                status = result.status,
+                reason_codes = reason_codes,
+                approved_amount = requested_amount,
+                apr = apr,
+                policy_version = self.version
+            ),
+            human
+        )
