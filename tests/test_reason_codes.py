@@ -99,6 +99,21 @@ def test_reason_codes():
 
     loans.clear()
     policies.clear() 
-    
-    with open(Config.AUDIT_FILE, "w") as f:
-        f.write("")
+
+    assert loan.application_id not in loans.items
+    loans = Loans("tests/output/test_loans.jsonl")
+    assert loan.application_id not in loans.items
+    assert len(Loans.items) == 0 
+
+    assert "approved_1_2" not in policies.items
+    assert "approved_2_1" not in policies.items 
+    assert "refer_policy" not in policies.items
+    assert "declined" not in policies.items
+
+    policies = Policies("tests/output/test_policies.jsonl")
+    assert "approved_1_2" not in policies.items 
+    assert "approved_2_1" not in policies.items
+    assert "refer_policy" not in policies.items
+    assert "declined" not in policies.items 
+    assert len(Policies.items) == 0
+ 

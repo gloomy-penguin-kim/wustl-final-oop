@@ -87,10 +87,7 @@ def test_policies():
 
     policies.delete("scorecard_policy") 
     assert "scorecard_policy" not in policies.items 
-
-    with open(Config.AUDIT_FILE, "w") as f:
-        f.write("")
-
+ 
 def test_policies_duplicates():
     policies = Policies("tests/output/test_policies.jsonl")
     policies.clear()
@@ -108,3 +105,4 @@ def test_policies_duplicates():
     p2 = policies.new(version="version123", type="ScorecardPolicy")
 
     policies.clear()
+     

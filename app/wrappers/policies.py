@@ -115,9 +115,9 @@ class Policies(Wrapper, JsonStore):
 
     def delete_policy(self, item: str):
         if item in Policies.items:  
-            del Policies.items[item]
             self.update_file(Policies.items) 
+            del Policies.items[item]
 
     def clear(self): 
-        super().clear() 
+        self.clear_file() 
         Policies.items = {}

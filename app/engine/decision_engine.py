@@ -31,8 +31,7 @@ class DecisionEngine(EmitEvent):
             "event": "POLICY_SELECTED",
             "id": application.application_id + "_" + policy.version + "_" + datetime.now(UTC).isoformat(),
             "application_id": application.application_id,
-            "policy_version": policy.version, 
-            "timestamp": datetime.now(UTC) 
+            "policy_version": policy.version 
         }) 
         decision, ctx = policy.evaluate(application) 
         self.emit({
@@ -40,8 +39,7 @@ class DecisionEngine(EmitEvent):
             "id": decision.decision_id,
             "application_id": application.application_id,
             "policy_version": policy.version,
-            "decision": decision.to_dict(),
-            "timestamp": datetime.now(UTC) 
+            "decision": decision.to_dict()  
         }) 
         return decision, ctx
     

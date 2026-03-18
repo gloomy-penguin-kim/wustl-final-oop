@@ -80,8 +80,7 @@ class ScorecardPolicy(Policy):
             "event": "POLICY_EVALUATED",
             "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
             "application_id": app.application_id,
-            "policy_version": self.version, 
-            "timestamp": datetime.now(UTC) 
+            "policy_version": self.version 
         })  
 
         if score >= 75:

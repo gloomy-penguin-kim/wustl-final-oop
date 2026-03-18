@@ -9,7 +9,7 @@ import logging
 
 class JsonStore:
 
-    def __init__(self, filename):
+    def __init__(self, filename: str, **kwargs):
         self.filename = filename 
 
     def save(self, record): 
@@ -27,10 +27,10 @@ class JsonStore:
                     logging.warning(f"{self.filename} could not save item:", item)
                     pass  
 
-    def clear(self): 
-        logging.info(f"clearing file... {self.filename}")
+    def clear_file(self): 
+        print(f"clearing file... {self.filename}")
         with open(self.filename, "w", encoding="utf-8") as f: 
-            f.write("")  
+            f.write("\n")  
 
     def load_all(self): 
         records = [] 

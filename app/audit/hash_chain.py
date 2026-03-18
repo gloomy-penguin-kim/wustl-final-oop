@@ -13,12 +13,21 @@ from .utility import get_last_hash_from_file
 
 from .utility import hash_event
 
+class ListNode: 
+    def __init__(self, event: dict, hash_prev: str):
+        self.event = event
+        self.hash_prev = hash_prev
+        self.hash_self = hash_event(event, hash_prev)
+        self.next = None 
+
 class HashChain(HashChainAuditMixin): 
     items = [] 
     def __init__(self, **kwargs): 
         super().__init__(**kwargs)  
         self.events = [] 
         self.last_hash = get_last_hash_from_file() or "genesis" 
+        self.head = None
+        self.tail = None
 
     def clear(self): 
         super().clear() 
@@ -28,10 +37,17 @@ class HashChain(HashChainAuditMixin):
     def append(self, event: dict): 
         prev_hash = self.last_hash 
         assert prev_hash is not None  
-        hash_self = hash_event(event, prev_hash)  
+
+        event["timestamp"] = datetime.now(UTC).isoformat() if "timestamp" not in event else event["timestamp"]
+        event["timestamp"] = event["timestamp"].isoformat() if isinstance(event["timestamp"], datetime) else event["timestamp"]
+        assert isinstance(event["timestamp"], str)
+
+        hash_self = hash_event(event, prev_hash) 
+
         event["hash_self"] = hash_self
-        event["prev_hash"] = prev_hash
-        self.items.append(event) 
+        event["hash_prev"] = prev_hash
+
+        self.events.append(event)   
         self.last_hash = hash_self  
         return event 
     

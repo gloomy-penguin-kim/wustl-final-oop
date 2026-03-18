@@ -5,7 +5,7 @@ Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
 
 def test_persist_events():
     store = JsonStore("tests/output/test_persistence.jsonl")
-    store.clear() 
+    store.clear_file() 
 
     events = {
         "1": {"type": "test_item", "id": "1", "data": {"value": 123}},
@@ -36,13 +36,13 @@ def test_persist_events():
         assert events[eKey]["id"] == le["id"]
         assert events[eKey]["data"] == le["data"]
 
-    store.clear() 
+    store.clear_file() 
     loaded_events = store.load_all()
     assert len(loaded_events) == 0
 
 def test_persist_events_with_invalid_json():
     store = JsonStore("tests/output/test_persistence.jsonl")
-    store.clear() 
+    store.clear_file() 
 
     events = {
         "1": {"type": "test_item", "id": "1", "data": {"value": 123}},
@@ -66,11 +66,11 @@ def test_persist_events_with_invalid_json():
         assert events[eKey]["id"] == le["id"]
         assert events[eKey]["data"] == le["data"]
     
-    store.clear()
+    store.clear_file()
     
 def test_load_by_type():
     store = JsonStore("tests/output/test_persistence.jsonl")
-    store.clear() 
+    store.clear_file() 
 
     events = {
         "1": {"type": "JsonStore", "id": "1", "data": {"value": 123}},
@@ -90,5 +90,5 @@ def test_load_by_type():
     for key, item in loaded_by_type.items():
         assert item["type"] == "JsonStore"
     
-    store.clear() 
+    store.clear_file() 
 

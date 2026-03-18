@@ -50,7 +50,7 @@ class Decision(
 
     @property
     def reason_codes(self):
-        return tuple(self._reason_codes)
+        return tuple(sorted(set(self._reason_codes))) if self._reason_codes else tuple()
 
     def validate(self):
         super().validate()

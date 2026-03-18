@@ -81,8 +81,7 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         self.emit({
             "event": "SUBMITTED",
             "id": item.application_id,
-            "data": item.to_dict(),
-            "timestamp": datetime.now(UTC)
+            "data": item.to_dict()
         })
      
     def get(self, id: str) -> LoanApplication:
@@ -108,10 +107,10 @@ class Loans(Wrapper, JsonStore, EmitEvent):
 
     def delete_loan(self, item: str):
         if item in Loans.items:  
-            del Loans.items[item]
             self.update_file(Loans.items) 
+            del Loans.items[item]
 
     def clear(self): 
-        super().clear()
+        self.clear_file() 
         Loans.items = {} 
  

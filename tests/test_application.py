@@ -200,3 +200,5 @@ def test_loans_invalid():
         term_months=36,
         purpose="car" 
     ) 
+    loans.clear() 
+    

@@ -1,11 +1,15 @@
 import json 
 import hashlib 
 from app.settings import Config 
+ 
 
-def hash_event(event: dict, prev_hash: str) -> str: 
-    prev_hash = "" if not prev_hash else str(prev_hash) 
-    payload = json.dumps(event, default=str) 
-    return hashlib.sha256((payload + prev_hash).encode()).hexdigest()
+def hash_event(event: dict, prev_hash: str) -> str:
+    payload = {
+        "event": event,
+        "prev_hash": prev_hash
+    }
+    canonical = json.dumps(payload, sort_keys=True, ensure_ascii=False, indent=None)
+    return hashlib.sha256(canonical.encode()).hexdigest()
 
 
 def get_last_hash_from_file():
