@@ -32,7 +32,7 @@ def test_rules_credit_score_rule():
         "car" 
     )
 
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("test_rules.jsonl")
     loans.register(app)
 
     policies = Policies("test_policies.jsonl")
@@ -47,7 +47,13 @@ def test_rules_credit_score_rule():
     assert d.reason_codes[0] == "CS100"
     assert len(d.reason_codes) == 1 
     assert "CS100" in c 
-    assert c["CS100"] == 'low credit score < 550'  
+    assert c["CS100"] == 'low credit score < 550' 
+    assert "just_credit_score" in policies.items 
+    
+    policies.delete("just_credit_score")
+    assert "just_credit_score" not in policies.items   
+    loans.delete(app)  
+    assert app.application_id not in loans.items  
 
 
 def test_employment_rule(): 
@@ -67,22 +73,27 @@ def test_employment_rule():
 
     assert app.applicant.dti() == Decimal(0.45).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("test_rules.jsonl")
     loans.register(app)
 
     policies = Policies("test_policies.jsonl")
-    policies.delete("test_just_dti")
+    policies.delete("test_employment_rule")
 
-    policies.register(RuleBasedPolicy("test_just_dti", [DtiRule()]))
+    policies.register(RuleBasedPolicy("test_employment_rule", [DtiRule()]))
     
     decision = DecisionEngine(loans, policies)
-    d, c = decision.run(app, "test_just_dti") 
+    d, c = decision.run(app, "test_employment_rule") 
 
     assert d.status == Status.REFER 
     assert d.reason_codes[0] == "DIT30"
     assert len(d.reason_codes) == 1 
     assert "DIT30" in c 
     assert c["DIT30"] == "DTI is above 0.43"  
+
+    policies.delete("test_employment_rule") 
+    assert "test_employment_rule" not in policies.items 
+    loans.delete(app)  
+    assert app.application_id not in loans.items 
  
 
 def test_debt_to_income(): 
@@ -102,7 +113,7 @@ def test_debt_to_income():
 
     assert app.applicant.dti() == Decimal(0.45).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("test_rules.jsonl")
     loans.register(app)
 
     policies = Policies("test_policies.jsonl")
@@ -118,6 +129,11 @@ def test_debt_to_income():
     assert len(d.reason_codes) == 1 
     assert "DIT30" in c 
     assert c["DIT30"] == "DTI is above 0.43"  
+
+    policies.delete("test_just_dti")
+    assert "test_just_dti" not in policies.items 
+    loans.delete(app)  
+    assert app.application_id not in loans.items 
  
  
 def test_employment_status_vs_income(): 
@@ -138,7 +154,7 @@ def test_employment_status_vs_income():
 
     assert app.requested_amount_vs_term_months_vs_income().quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) == Decimal(0.11).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("test_rules.jsonl")
     loans.register(app)
 
     policies = Policies("test_policies.jsonl")
@@ -154,6 +170,11 @@ def test_employment_status_vs_income():
     assert len(d.reason_codes) == 1 
     assert "EM333" in c 
     assert c["EM333"] == "no employment, but existing customer and high enough income"
+    
+    policies.delete("test_just_employment")
+    assert "test_just_employment" not in policies.items 
+    loans.delete(app)  
+    assert app.application_id not in loans.items 
  
  
 def test_loan_amount(): 
@@ -173,7 +194,7 @@ def test_loan_amount():
     )  
     assert app.applicant.income_vs_monthly_debt().quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) == Decimal(750).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("test_rules.jsonl")
     loans.register(app)
 
     policies = Policies("test_policies.jsonl")
@@ -189,5 +210,10 @@ def test_loan_amount():
     assert len(d.reason_codes) == 1 
     assert "LA500" in c 
     assert c["LA500"] == "monthly disposable income vs monthly payment"
+
+    policies.delete("test_just_loan_amount")
+    assert "test_just_loan_amount" not in policies.items 
+    loans.delete(app)  
+    assert app.application_id not in loans.items 
 
  

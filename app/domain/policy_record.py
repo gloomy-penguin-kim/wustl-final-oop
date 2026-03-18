@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from decimal import Decimal
 import sys
-from typing import Tuple 
+from typing import Any, Tuple 
 
 from app.mixins.json_serializable import JsonSerializableMixin 
 from app.policies.policy_base import Policy
@@ -16,22 +16,20 @@ class PolicyRecord(JsonSerializableMixin):
         self,
         version: str, 
         type: str, 
-        rules: list[str] | Tuple[Rule] | list[Rule] | None,
+        rules: Any = None,
         created_at: datetime = datetime.now(UTC)  
     ):
         self.version = version 
         self.type = type 
-        self.rules = [] 
-        if rules and not self.is_list_of_strings(rules):
-            self.rules = [r.__class__.__name__ for r in rules]
+        self.rules = rules  
+        if rules and not PolicyRecord.is_list_of_strings(rules):
+            self.rules = [r.__class__.__name__ for r in rules] 
         self.created_at = created_at 
   
         
     @classmethod
-    def from_dict(cls, data: dict):
-
-        data = dict(data)  
-        data["created_at"] = datetime.fromisoformat(data["created_at"]) 
+    def from_dict(cls, data: dict): 
+        data["created_at"] = datetime.fromisoformat(data["created_at"]) if isinstance(data["created_at"], str) else data["created_at"]
         data["rules"] = [RULE_REGISTRY[r]() for r in data["rules"]]
 
         return cls(**data) 
@@ -49,11 +47,10 @@ class PolicyRecord(JsonSerializableMixin):
             data["rules"] = [r.__class__.__name__ for r in policy.rules]
 
         return cls(**data)
-      
        
-    def str_to_rules(self): 
-        r = [] 
-        for s in self.rules: 
+    def str_to_rules(self) -> list[Rule]: 
+        r = []  
+        for s in (self.rules or []): 
             r.append(RULE_REGISTRY[s]())
         return r 
       

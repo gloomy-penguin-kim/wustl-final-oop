@@ -52,17 +52,22 @@ class Decision(
 
         super().validate()
 
-        if self.status == Status.DECLINE:
-
+        if self.status == Status.DECLINE: 
             if self.approved_amount is not None or self.apr is not None:
                 raise ValueError("Decline cannot include requested amount or APR")
 
-        if self.status == Status.APPROVE:
-
+        if self.status == Status.APPROVE: 
             if self.approved_amount is None or self.apr is None:
                 raise ValueError("Approve must include requested amount and APR")
 
-        if self.status == Status.REFER:
-
+        if self.status == Status.REFER: 
             if self.approved_amount != Decimal(0) or self.apr != Decimal(0):
                 raise ValueError("Refer must have 0 for requested amount and APR")
+            
+    def compare(self, other: Decision): 
+        if (self.status == other.status and
+            self._reason_codes == other.reason_codes and
+            self.approved_amount == other.approved_amount and
+            self.apr == other.apr and
+            self.policy_version == other.policy_version):
+            return True  

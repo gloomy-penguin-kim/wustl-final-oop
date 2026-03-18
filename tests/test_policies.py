@@ -13,45 +13,21 @@ from app.rules.credit_score_rule import CreditScoreRule
 from app.rules.dti_rule import DtiRule
 from app.wrappers.policies import Policies
 
-
-def test_policy(): 
-    
-    applicant = Applicant(
-        "Alice",
-        Decimal("80000"),
-        Decimal("1500"),
-        720,
-        "EMPLOYED"
-    )
-    
-
-    app = LoanApplication( 
-        applicant,
-        Decimal("15000"),
-        36,
-        "car"
-    )
-
-    # policy = RuleBasedPolicy(
-    #     [CreditScoreRule(), DtiRule()],
-    #     version="v1"
-    # )
-
-
-    # engine = DecisionEngine(policy, FileEventSink("audit.log"))
-
-    # decision = engine.run(app, "v1")
-
-    # print(decision.reason_codes)
+  
 
 def test_policies(): 
     policies = Policies("test_policies.jsonl")
+    policies.clear()
     
-    policies.delete("version1235678") 
-    policies.delete("version12356") 
-    policies.delete("version1234") 
-    policies.delete("version123") 
-    policies.delete("scorecard_policy") 
+    policies.register(ScorecardPolicy("testing..."))
+
+    policies.clear()
+    assert "version123" not in policies.items 
+    assert "version1234" not in policies.items 
+    assert "version1234" not in policies.items  
+    assert "version1234" not in policies.items 
+    assert "scorecard_policy" not in policies.items 
+    assert "testing..." not in policies.items 
  
     p = policies.new(version="version123", type="RuleBasedPolicy", rules=[CreditScoreRule(), DtiRule()])
     assert p.version in policies.items 
@@ -79,6 +55,9 @@ def test_policies():
  
     policies.delete("version123") 
     assert "version123" not in policies.items 
+    assert "version1234" in policies.items 
+
+
     policies.delete("version1234") 
     assert "version1234" not in policies.items 
     policies.delete("version12356") 

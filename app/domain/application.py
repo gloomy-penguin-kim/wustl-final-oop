@@ -18,8 +18,8 @@ class LoanApplication(JsonSerializableMixin):
         application_id: str | None = None,
         submitted_at: datetime = datetime.now(UTC)
     ): 
-        __slots__ = ['applicant','requested_amount','term_months',
-                     'purpose','application_id','submitted_at']
+        __slots__ = ['application_id','submitted_at','applicant','requested_amount','term_months',
+                     'requested_amount','term_months','purpose',]
         self.application_id = application_id or str(uuid.uuid4())
         self.submitted_at = submitted_at 
         self.applicant = applicant
@@ -29,14 +29,11 @@ class LoanApplication(JsonSerializableMixin):
 
         self.validate()
 
-    def validate(self):
-
+    def validate(self): 
         if self.requested_amount <= 0:
-            raise ValueError("Invalid loan amount")
-
+            raise ValueError("Invalid loan amount") 
         if self.term_months not in {12, 24, 36, 48, 60}:
-            raise ValueError("Invalid loan term") 
-
+            raise ValueError("Invalid loan term")  
         if not self.purpose:
             raise ValueError("Invalid purpose") 
     

@@ -1,3 +1,4 @@
+from __future__ import annotations
 from decimal import ROUND_HALF_UP, Decimal
 from typing import Tuple
 
@@ -16,8 +17,7 @@ class ScorecardPolicy(Policy):
         super().__init__(version=version, type=cn, rules=rules)
  
 
-    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
-
+    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]: 
         score = 0
         reason_codes = [] 
         human = [] 
@@ -37,7 +37,7 @@ class ScorecardPolicy(Policy):
         elif app.applicant.credit_score > 500:
             human.append("credit card score (very low)")
             reason_codes.append("CCVLW")
-            score -= 10
+            score += 5
 
         if app.applicant.dti() < 0.3:
             reason_codes.append("DTI")
@@ -54,11 +54,11 @@ class ScorecardPolicy(Policy):
 
         if app.applicant.employment_status: 
             reason_codes.append("EMP")
-            human.append("employeed")
+            human.append("employed")
             score += 20 
         else: 
             reason_codes.append("UNEMP")
-            human.append("unemployeed")
+            human.append("unemployed")
          
         if app.applicant.existing_customer: 
             reason_codes.append("EC")
@@ -82,7 +82,7 @@ class ScorecardPolicy(Policy):
             "policy": self.to_dict() 
         }) 
 
-        if score >= 65:
+        if score >= 75:
 
             return (
                 Decision(

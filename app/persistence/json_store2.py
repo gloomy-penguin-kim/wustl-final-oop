@@ -4,13 +4,14 @@ from collections import defaultdict
 import json
 from pathlib import Path
 from typing import Any, Dict
+from settings import Config
 
 from app.domain.application import LoanApplication
 
 class JsonStore:
 
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self):
+        self.filename = Config.DB_FILE 
 
     def append(self, record): 
         with open(self.filename, "a", encoding="utf-8") as f:

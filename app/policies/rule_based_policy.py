@@ -1,8 +1,8 @@
-from __future__ import annotations
+from __future__ import annotations 
 
 from collections import defaultdict
-from decimal import Decimal
-from typing import Tuple, cast
+from decimal import ROUND_HALF_UP, Decimal
+from typing import Any, Tuple, cast
 
 from app.domain.decision import Decision
 from app.policies.policy_base import Policy 
@@ -15,9 +15,9 @@ from app.rules.rule_result import Status, RuleResult
 @register_policy 
 class RuleBasedPolicy(Policy):
 
-    def __init__(self, version: str, rules: list[Rule] | list[str] | None = None):  
+    def __init__(self, version: str, rules):  
         cn = self.__class__.__name__  
-        rr = [] 
+        rr = []  
         if Policy.is_list_of_strings(rules):
             r = [] 
             for s in (rules or []): 
@@ -28,23 +28,19 @@ class RuleBasedPolicy(Policy):
         super().__init__(version=version, type=cn, rules=rr) 
  
 
-    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
-  
+    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]: 
         result = RuleResult(Status.APPROVE, "")
         ctx = defaultdict(dict)
         reason_codes = []
-        apr = Decimal(0.15) 
+        apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) 
         requested_amount = app.requested_amount
 
-        for rule in (self._rules or []):
-
-            result = rule.apply(app, ctx) 
-  
+        for rule in self._rules: 
+            result = rule.apply(app, ctx)  
             if result.status == Status.DECLINE: 
                 apr = None 
                 requested_amount = None 
-                break
-            
+                break 
             elif result.status == Status.REFER: 
                 apr = Decimal(0) 
                 requested_amount = Decimal(0) 
@@ -60,7 +56,7 @@ class RuleBasedPolicy(Policy):
             "id": app.application_id,
             "policy_version": self.version,
             "policy": self.to_dict() 
-        }) 
+        })  
 
         return (
             Decision(

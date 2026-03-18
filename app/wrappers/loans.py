@@ -1,6 +1,6 @@
 from __future__ import annotations
 from decimal import Decimal
-from typing import overload
+from typing import Any, overload
  
 
 from app.persistence.json_store import JsonStore
@@ -70,11 +70,10 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
         )
         self._add_item(app)
         return app 
-
-
+ 
     def _add_item(self, item: LoanApplication) -> None:  
         if item.application_id in Loans.items: 
-            raise ValueError("application id already exists")
+            raise ValueError("LoanApplication id already exists")
         Loans.items[item.application_id] = item.to_dict()
         self.save({
             "type": "Loans", 
@@ -86,8 +85,7 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
             "id": item.application_id,
             "data": item.to_dict() 
         })
-    
-
+     
     def get(self, id: str) -> LoanApplication:
         if id in Loans.items: 
             item = Loans.items[id] 
@@ -99,8 +97,22 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
             return Loans.items[id]
         raise ValueError("LoanApplication not found")
     
-    def delete(self, id: str): 
-        if id in Loans.items:  
-            del Loans.items[id]
+    @overload
+    def delete(self, item: LoanApplication):... 
+    @overload
+    def delete(self, item: str):...
+
+    def delete(self, item: Any) -> None:
+        if isinstance(item, LoanApplication):
+            item = item.application_id
+        self.delete_loan(item)
+
+    def delete_loan(self, item: str):
+        if item in Loans.items:  
+            del Loans.items[item]
             self.update_file(Loans.items) 
+
+    def clear(self): 
+        self.clear_file()
+        Loans.items = {} 
  

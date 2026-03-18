@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from audit.hash_chain import HashChain
+from app.audit.hash_chain import HashChain
 
 class AuditTrail:
 
@@ -10,6 +10,6 @@ class AuditTrail:
 
     def emit(self, event: dict):
 
-        record = self.chain.append(event, event["application_id"])
+        record = self.chain.append(event)
 
         self.sink.emit(record)

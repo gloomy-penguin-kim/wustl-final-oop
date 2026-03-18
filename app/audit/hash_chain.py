@@ -1,47 +1,28 @@
 from __future__ import annotations
+
 import hashlib
 import json
 
 
-class HashChain:
-
+class HashChain: 
 
     def __init__(self):
         self.last_hash = {}
         self.events = []
-
-
-    def append(self, event: dict, application_id: str): 
-        prev_hash = self.last_hash.get(application_id, "GENESIS") 
-        payload = json.dumps(event, sort_keys=True) 
-        hash_self = hashlib.sha256((payload + prev_hash).encode()).hexdigest()
-
-        record = {
-            "application_id": application_id,
-            **event,
-            "hash_prev": prev_hash,
+  
+    def append(self, event: dict): 
+        prev_hash = self.events[-1]["hash_self"] if len(self.events) > 0 else "genisis"
+        id = event["id"]
+        hash_self = hash_event(event, prev_hash) 
+        e = { 
+            "id": id, 
+            "event": event, 
             "hash_self": hash_self,
+            "prev_hash": prev_hash 
         }
-
-        self.events.append(record) 
-        self.last_hash[application_id] = hash_self 
-        return record
-
-
-    def verify(self): 
-        prev_hash = "GENESIS" 
-        for i, event in enumerate(self.events): 
-            payload = json.dumps(
-                {k: v for k, v in event.items() if k not in ("hash_prev", "hash_self")},
-                sort_keys=True,
-            ) 
-            expected = hashlib.sha256((payload + prev_hash).encode()).hexdigest() 
-            if event["hash_prev"] != prev_hash or event["hash_self"] != expected:
-                return False, i 
-            prev_hash = event["hash_self"]  
-        return True, None
-    
-
-def hash_event(event, prev_hash): 
+        self.events.append(e)
+        self.last_hash = hash_self 
+        
+def hash_event(event: dict, prev_hash: str): 
     payload = json.dumps(event, sort_keys=True) 
     return hashlib.sha256((payload + prev_hash).encode()).hexdigest()

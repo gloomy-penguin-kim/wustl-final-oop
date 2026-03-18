@@ -11,10 +11,10 @@ class LoanAmountRule(Rule):
         self.code = "LA500" 
         self.reason = "monthly disposable income vs monthly payment"
 
-    def apply(self, app: LoanApplication, ctx: dict) -> RuleResult:
-                
+    def apply(self, app: LoanApplication, ctx: dict) -> RuleResult: 
+        
         result = RuleResult(Status.DECLINE, self.code)
-        reason = self.reason  
+        reason = self.reason   
 
         monthly_disposable = app.applicant.income_vs_monthly_debt() 
         monthly_payment = app.requested_amount / app.term_months

@@ -43,7 +43,7 @@ class AuditEventSink(EventSink):
          
     def emit(self, event: dict):
         super().emit(event) 
-        AuditEventSink.chain.append(event, event["id"]) 
+        AuditEventSink.chain.append(event) 
 
 
 class EmitEvent(FileEventSink, PrintEventSink, AuditEventSink):
