@@ -30,7 +30,6 @@ class Applicant(JsonSerializableMixin):
             return 1
         return (self.monthly_debt * 12) / self.annual_income
     
-    
     def income_vs_monthly_debt(self): 
         return (self.annual_income / 12) - self.monthly_debt
 

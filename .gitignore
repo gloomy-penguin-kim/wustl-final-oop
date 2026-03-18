@@ -1,0 +1,35 @@
+# Byte-compiled / object files
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+
+# Virtual environment
+.venv/
+env/
+venv/
+ENV/
+
+# Distribution / build files
+bin/
+build/
+dist/
+develop-eggs/
+eggs/
+lib/
+var/
+*.egg-info/
+.installed.files
+
+# Installer logs
+pip-log.txt
+pip-delete-this-line.txt
+
+# Unit test and coverage output
+.coverage
+.tox/
+
+# IDE/Editor-specific files
+.idea/ # For PyCharm
+.vscode/ # Uncomment if you want to ignore the entire .vscode folder
+*.swp

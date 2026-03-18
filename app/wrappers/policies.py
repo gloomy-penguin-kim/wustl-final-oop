@@ -23,8 +23,7 @@ class Policies(Wrapper, JsonStore):
     
     @overload 
     def new(self, item: PolicyRecord) -> Policy:...
-    def new_from_policy_record(self, item: PolicyRecord) -> Policy:  
-        print(POLICY_REGISTRY)  
+    def new_from_policy_record(self, item: PolicyRecord) -> Policy:   
         if item.type in POLICY_REGISTRY: 
             policy = POLICY_REGISTRY[item.type](item.version, item.str_to_rules()) 
             self.register(policy)

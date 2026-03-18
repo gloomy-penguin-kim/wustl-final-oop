@@ -25,14 +25,12 @@ class JsonStore:
     def update_file(self, items: dict): 
         with open(self.filename, "w", encoding="utf-8") as f: 
             for _,item in items.items():  
-                # try: 
-                    json.dump(item, f, sort_keys=True)
-                    f.write("\n") 
-                    print("item saved:", item)
-                # except:
-                #     print("could not save item:", item)
-                #     pass 
-                # print("")
+                try: 
+                    json.dump(item, f, sort_keys=True, default=str)
+                    f.write("\n")  
+                except:
+                    print("could not save item:", item)
+                    pass  
 
     def clear_file(self): 
         print(f"clearing file... {self.filename}")
