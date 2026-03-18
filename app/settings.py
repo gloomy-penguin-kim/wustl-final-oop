@@ -1,7 +1,6 @@
 class Settings:
-    AUDIT_FILE = "events.jsonl"
-    DB_FILE = "dbfile.jsonl"
-
+    AUDIT_FILE = "events.jsonl" 
+    
 Config = Settings 
 
 import logging

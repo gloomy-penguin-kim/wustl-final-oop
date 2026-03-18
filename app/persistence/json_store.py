@@ -10,12 +10,7 @@ import logging
 class JsonStore:
 
     def __init__(self, filename):
-        self.filename = filename
-
-    def append(self, record): 
-        with open(self.filename, "a", encoding="utf-8") as f:
-            json.dump(record, f, default=str)
-            f.write("\n")
+        self.filename = filename 
 
     def save(self, record): 
         with open(self.filename, "a", encoding="utf-8") as f:
@@ -29,7 +24,7 @@ class JsonStore:
                     json.dump(item, f, default=str)
                     f.write("\n")  
                 except:
-                    logging.warning("could not save item:", item)
+                    logging.warning(f"{self.filename} could not save item:", item)
                     pass  
 
     def clear(self): 
@@ -58,3 +53,10 @@ class JsonStore:
                 r[record["id"]] = record # cls.from_dict()   
         return r 
      
+    def count(self) -> int: 
+        count = 0 
+        path = Path(self.filename) 
+        if path.is_file(): 
+            with open(self.filename, "r", encoding="utf-8") as f:
+                count = sum(1 for line in file)
+        return count 

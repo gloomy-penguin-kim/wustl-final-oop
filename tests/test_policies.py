@@ -3,15 +3,16 @@ from __future__ import annotations
 from datetime import datetime
 from decimal import Decimal
  
-from app.audit.event_sink import FileEventSink
-from app.domain.applicant import Applicant
-from app.domain.application import LoanApplication
-from app.engine.decision_engine import DecisionEngine
-from app.policies.rule_based_policy import RuleBasedPolicy
-from app.policies.scorecard_policy import ScorecardPolicy
-from app.rules.credit_score_rule import CreditScoreRule
-from app.rules.dti_rule import DtiRule
-from app.wrappers.policies import Policies
+from app.audit import FileEventSink
+from app.domain import Applicant
+from app.domain import LoanApplication
+from app.engine import DecisionEngine
+from app.policies import RuleBasedPolicy, ScorecardPolicy 
+from app.rules import CreditScoreRule, DtiRule
+from app.wrappers import Policies
+from app.settings import Config
+
+Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
 
   
 
@@ -24,11 +25,14 @@ def test_policies():
     assert "testing..." in policies.items 
     assert "testing...2" in policies.items 
 
-    policies = Policies("tests/output/ttest_policies.jsonl")
+    policies = Policies("tests/output/test_policies.jsonl")
     assert "testing..." in policies.items 
     assert "testing...2" in policies.items 
 
     policies.clear()
+    assert "testing..." not in policies.items 
+    assert "testing...2" not in policies.items 
+
     assert "version123" not in policies.items 
     assert "version1234" not in policies.items 
     assert "version1234" not in policies.items  
@@ -64,13 +68,43 @@ def test_policies():
     assert "version123" not in policies.items 
     assert "version1234" in policies.items 
 
-
     policies.delete("version1234") 
     assert "version1234" not in policies.items 
+    assert "version12356" in policies.items
+    assert "version1235678" in policies.items
+    assert "scorecard_policy" in policies.items
+
     policies.delete("version12356") 
     assert "version1234" not in policies.items  
+    assert "version12356" not in policies.items
+    assert "version1235678" in policies.items
+    assert "scorecard_policy" in policies.items
+
     policies.delete("version1235678") 
     assert "version1234" not in policies.items 
+    assert "version1235678" not in policies.items
+    assert "scorecard_policy" in policies.items
+
     policies.delete("scorecard_policy") 
     assert "scorecard_policy" not in policies.items 
- 
+
+    with open(Config.AUDIT_FILE, "w") as f:
+        f.write("")
+
+def test_policies_duplicates():
+    policies = Policies("tests/output/test_policies.jsonl")
+    policies.clear()
+    
+    p = policies.new(version="version123", type="ScorecardPolicy")
+
+    try: 
+        p2 = policies.new(version="version123", type="ScorecardPolicy")
+        raise AssertionError("should not allow duplicate version") 
+    except ValueError as e:
+        assert str(e) == "Policy version already exists: version123"
+        pass 
+
+    policies.delete("version123") 
+    p2 = policies.new(version="version123", type="ScorecardPolicy")
+
+    policies.clear()

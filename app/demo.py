@@ -2,15 +2,14 @@ from __future__ import annotations
  
 from decimal import Decimal
 
-from app.domain.applicant import Applicant
-from app.domain.application import LoanApplication
-from app.engine.decision_engine import DecisionEngine 
-from app.policies.scorecard_policy import ScorecardPolicy
-from app.rules.credit_score_rule import CreditScoreRule
-from app.rules.dti_rule import DtiRule  
-from app.wrappers.loans import Loans
-from app.wrappers.policies import Policies
-from app.audit.event_sink import AuditEventSink
+from app.domain import Applicant, LoanApplication
+from app.engine import DecisionEngine 
+from app.policies import ScorecardPolicy
+from app.rules import DtiRule, CreditScoreRule
+from app.wrappers import Loans
+from app.wrappers import Policies
+from app.audit import AuditEventSink  
+from app.mixins.hash_chain_mixin import HashChainAuditMixin
 
 from .settings import Config
  
@@ -97,5 +96,10 @@ print(decision.reason_codes)
 print("context", ctx)
 
 audit = AuditEventSink()
-audit.chain.verify_chain() 
+audit.chain.verify_chain()  
+HashChainAuditMixin.verify_chain_in_file() 
+
+
+policies.clear()
+loans.clear() 
   

@@ -1,4 +1,7 @@
 from app.persistence import JsonStore 
+from app.settings import Config
+
+Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
 
 def test_persist_events():
     store = JsonStore("tests/output/test_persistence.jsonl")
@@ -87,4 +90,5 @@ def test_load_by_type():
     for key, item in loaded_by_type.items():
         assert item["type"] == "JsonStore"
     
-    store.clear()
+    store.clear() 
+

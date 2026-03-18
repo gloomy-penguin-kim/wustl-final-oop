@@ -2,14 +2,11 @@ from __future__ import annotations
 from decimal import Decimal
 from typing import Any, overload
 from datetime import datetime, UTC
- 
 
-from app.persistence.json_store import JsonStore
-from app.domain.application import LoanApplication
-from app.audit.event_sink import EmitEvent
-from app.domain.application import Applicant
-from app.wrappers.wrapper import Wrapper
- 
+from app.persistence import JsonStore
+from app.domain import LoanApplication, Applicant 
+from app.audit import EmitEvent 
+from app.wrappers import Wrapper
  
 class Loans(Wrapper, JsonStore, EmitEvent):  
     items = {} 

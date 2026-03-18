@@ -1,13 +1,14 @@
-from __future__ import annotations
-from datetime import UTC
-
-from app.mixins.json_serializable import JsonSerializableMixin
-from datetime import datetime
+from __future__ import annotations 
+ 
+from datetime import datetime, UTC 
 from decimal import Decimal
 import uuid 
 
+from app.mixins.json_serializable import JsonSerializableMixin
 
-class Applicant(JsonSerializableMixin):
+
+class Applicant(JsonSerializableMixin): 
+
     def __init__(
         self,
         name: str,

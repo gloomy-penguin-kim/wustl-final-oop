@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import pytest
 
-from app.domain.applicant import Applicant
+from app.domain import Applicant
 
 def test_applicant(): 
      

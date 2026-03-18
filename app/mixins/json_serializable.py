@@ -1,15 +1,12 @@
 from __future__ import annotations
 
 import json
+
 from datetime import datetime
 from decimal import Decimal 
 
 
-class JsonSerializableMixin:
-    """
-    Generic JSON serialization mixin.
-    Works for most simple domain objects.
-    """
+class JsonSerializableMixin: 
 
     def to_dict(self):
         data = {} 

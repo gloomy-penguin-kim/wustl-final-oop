@@ -4,45 +4,37 @@ import hashlib
 import json
 from datetime import UTC, datetime
 import logging 
+from typing import Tuple
 
 from app.settings import Config 
-from app.mixins.hash_chain_mixin import HashChainedAuditMixin
+from app.mixins.hash_chain_mixin import HashChainAuditMixin
+from app.persistence import JsonStore
+from .utility import get_last_hash_from_file
 
 from .utility import hash_event
 
-class HashChain(HashChainedAuditMixin): 
+class HashChain(HashChainAuditMixin): 
+    items = [] 
+    def __init__(self, **kwargs): 
+        super().__init__(**kwargs)  
+        self.events = [] 
+        self.last_hash = get_last_hash_from_file() or "genesis" 
 
-    def __init__(self):
-        self.last_hash = {}
-        self.events = []
-        
-    def _get_last_hash_from_file(self):
-        try: 
-            with open(Config.AUDIT_FILE, "r", encoding="utf-8") as f: 
-                for line in f: 
-                    if len(line.strip()) == 0: continue 
-                    try: 
-                        event = json.loads(line) 
-                        self.last_hash = event["hash_self"] 
-                    except:
-                        logger.warning(f"could not load line: {line}")
-                        pass
-        except FileNotFoundError:
-            logger.warning("Audit file not found, starting new hash chain.")
-            pass
+    def clear(self): 
+        super().clear() 
+        HashChain.items = [] 
+        self.last_hash = "genesis"
   
     def append(self, event: dict): 
-        prev_hash = self.events[-1]["hash_self"] if len(self.events) > 0 else "genisis"
-        assert prev_hash is not None 
-        id = event["id"]
-        hash_self = hash_event(event, prev_hash) 
-        e = { 
-            "id": id, 
-            "event": event, 
-            "hash_self": hash_self,
-            "prev_hash": prev_hash,
-            "timestamp": datetime.now(UTC)
-        }
-        self.events.append(e)
-        self.last_hash = hash_self 
+        prev_hash = self.last_hash 
+        assert prev_hash is not None  
+        hash_self = hash_event(event, prev_hash)  
+        event["hash_self"] = hash_self
+        event["prev_hash"] = prev_hash
+        self.items.append(event) 
+        self.last_hash = hash_self  
+        return event 
+    
+    def verify_chain(self) -> Tuple[bool, int | None]:
+        return self.verify_chain_in_memory()
             

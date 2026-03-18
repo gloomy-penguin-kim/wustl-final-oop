@@ -11,7 +11,8 @@ from app.rules.rule_base import Rule
 from app.rules.rule_registry import RULE_REGISTRY
 
 
-class PolicyRecord(JsonSerializableMixin):
+class PolicyRecord(JsonSerializableMixin): 
+
     def __init__(
         self,
         version: str, 
@@ -28,7 +29,8 @@ class PolicyRecord(JsonSerializableMixin):
   
         
     @classmethod
-    def from_dict(cls, data: dict):  
+    def from_dict(cls, data: dict):
+        data["created_at"] = data["created_at"] or datetime.now(UTC).isoformat()
         data["created_at"] = datetime.fromisoformat(data["created_at"]) if isinstance(data["created_at"], str) else data["created_at"]
         if "rules" in data and data["rules"] and not PolicyRecord.is_list_of_strings(data["rules"]):
             data["rules"] = [RULE_REGISTRY[r]() for r in data["rules"]]

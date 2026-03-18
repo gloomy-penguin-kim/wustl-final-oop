@@ -11,9 +11,11 @@ from app.wrappers.policies import Policies
 
 class DecisionEngine(EmitEvent):
 
-    def __init__(self, loans: Loans, policies: Policies): 
+    def __init__(self, loans: Loans, policies: Policies, filename: str = None): 
         self.policies = policies 
         self.loans = loans 
+        self.filename = filename
+        super().__init__(filename=filename)
  
     @overload 
     def run(self, application: str, policy_version: str):...  
@@ -25,7 +27,6 @@ class DecisionEngine(EmitEvent):
     def run(self, application: LoanApplication, policy_version: Policy):...  
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):  
-        
         self.emit({
             "event": "POLICY_SELECTED",
             "id": application.application_id + "_" + policy.version + "_" + datetime.now(UTC).isoformat(),
@@ -36,14 +37,15 @@ class DecisionEngine(EmitEvent):
         decision, ctx = policy.evaluate(application) 
         self.emit({
             "event": "DECISIONED",
-            "id": application.application_id + "_" + policy.version + "_" + datetime.now(UTC).isoformat(),
-            "applicatioN_id": application.application_id,
+            "id": decision.decision_id,
+            "application_id": application.application_id,
             "policy_version": policy.version,
             "decision": decision.to_dict(),
             "timestamp": datetime.now(UTC) 
         }) 
         return decision, ctx
     
+
     def run(self, application, policy_version) -> Tuple[Decision, Dict]:  
         if isinstance(application, str):
             application = self.loans.get(application)
@@ -52,3 +54,7 @@ class DecisionEngine(EmitEvent):
         return self.run_app_policy(application, policy_version)
         
              
+    def replay(self, application_id: str, policy_version: str) -> Tuple[Decision, Dict]: 
+        application = self.loans.get(application_id)
+        policy_version = self.policies.get(policy_version)
+        return self.run_app_policy(application, policy_version)
