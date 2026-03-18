@@ -1,16 +1,17 @@
 from __future__ import annotations
 from decimal import Decimal
 from typing import Any, overload
+from datetime import datetime, UTC
  
 
 from app.persistence.json_store import JsonStore
 from app.domain.application import LoanApplication
-from app.audit.event_sink import FileEventSink, PrintEventSink
+from app.audit.event_sink import EmitEvent
 from app.domain.application import Applicant
 from app.wrappers.wrapper import Wrapper
  
  
-class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):  
+class Loans(Wrapper, JsonStore, EmitEvent):  
     items = {} 
     def __init__(self, filename: str, **kwargs):
         super().__init__(filename, **kwargs)
@@ -83,7 +84,8 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
         self.emit({
             "event": "SUBMITTED",
             "id": item.application_id,
-            "data": item.to_dict() 
+            "data": item.to_dict(),
+            "timestamp": datetime.now(UTC)
         })
      
     def get(self, id: str) -> LoanApplication:
@@ -93,8 +95,8 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
                 item = LoanApplication.from_json(item)
             if isinstance(item, dict):
                 if "data" in item: item = item["data"]
-                item = LoanApplication.from_dict(item["data"])
-            return Loans.items[id]
+                item = LoanApplication.from_dict(item)
+            return item
         raise ValueError("LoanApplication not found")
     
     @overload
@@ -113,6 +115,6 @@ class Loans(Wrapper, JsonStore, PrintEventSink, FileEventSink):
             self.update_file(Loans.items) 
 
     def clear(self): 
-        self.clear_file()
+        super().clear()
         Loans.items = {} 
  

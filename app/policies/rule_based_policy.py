@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from decimal import ROUND_HALF_UP, Decimal
 from typing import Any, Tuple, cast
+from datetime import UTC, datetime
 
 from app.domain.decision import Decision
 from app.policies.policy_base import Policy 
@@ -53,11 +54,12 @@ class RuleBasedPolicy(Policy):
           
         self.emit({
             "event": "POLICY_EVALUATED",
-            "id": app.application_id,
-            "policy_version": self.version,
-            "policy": self.to_dict() 
+            "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
+            "application_id": app.application_id,
+            "policy_version": self.version, 
+            "timestamp": datetime.now(UTC) 
         })  
-
+         
         return (
             Decision(
                 status = result.status,

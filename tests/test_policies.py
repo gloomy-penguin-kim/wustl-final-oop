@@ -16,10 +16,17 @@ from app.wrappers.policies import Policies
   
 
 def test_policies(): 
-    policies = Policies("test_policies.jsonl")
+    policies = Policies("tests/output/test_policies.jsonl")
     policies.clear()
     
     policies.register(ScorecardPolicy("testing..."))
+    policies.register(RuleBasedPolicy("testing...2", rules=[CreditScoreRule(), DtiRule()]))
+    assert "testing..." in policies.items 
+    assert "testing...2" in policies.items 
+
+    policies = Policies("tests/output/ttest_policies.jsonl")
+    assert "testing..." in policies.items 
+    assert "testing...2" in policies.items 
 
     policies.clear()
     assert "version123" not in policies.items 

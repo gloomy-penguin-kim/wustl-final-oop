@@ -1,6 +1,7 @@
 from __future__ import annotations
 from decimal import ROUND_HALF_UP, Decimal
 from typing import Tuple
+from datetime import UTC, datetime
 
 from app.domain.application import LoanApplication
 from app.domain.decision import Decision
@@ -77,10 +78,11 @@ class ScorecardPolicy(Policy):
           
         self.emit({
             "event": "POLICY_EVALUATED",
-            "id": app.application_id,
-            "policy_version": self.version,
-            "policy": self.to_dict() 
-        }) 
+            "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
+            "application_id": app.application_id,
+            "policy_version": self.version, 
+            "timestamp": datetime.now(UTC) 
+        })  
 
         if score >= 75:
 

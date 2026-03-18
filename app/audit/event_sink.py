@@ -10,8 +10,10 @@ from app.settings import Config
 class EventSink(ABC):
 
     @abstractmethod
-    def emit(self, event: dict):
-        pass
+    def emit(self, event: dict):...
+
+    @abstractmethod
+    def clear(self):... 
 
 
 class FileEventSink(EventSink): 
@@ -24,7 +26,11 @@ class FileEventSink(EventSink):
         if "type" not in event: 
             event["type"] = "emit" 
         with open(FileEventSink.filename, "a") as f:
-            f.write(json.dumps(event, sort_keys=True) + "\n")    
+            f.write(json.dumps(event, default=str) + "\n")    
+    
+    def clear(self): 
+        with open(FileEventSink.filename, "w") as f: 
+            f.write("")
  
         
 class PrintEventSink(EventSink): 
@@ -34,7 +40,9 @@ class PrintEventSink(EventSink):
     def emit(self, event: dict): 
         super().emit(event)  
         print("emit...", event["event"], event["id"]) 
-
+    
+    def clear(self):
+        pass
 
 class AuditEventSink(EventSink): 
     chain = HashChain()
@@ -44,6 +52,9 @@ class AuditEventSink(EventSink):
     def emit(self, event: dict):
         super().emit(event) 
         AuditEventSink.chain.append(event) 
+    
+    def clear(self): 
+        AuditEventSink.chain = HashChain() 
 
 
 class EmitEvent(FileEventSink, PrintEventSink, AuditEventSink):
@@ -53,3 +64,6 @@ class EmitEvent(FileEventSink, PrintEventSink, AuditEventSink):
 
     def emit(self, event: dict):
         super().emit(event) 
+
+    def clear(self): 
+        super().clear() 

@@ -1,20 +1,23 @@
 from __future__ import annotations
-from datetime import UTC, datetime
+from datetime import UTC
 
 from app.mixins.json_serializable import JsonSerializableMixin
+from datetime import datetime
+from decimal import Decimal
+import uuid 
 
 
 class Applicant(JsonSerializableMixin):
     def __init__(
         self,
-        name,
-        annual_income,
-        monthly_debt,
-        credit_score,
-        employment_status,
+        name: str,
+        annual_income: Decimal,
+        monthly_debt: Decimal,
+        credit_score: int,
+        employment_status: str,
         existing_customer=False,
-        created_at: datetime = datetime.now(UTC)
-    ):
+        created_at: datetime = datetime.now(UTC) 
+    ): 
         self.name = name
         self.annual_income = annual_income
         self.monthly_debt = monthly_debt

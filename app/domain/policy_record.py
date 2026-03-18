@@ -28,9 +28,10 @@ class PolicyRecord(JsonSerializableMixin):
   
         
     @classmethod
-    def from_dict(cls, data: dict): 
+    def from_dict(cls, data: dict):  
         data["created_at"] = datetime.fromisoformat(data["created_at"]) if isinstance(data["created_at"], str) else data["created_at"]
-        data["rules"] = [RULE_REGISTRY[r]() for r in data["rules"]]
+        if "rules" in data and data["rules"] and not PolicyRecord.is_list_of_strings(data["rules"]):
+            data["rules"] = [RULE_REGISTRY[r]() for r in data["rules"]]
 
         return cls(**data) 
     

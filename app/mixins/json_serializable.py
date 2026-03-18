@@ -25,7 +25,7 @@ class JsonSerializableMixin:
         return data
     
     def to_json(self): 
-        return json.dumps(self.to_dict(), sort_keys=True)
+        return json.dumps(self.to_dict(), default=str)
 
     @classmethod
     def from_dict(cls, data): 

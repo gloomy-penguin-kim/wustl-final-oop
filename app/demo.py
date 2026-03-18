@@ -10,6 +10,10 @@ from app.rules.credit_score_rule import CreditScoreRule
 from app.rules.dti_rule import DtiRule  
 from app.wrappers.loans import Loans
 from app.wrappers.policies import Policies
+from app.audit.event_sink import AuditEventSink
+
+from .settings import Config
+ 
 
 
 applicant = Applicant(
@@ -22,7 +26,11 @@ applicant = Applicant(
 
  
 loans = Loans("loans.jsonl")
-policies = Policies("policies.jsonl") 
+loans.clear() 
+
+policies = Policies("policies.jsonl")
+policies.clear() 
+
 engine = DecisionEngine(loans, policies)
 
 
@@ -72,9 +80,9 @@ decision, ctx = engine.run(app, policy1)
 print(decision.reason_codes) 
 print("context", ctx) 
 
-policy2 = policies.new("rule_based_1234444", "RuleBasedPolicy", ["CreditScoreRule"])
+policy2 = policies.new("rule_based_1234444", "RuleBasedPolicy", ["CreditScoreRule", "EmploymentRule"])
 policy2 = policies.get("rule_based_1234444") 
-decision, ctx = engine.run(app, policy2)
+decision, ctx = engine.run(app.application_id, policy2.version)
 print(decision.reason_codes)
 print("context", ctx) 
 
@@ -84,8 +92,10 @@ print(decision.reason_codes)
 print("context", ctx)
 
 print(4) 
-decision, ctx = engine.run(app2, "scorecard")
+decision, ctx = engine.run("tacobell", "scorecard")
 print(decision.reason_codes)
 print("context", ctx)
- 
- 
+
+audit = AuditEventSink()
+audit.chain.verify_chain() 
+  

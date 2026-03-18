@@ -45,7 +45,8 @@ def test_applicant():
 
 
 def test_loans():     
-    loans = Loans("test_loans.jsonl")
+    loans = Loans("tests/output/test_loans.jsonl")
+    loans.clear() 
 
     applicant = Applicant(
             name="Alice",
@@ -103,12 +104,16 @@ def test_loans():
 
     loans.delete(app.application_id)
     assert app.application_id not in loans.items 
+    assert app2.application_id in loans.items 
+    assert app3.application_id in loans.items   
+    assert app4.application_id in loans.items
 
     loans.delete(app2.application_id)
-    assert app2.application_id not in loans.items 
+    assert app3.application_id in loans.items   
+    assert app4.application_id in loans.items 
 
     loans.delete(app3.application_id)
-    assert app3.application_id not in loans.items 
+    assert app4.application_id in loans.items 
 
     loans.delete(app4.application_id)
     assert app4.application_id not in loans.items 

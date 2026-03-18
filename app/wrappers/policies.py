@@ -119,5 +119,5 @@ class Policies(Wrapper, JsonStore):
             self.update_file(Policies.items) 
 
     def clear(self): 
-        self.clear_file()
+        super().clear() 
         Policies.items = {}

@@ -5,7 +5,7 @@ from decimal import Decimal
 import uuid
 
 from app.mixins.json_serializable import JsonSerializableMixin
-from app.domain.applicant import Applicant
+from app.domain.applicant import Applicant 
 
 
 class LoanApplication(JsonSerializableMixin):
@@ -20,6 +20,7 @@ class LoanApplication(JsonSerializableMixin):
     ): 
         __slots__ = ['application_id','submitted_at','applicant','requested_amount','term_months',
                      'requested_amount','term_months','purpose',]
+                      
         self.application_id = application_id or str(uuid.uuid4())
         self.submitted_at = submitted_at 
         self.applicant = applicant

@@ -3,3 +3,6 @@ class Settings:
     DB_FILE = "dbfile.jsonl"
 
 Config = Settings 
+
+import logging
+logging.basicConfig(level=logging.INFO)

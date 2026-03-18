@@ -16,7 +16,7 @@ class Policy(EmitEvent, ABC):
         self._version = version 
         self._type = type 
         self._rules = rules or [] 
-        self._created_at = datetime.now(UTC)   
+        self._created_at = datetime.now(UTC)    
   
     @classmethod
     def is_list_of_strings(cls, obj):
@@ -37,6 +37,7 @@ class Policy(EmitEvent, ABC):
     @property
     def created_at(self) -> datetime:
         return self._created_at
+     
 
     @abstractmethod
     def evaluate(self, app) -> Tuple[Decision, dict]:
@@ -51,4 +52,4 @@ class Policy(EmitEvent, ABC):
         return data 
 
     def to_json(self):   
-        return json.dumps(self.to_dict(), sort_keys=True) 
+        return json.dumps(self.to_dict(), default=str) 

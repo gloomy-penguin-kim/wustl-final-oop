@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Dict, Tuple, overload
+from datetime import datetime, UTC
 
 from app.audit.event_sink import EmitEvent 
 from app.domain.application import LoanApplication
@@ -24,18 +25,22 @@ class DecisionEngine(EmitEvent):
     def run(self, application: LoanApplication, policy_version: Policy):...  
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):  
+        
         self.emit({
             "event": "POLICY_SELECTED",
-            "id": application.application_id,
-            "policy_version": policy.version,
-            "policy": policy.to_dict() 
+            "id": application.application_id + "_" + policy.version + "_" + datetime.now(UTC).isoformat(),
+            "application_id": application.application_id,
+            "policy_version": policy.version, 
+            "timestamp": datetime.now(UTC) 
         }) 
         decision, ctx = policy.evaluate(application) 
         self.emit({
             "event": "DECISIONED",
-            "id": application.application_id,
+            "id": application.application_id + "_" + policy.version + "_" + datetime.now(UTC).isoformat(),
+            "applicatioN_id": application.application_id,
             "policy_version": policy.version,
-            "decision": decision.to_dict()
+            "decision": decision.to_dict(),
+            "timestamp": datetime.now(UTC) 
         }) 
         return decision, ctx
     
