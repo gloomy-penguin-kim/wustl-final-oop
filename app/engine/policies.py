@@ -1,15 +1,13 @@
 from __future__ import annotations
-import importlib
 import json
-import sys
+from datetime import datetime, UTC
 from typing import Any, overload
  
 
 from app.persistence.json_store import JsonStore 
 from app.policies.policy_base import Policy
-from app.domain.policy_record import PolicyRecord 
 from app.rules.rule_base import Rule
-from app.wrappers.wrapper import Wrapper
+from app.engine.wrapper import Wrapper
 from app.policies.policy_registry import POLICY_REGISTRY
   
 
@@ -19,8 +17,8 @@ class Policies(Wrapper, JsonStore):
         super().__init__(filename, **kwargs)
         Policies.items = Policies.items | self.load_by_type()
 
-    def register(self, policy: Policy) -> None:
-        self._add_item(policy)
+    def register(self, item: Policy) -> None:
+        self._add_item(item)
 
     @overload
     def new(self, policy: Policy) -> Policy:...
@@ -31,17 +29,24 @@ class Policies(Wrapper, JsonStore):
     @overload 
     def new(self, policy: dict) -> Policy:...
     def new_from_dict(self, policy: dict) -> Policy:
-        return self.new_from_params(policy.get("version"), policy.get("type"),
-                                    policy.get("rules"),)
+        return self.new_from_params(policy.get("version"),
+                                    policy.get("type"),
+                                    policy.get("rules"),
+                                    policy.get("created_at", datetime.now(UTC)))
         
     @overload
-    def new(self, version: str, type: str, rules: list[Rule] | list[str] | None = None) -> Policy:...
+    def new(self,
+            version: str,
+            type: str,
+            rules: list[Rule] | list[str] | None = None) -> Policy:...
     def new_from_params(self,
                         version: str,
                         type: str,
-                        rules: list[Rule] | list[str] | None = None) -> Policy:
+                        rules: list[Rule] | list[str] | None = None,
+                        created_at: datetime | None = None) -> Policy:
+        created_at = created_at or datetime.now(UTC)
         if type in POLICY_REGISTRY:
-            policy = POLICY_REGISTRY[type](version, Policy.str_to_rules(rules))
+            policy = POLICY_REGISTRY[type](version, Policy.str_to_rules(rules), created_at)
             self._add_item(policy)
             return policy
         raise ValueError(f"Invalid Policy Type: {type}")
@@ -52,9 +57,9 @@ class Policies(Wrapper, JsonStore):
                 if isinstance(args[0], dict):
                     return self.new_from_dict(*args)
                 elif isinstance(args[0], Policy):
-                    return self.new_from_policy(*args)
+                    return self.new_from_policy(*args, **kwargs)
                 else:  
-                    return self.new_from_params(*args) 
+                    return self.new_from_params(*args, **kwargs)
         if len(kwargs) > 1:   
             return self.new_from_params(*args, **kwargs)
         raise ValueError("Incorrect arguments supplied to Policies.new(...)")
@@ -84,15 +89,11 @@ class Policies(Wrapper, JsonStore):
         if isinstance(policy, dict): 
             if "data" in policy: policy = policy["data"]
             if policy.get("type") in POLICY_REGISTRY:
-                policy = POLICY_REGISTRY[policy.get("type")](policy.get("version"), policy.get("rules"))
-        return policy 
-     
-    def _from_policy_record(self, item: PolicyRecord) -> Policy:
-        if item.type in POLICY_REGISTRY:
-            policy = POLICY_REGISTRY[item.type](item.version, item.str_to_rules())
-            return policy
-        raise ValueError(f"Invalid Policy Type: {item.type}")
-   
+                policy = POLICY_REGISTRY[policy.get("type")](policy.get("version"),
+                                                             policy.get("rules"),
+                                                             policy.get("created_at", datetime.now(UTC)))
+        return policy
+
     @overload
     def delete(self, item: Policy):... 
     @overload

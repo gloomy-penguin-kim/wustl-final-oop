@@ -70,7 +70,7 @@ def test_persist_events_with_invalid_json():
     
 def test_load_by_type():
     store = JsonStore("tests/output/test_persistence.jsonl")
-    store.clear_file() 
+    store.clear_file()
 
     events = {
         "1": {"type": "JsonStore", "id": "1", "data": {"value": 123}},

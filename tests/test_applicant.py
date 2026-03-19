@@ -27,3 +27,4 @@ def test_applicant():
     assert a.monthly_debt == Decimal("1500")
     assert a.credit_score == 720 
     assert a.employment_status == "EMPLOYED"
+    assert a.created_at == applicant.created_at

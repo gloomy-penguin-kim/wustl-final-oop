@@ -7,9 +7,9 @@ from app.audit import FileEventSink
 from app.domain import Applicant
 from app.domain import LoanApplication
 from app.engine import DecisionEngine
-from app.policies import RuleBasedPolicy, ScorecardPolicy 
+from app.policies import RuleBasedPolicy, ScorecardPolicy, Policy
 from app.rules import CreditScoreRule, DtiRule
-from app.wrappers import Policies
+from app.engine import Policies
 from app.settings import Config
 
 Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
@@ -21,9 +21,15 @@ def test_policies():
     policies.clear()
     
     policies.new(ScorecardPolicy("testing..."))
-    policies.new(RuleBasedPolicy("testing...2", rules=[CreditScoreRule(), DtiRule()]))
-    assert "testing..." in policies.items 
-    assert "testing...2" in policies.items 
+    p = policies.new(RuleBasedPolicy("testing...2", rules=[CreditScoreRule(), DtiRule()]))
+    assert "testing..." in policies.items
+    assert "testing...2" in policies.items
+
+    j = p.to_json()
+    assert "testing...2" in j
+    p2 = Policy.from_json(j)
+    assert p2.type == "RuleBasedPolicy"
+    assert p2.created_at == p.created_at
 
     policies = Policies("tests/output/test_policies.jsonl")
     assert "testing..." in policies.items 
@@ -86,7 +92,8 @@ def test_policies():
     assert "scorecard_policy" in policies.items
 
     policies.delete("scorecard_policy") 
-    assert "scorecard_policy" not in policies.items 
+    assert "scorecard_policy" not in policies.items
+
  
 def test_policies_duplicates():
     policies = Policies("tests/output/test_policies.jsonl")
@@ -105,4 +112,38 @@ def test_policies_duplicates():
     p2 = policies.new(version="version123", type="ScorecardPolicy")
 
     policies.clear()
-     
+
+def test_demo():
+    policies = Policies("tests/output/test_policies.jsonl")
+    policies.clear()
+    policy1 = policies.new("rule_based_123", "RuleBasedPolicy", [CreditScoreRule(), DtiRule()])
+    policy2 = policies.new(ScorecardPolicy("scorecard"))
+    assert policy1 is not None
+    assert policy1.type == "RuleBasedPolicy"
+    assert policy1.version == "rule_based_123"
+    assert policy1.version in policies.items
+    assert policy1.rules_as_strings == ['CreditScoreRule', 'DtiRule']
+    assert isinstance(policy1, Policy)
+    assert isinstance(policy1, RuleBasedPolicy)
+    assert "scorecard" in policies.items
+    assert policy2.version == "scorecard"
+    assert policy1.version in policies.items
+    assert len(policy2.rules_as_strings) == 0
+    assert isinstance(policy2, Policy)
+    assert isinstance(policy2, ScorecardPolicy)
+    policies.clear()
+
+def test_del_policy():
+    policies = Policies("tests/output/test_policies.jsonl")
+    policies.clear()
+
+    p = policies.new(version="version123", type="HybridPolicy")
+    policies.items = dict()
+
+    assert p.version not in policies.items
+
+    p2 = policies.get("version123")
+
+    assert p.created_at == p2.created_at
+    assert p.version == p2.version
+    assert p.rules_as_strings == p2.rules_as_strings

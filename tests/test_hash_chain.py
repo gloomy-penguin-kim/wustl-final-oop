@@ -4,7 +4,7 @@ from app.rules import Rule
 from app.rules import Status, RuleResult
 from app.rules.rule_registry import register_rule  
 
-from app.wrappers import Policies, Loans
+from app.engine import Policies, Loans
 from app.domain import LoanApplication
 from app.engine import DecisionEngine
 from app.audit import AuditEventSink

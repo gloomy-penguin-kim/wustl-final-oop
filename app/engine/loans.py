@@ -6,7 +6,7 @@ from datetime import datetime, UTC
 from app.persistence import JsonStore
 from app.domain import LoanApplication, Applicant 
 from app.audit import EmitEvent 
-from app.wrappers import Wrapper
+from .wrapper import Wrapper
  
 class Loans(Wrapper, JsonStore, EmitEvent):  
     items = {} 
@@ -18,7 +18,7 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         self._add_item(item)  
  
     @overload
-    def new(self, d: dict) -> LoanApplication:...
+    def new(self, application: dict) -> LoanApplication:...
     
     @overload
     def new(self, 
@@ -40,15 +40,15 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         raise ValueError("Incorrect arguments supplied to Loans.new(...)")
 
     def new_from_dict(self, d: dict) -> LoanApplication: 
-        if isinstance(d["applicant"], dict):
-            d["applicant"] = Applicant.from_dict(d["applicant"])
-        application_id = d["application_id"] if "application_id" in d else None 
+        if isinstance(d.get("applicant"), dict):
+            d["applicant"] = Applicant.from_dict(d.get("applicant"))
+        application_id = d.get("application_id", None)
         app = LoanApplication(  
-            applicant=d["applicant"],
-            requested_amount=d["requested_amount"],
-            term_months=d["term_months"],
-            purpose=d["purpose"],
-            application_id=application_id
+            applicant        = d.get("applicant"),
+            requested_amount = d.get("requested_amount"),
+            term_months      = d.get("term_months"),
+            purpose          = d.get("purpose"),
+            application_id   = application_id
         )
         self._add_item(app) 
         return app 
@@ -95,7 +95,7 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         if isinstance(item, str):
             item = LoanApplication.from_json(item)
         if isinstance(item, dict):
-            if "data" in item: item = item["data"]
+            if "data" in item: item = item.get("data")
             item = LoanApplication.from_dict(item)
         return item
     

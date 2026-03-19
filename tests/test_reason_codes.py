@@ -4,7 +4,7 @@ from app.rules import Rule
 from app.rules import Status, RuleResult
 from app.rules.rule_registry import register_rule  
 
-from app.wrappers import Policies, Loans
+from app.engine import Policies, Loans
 from app.domain import LoanApplication
 from app.engine import DecisionEngine
 from app.settings import Config
@@ -58,11 +58,17 @@ def test_reason_codes():
     policies = Policies("tests/output/test_policies.jsonl")
     policies.clear() 
 
-    policy12 = policies.new("approved_1_2", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnApproved2()])
+    policy12 = policies.new({ "version": "approved_1_2",
+                              "type": "RuleBasedPolicy",
+                              "rules": [RuleToReturnApproved1(), RuleToReturnApproved2()]})
     policy21 = policies.new("approved_2_1", "RuleBasedPolicy", [RuleToReturnApproved2(), RuleToReturnApproved1()])
     policy_refer = policies.new("refer_policy", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnRefer(), 
                                                                     RuleToReturnApproved2(), RuleToDecline()])
-    policy_declined = policies.new("declined", "RuleBasedPolicy", ["RuleToReturnApproved1", "RuleToReturnApproved2", "RuleToDecline"])
+    policy_declined = policies.new(version="declined",
+                                   type="RuleBasedPolicy",
+                                   rules=["RuleToReturnApproved1",
+                                          "RuleToReturnApproved2",
+                                          "RuleToDecline"])
 
     loans = Loans("tests/output/test_loans.jsonl")
     loans.clear()

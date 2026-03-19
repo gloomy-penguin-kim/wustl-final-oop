@@ -17,7 +17,7 @@ from app.rules.rule_result import Status, RuleResult
 @register_policy
 class HybridPolicy(Policy):
 
-    def __init__(self, version: str, rules):
+    def __init__(self, version: str, rules: Any, created_at: datetime | None = None):
         cn = self.__class__.__name__
         rr = []
         if Policy.is_list_of_strings(rules):
@@ -27,9 +27,11 @@ class HybridPolicy(Policy):
             rr = r
         else:
             rr = cast(list[Rule], rules)
-        super().__init__(version=version, type=cn, rules=rr)
+        super().__init__(version, cn, rr, created_at)
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
+        self.policy_selected(app)
+
         result = RuleResult(Status.APPROVE, "")
         ctx = defaultdict(dict)
         reason_codes = []
@@ -67,12 +69,7 @@ class HybridPolicy(Policy):
                 apr = Decimal(0)
                 requested_amount = Decimal(0)
 
-        self.emit({
-            "event": "POLICY_EVALUATED",
-            "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
-            "application_id": app.application_id,
-            "policy_version": self.version
-        })
+        self.policy_evaluated(app)
 
         return (
             Decision(

@@ -13,12 +13,14 @@ from app.rules.rule_result import Status
 @register_policy
 class ScorecardPolicy(Policy):
 
-    def __init__(self, version: str, rules: list[Rule] | None = None):  
+    def __init__(self, version: str, rules: list[Rule] | None = None, created_at: datetime | None = None):
         cn = self.__class__.__name__ 
-        super().__init__(version=version, type=cn, rules=rules)
+        super().__init__(version=version, type=cn, rules=rules, created_at=created_at)
  
 
-    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]: 
+    def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
+        self.policy_selected(app)
+
         score = 0
         reason_codes = [] 
         human = [] 
@@ -76,15 +78,9 @@ class ScorecardPolicy(Policy):
 
         ctx = dict(zip(reason_codes, human)) 
           
-        self.emit({
-            "event": "POLICY_EVALUATED",
-            "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
-            "application_id": app.application_id,
-            "policy_version": self.version 
-        })  
+        self.policy_evaluated(app)
 
         if score >= 75:
-
             return (
                 Decision(
                     status = Status.APPROVE,
@@ -97,7 +93,6 @@ class ScorecardPolicy(Policy):
             )
 
         elif score >= 50:
-
             return (
                 Decision(
                     status = Status.REFER,

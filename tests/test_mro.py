@@ -1,7 +1,7 @@
 from app.domain import Decision 
 from app.mixins.validatable import ValidatableMixin
 from app.rules import Status
-from app.wrappers import Loans, Wrapper
+from app.engine import Loans, Wrapper
 from app.audit import FileEventSink, PrintEventSink, AuditEventSink, EmitEvent, EventSink
 from app.persistence import JsonStore
 from abc import ABC

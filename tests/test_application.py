@@ -4,7 +4,7 @@ from decimal import Decimal
 import pytest
 
 from app.domain import Applicant, LoanApplication
-from app.wrappers import Loans
+from app.engine import Loans
 from app.settings import Config
 
 Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
@@ -198,7 +198,35 @@ def test_loans_invalid():
         ),
         requested_amount=Decimal("15000"),
         term_months=36,
-        purpose="car" 
-    ) 
-    loans.clear() 
-    
+        purpose="car"
+    )
+
+
+    loans.clear()
+
+
+def test_loans_to_json():
+    loans = Loans("tests/output/test_loans.jsonl")
+    loans.clear()
+
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("0"),
+            monthly_debt=Decimal("1500"),
+            credit_score=700,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        application_id="testing_tacos_are_soft_tacos"
+    )
+
+    j = app.to_json()
+    assert "testing_tacos_are_soft_tacos" in j
+    l = LoanApplication.from_json(j)
+    assert "testing_tacos_are_soft_tacos" == l.application_id
+    assert app.submitted_at == l.submitted_at
+
+    loans.clear()
