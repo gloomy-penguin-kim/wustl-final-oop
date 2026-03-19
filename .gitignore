@@ -33,3 +33,6 @@ pip-delete-this-line.txt
 .idea/ # For PyCharm
 .vscode/ # Uncomment if you want to ignore the entire .vscode folder
 *.swp
+
+
+.idea
