@@ -1,5 +1,7 @@
 import json 
-import hashlib 
+import hashlib
+import logging
+
 from app.settings import Config 
  
 
