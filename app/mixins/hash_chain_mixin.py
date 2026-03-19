@@ -12,6 +12,7 @@ class HashChainAuditMixin:
     def __init__(self, **kwargs):
         super().__init__(**kwargs) 
 
+
     def verify_chain_in_memory(self) -> Tuple[bool, int | None]:
         prev_hash = "genesis"
 
@@ -19,13 +20,12 @@ class HashChainAuditMixin:
 
             # 1. Check linkage
             if index > 0 and event.get("hash_prev") != prev_hash:
-                print(f"Linkage error at index {index}: expected previous hash {prev_hash}, got {event.get('hash_prev')}")
                 return (False, index)
 
             # 2. Recompute expected hash
-            # clean = self.clean_event(event) 
+            # clean = self.clean_event(event)
             # expected_hash = hash_event(clean, event.get("hash_prev", ""))
-
+            #
             # if event.get("hash_self") != expected_hash:
             #     print(f"Hash mismatch at index {index}: expected {expected_hash}, got {event.get('hash_self')}")
             #     return (False, index)
@@ -35,12 +35,14 @@ class HashChainAuditMixin:
 
         return (True, None)
 
+
     def clean_event(self,event: dict):
         return {
             k: event[k]
             for k in sorted(event)
             if k not in ("hash_self", "hash_prev")
         }
+
 
     @classmethod
     def verify_chain_in_file(cls) -> Tuple[bool, int | None]:
@@ -57,6 +59,7 @@ class HashChainAuditMixin:
                 prev_hash = event.get("hash_self", None)
                 index += 1
         return (True, None) 
+
 
     @classmethod 
     def clear_file(cls): 

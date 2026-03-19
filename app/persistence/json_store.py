@@ -30,7 +30,23 @@ class JsonStore:
     def clear_file(self): 
         print(f"clearing file... {self.filename}")
         with open(self.filename, "w", encoding="utf-8") as f: 
-            f.write("\n")  
+            f.write("\n")
+
+    def load_one(self, id: str) -> dict | None:
+        records = []
+        path = Path(self.filename)
+        if path.is_file():
+            with open(self.filename, "r", encoding="utf-8") as f:
+                for line in f:
+                    if len(line.strip()) == 0: continue
+                    try:
+                        item = json.loads(line)
+                        if item.get("type") == self.__class__.__name__ and item.get("id") == id:
+                            return item
+                    except:
+                        logging.warning(f"{self.filename} could not load line: {line}")
+                        pass
+        return None
 
     def load_all(self): 
         records = [] 
@@ -58,5 +74,5 @@ class JsonStore:
         path = Path(self.filename) 
         if path.is_file(): 
             with open(self.filename, "r", encoding="utf-8") as f:
-                count = sum(1 for line in file)
+                count = sum(1 for line in f)
         return count 

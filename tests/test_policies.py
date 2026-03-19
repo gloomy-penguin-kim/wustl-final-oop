@@ -20,8 +20,8 @@ def test_policies():
     policies = Policies("tests/output/test_policies.jsonl")
     policies.clear()
     
-    policies.register(ScorecardPolicy("testing..."))
-    policies.register(RuleBasedPolicy("testing...2", rules=[CreditScoreRule(), DtiRule()]))
+    policies.new(ScorecardPolicy("testing..."))
+    policies.new(RuleBasedPolicy("testing...2", rules=[CreditScoreRule(), DtiRule()]))
     assert "testing..." in policies.items 
     assert "testing...2" in policies.items 
 
@@ -59,7 +59,7 @@ def test_policies():
     assert p.version in policies.items 
     assert isinstance(p, RuleBasedPolicy)
  
-    policies.register(ScorecardPolicy("scorecard_policy"))
+    policies.new({ "version": "scorecard_policy", "type": "ScorecardPolicy" })
     p = policies.get("scorecard_policy")
     assert p.version in policies.items 
     assert isinstance(p, ScorecardPolicy)

@@ -11,7 +11,7 @@ from app.rules.rule_base import Rule
 from app.rules.rule_registry import RULE_REGISTRY
 
 
-class PolicyRecord(JsonSerializableMixin): 
+class PolicyRecord(JsonSerializableMixin):
 
     def __init__(
         self,
@@ -40,7 +40,7 @@ class PolicyRecord(JsonSerializableMixin):
     @classmethod
     def from_policy(cls, policy: Policy):
 
-        data = {} 
+        data = dict()
         data["version"] = policy.version
         data["type"] = policy.type 
         data["rules"] = policy.rules 

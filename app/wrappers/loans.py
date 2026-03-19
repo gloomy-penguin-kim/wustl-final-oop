@@ -85,15 +85,19 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         })
      
     def get(self, id: str) -> LoanApplication:
-        if id in Loans.items: 
-            item = Loans.items[id] 
-            if isinstance(item, str):
-                item = LoanApplication.from_json(item)
-            if isinstance(item, dict):
-                if "data" in item: item = item["data"]
-                item = LoanApplication.from_dict(item)
-            return item
-        raise ValueError("LoanApplication not found")
+        if id not in Loans.items:
+            item = self.load_one(id)
+            if item:
+                Loans.items[id] = item
+            else:
+                raise ValueError(f"LoanApplication not found: {id}")
+        item = Loans.items[id]
+        if isinstance(item, str):
+            item = LoanApplication.from_json(item)
+        if isinstance(item, dict):
+            if "data" in item: item = item["data"]
+            item = LoanApplication.from_dict(item)
+        return item
     
     @overload
     def delete(self, item: LoanApplication):... 

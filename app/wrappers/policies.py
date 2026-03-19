@@ -1,5 +1,6 @@
 from __future__ import annotations
 import importlib
+import json
 import sys
 from typing import Any, overload
  
@@ -13,93 +14,82 @@ from app.policies.policy_registry import POLICY_REGISTRY
   
 
 class Policies(Wrapper, JsonStore):  
-    items = {} 
+    items = dict()
     def __init__(self, filename: str, **kwargs):
         super().__init__(filename, **kwargs)
         Policies.items = Policies.items | self.load_by_type()
 
-    def register(self, item: Policy) -> None:  
-        self._add_item(item)  
-    
-    @overload 
-    def new(self, item: PolicyRecord) -> Policy:...
-    def new_from_policy_record(self, item: PolicyRecord) -> Policy:   
-        if item.type in POLICY_REGISTRY: 
-            policy = POLICY_REGISTRY[item.type](item.version, item.str_to_rules()) 
-            self.register(policy)
-            return policy
-        raise ValueError(f"Invalid Policy Type: {item.type}") 
+    def register(self, policy: Policy) -> None:
+        self._add_item(policy)
+
+    @overload
+    def new(self, policy: Policy) -> Policy:...
+    def new_from_policy(self, policy: Policy) -> Policy:
+        self._add_item(policy)
+        return policy
  
     @overload 
-    def new(self, d: dict) -> Policy:...
-    def new_from_dict(self, d: dict) -> Policy:
-        policy = PolicyRecord(version=d["version"], type=d["type"], rules=d["rules"]) 
-        return self.new_from_policy_record(policy)
+    def new(self, policy: dict) -> Policy:...
+    def new_from_dict(self, policy: dict) -> Policy:
+        return self.new_from_params(policy.get("version"), policy.get("type"),
+                                    policy.get("rules"),)
         
-    @overload 
+    @overload
     def new(self, version: str, type: str, rules: list[Rule] | list[str] | None = None) -> Policy:...
-    def new_from_params(self, version: str, type: str, rules: list[Rule] | list[str] | None = None) -> Policy:   
-        p = PolicyRecord(version, type, rules)   
-        return self.new_from_policy_record(p)
+    def new_from_params(self,
+                        version: str,
+                        type: str,
+                        rules: list[Rule] | list[str] | None = None) -> Policy:
+        if type in POLICY_REGISTRY:
+            policy = POLICY_REGISTRY[type](version, Policy.str_to_rules(rules))
+            self._add_item(policy)
+            return policy
+        raise ValueError(f"Invalid Policy Type: {type}")
   
     def new(self, *args, **kwargs) -> Policy: 
         if args: 
             if len(args) > 0: 
                 if isinstance(args[0], dict):
                     return self.new_from_dict(*args)
-                elif isinstance(args[0], PolicyRecord):  
-                    return self.new_from_policy_record(*args) 
+                elif isinstance(args[0], Policy):
+                    return self.new_from_policy(*args)
                 else:  
                     return self.new_from_params(*args) 
         if len(kwargs) > 1:   
             return self.new_from_params(*args, **kwargs)
         raise ValueError("Incorrect arguments supplied to Policies.new(...)")
-     
-    @overload
-    def _add_item(self, item: Policy) -> None:...
-    def _add_item_from_policy(self, item: Policy) -> None:
-        self._add_item_from_policy_record(PolicyRecord(item.version, item.type, item.rules))
 
-    @overload
-    def _add_item(self, item: PolicyRecord) -> None:...
-    def _add_item_from_policy_record(self, item: PolicyRecord) -> None:
-        if item.version in Policies.items: 
-            raise ValueError(f"Policy version already exists: {item.version}")
+    def _add_item(self, policy: Policy):
+        if policy.version in Policies.items:
+            raise ValueError(f"Policy version already exists: {policy.version}")
         j = {
-            "type": "Policies", 
-            "id": item.version, 
-            "version": item.version, 
-            "data": item.to_dict()
-            } 
-        self.items[item.version] = j
+            "type": "Policies",
+            "id": policy.version,
+            "version": policy.version,
+            "data": policy.to_dict()
+            }
+        self.items[policy.version] = j
         self.save(j)
 
-    def _add_item(self, item) -> None: 
-        if isinstance(item, Policy):
-            return self._add_item_from_policy(item)
-        elif isinstance(item, PolicyRecord):  
-            return self._add_item_from_policy_record(item) 
-        raise ValueError("Incorrect arguments supplied to Policies._add_item(...)")
-    
     def get(self, id: str) -> Policy:
-        if id not in self.items:
-            try: 
-                policy = self.load_policy(id) 
-            except: 
+        if id not in Policies.items:
+            item = self.load_one(id)
+            if item:
+                Policies.items[id] = item
+            else:
                 raise ValueError(f"Policy not found: {id}")
         policy = Policies.items[id] 
         if isinstance(policy, str):
-            policy = PolicyRecord.from_json(policy) 
+            policy = json.loads(policy)
         if isinstance(policy, dict): 
-            if "data" in policy: policy = policy["data"] 
-            policy = PolicyRecord.from_dict(policy) 
-        if isinstance(policy, PolicyRecord):
-            policy = self._from_policy_record(policy)
+            if "data" in policy: policy = policy["data"]
+            if policy.get("type") in POLICY_REGISTRY:
+                policy = POLICY_REGISTRY[policy.get("type")](policy.get("version"), policy.get("rules"))
         return policy 
      
-    def _from_policy_record(self, item: PolicyRecord) -> Policy:  
-        if item.type in POLICY_REGISTRY: 
-            policy = POLICY_REGISTRY[item.type](item.version, item.str_to_rules())  
+    def _from_policy_record(self, item: PolicyRecord) -> Policy:
+        if item.type in POLICY_REGISTRY:
+            policy = POLICY_REGISTRY[item.type](item.version, item.str_to_rules())
             return policy
         raise ValueError(f"Invalid Policy Type: {item.type}")
    

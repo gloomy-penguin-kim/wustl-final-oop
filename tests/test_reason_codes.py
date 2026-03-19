@@ -84,8 +84,8 @@ def test_reason_codes():
 
     decision1, ctx1 = engine.run(loan, policy12)
     decision2, ctx2 = engine.run(loan, policy21)  
-    assert list(decision1.reason_codes) == ["APPRV_1", "APPRV_2"]
-    assert list(decision2.reason_codes) == ["APPRV_2", "APPRV_1"]
+    assert list(decision1._reason_codes) == ["APPRV_1", "APPRV_2"]
+    assert list(decision2._reason_codes) == ["APPRV_2", "APPRV_1"]
 
     decision3, ctx3 = engine.run(loan, policy_refer)
     assert list(decision3.reason_codes) == ["RF_TEST"]
