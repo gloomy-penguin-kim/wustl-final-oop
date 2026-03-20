@@ -1,6 +1,6 @@
 # Byte-compiled / object files
 __pycache__/
-*/__pycache__/
+__pycache__
 *.py[cod]
 *.so
 *.egg
