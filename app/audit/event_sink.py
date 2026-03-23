@@ -11,7 +11,7 @@ from app.settings import Config
 from app.mixins.hash_chain_mixin import HashChainAuditMixin
 
 class EventSink(ABC):
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         pass
 
     @abstractmethod
@@ -21,53 +21,48 @@ class EventSink(ABC):
     def clear(self):... 
 
 
-class FileEventSink(HashChainAuditMixin, EventSink):  
-    def __init__(self, **kwargs): 
-        super().__init__( **kwargs) 
+class FileEventSink(EventSink):  
+    def __init__(self, filename: str, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
+        self.filename = filename 
 
-    def emit(self, event: dict): 
-        if "type" not in event: 
-            event["type"] = "emit" 
-        with open(Config.AUDIT_FILE, "a") as f:
-            f.write(json.dumps(event, default=str) + "\n")    
-        super().emit(event)  
+    def emit(self, event: dict):  
+        with open(self.filename, "a") as f:
+            f.write(json.dumps(event, default=str) + "\n")     
             
     def clear(self): 
-        with open(Config.AUDIT_FILE, "w") as f: 
-            f.write("")
-        super().clear()
+        with open(self.filename, "w") as f: 
+            f.write("") 
  
         
 class PrintEventSink(EventSink): 
-    def __init__(self, **kwargs): 
-        super().__init__(**kwargs) 
+    def __init__(self, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
 
     def emit(self, event: dict): 
-        print("emit...", event["event"], event["id"]) 
-        super().emit(event)  
+        print("emit...", event["event"], event["id"])  
     
     def clear(self):
-        super().clear() 
+        pass
 
 
-class AuditEventSink(EventSink): 
-    chain = HashChain()
-    def __init__(self, **kwargs): 
-        super().__init__(**kwargs) 
+class InMemoryEventSink(EventSink):   
+    events = [] 
+    def __init__(self, *args, **kwargs):  
+        super().__init__(*args, **kwargs) 
          
     def emit(self, event: dict): 
-        event = AuditEventSink.chain.append(event) 
-        super().emit(event) 
+        InMemoryEventSink.events.append(event)  
 
-    def clear(self): 
-        AuditEventSink.chain = HashChain() 
-        super().clear()
+    def clear(self):  
+        InMemoryEventSink.events = [] 
 
 
-class EmitEvent(AuditEventSink, FileEventSink, PrintEventSink):
+class EmitEvent(InMemoryEventSink, FileEventSink, PrintEventSink):
 
-    def __init__(self, **kwargs): 
-        super().__init__(**kwargs) 
+    def __init__(self, filename: str | None = None, *args, **kwargs): 
+        super().__init__(*args, **kwargs) 
+        self.filename = filename or Config.EVENTS_FILE
 
     def emit(self, event: dict): 
         super().emit(event) 

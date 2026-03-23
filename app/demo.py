@@ -2,15 +2,14 @@ from __future__ import annotations
  
 from decimal import Decimal
 
-from app.domain import Applicant, LoanApplication
-from app.engine import DecisionEngine, Policies, Loans
-from app.policies import ScorecardPolicy, HybridPolicy, RuleBasedPolicy, Policy
-from app.rules import DtiRule, CreditScoreRule
-from app.audit import AuditEventSink
-from app.mixins.hash_chain_mixin import HashChainAuditMixin
-
-from .settings import Config
- 
+from app.domain.applicant import Applicant
+from app.domain.application import LoanApplication
+from app.engine.decision_engine import DecisionEngine 
+from app.policies.scorecard_policy import ScorecardPolicy
+from app.rules.credit_score_rule import CreditScoreRule
+from app.rules.dti_rule import DtiRule  
+from app.rules.employment_rule import EmploymentRule
+from app.engine import Loans, Policies 
 
 
 applicant = Applicant(
@@ -23,13 +22,8 @@ applicant = Applicant(
 
  
 loans = Loans("loans.jsonl")
-loans.clear() 
-
-policies = Policies("policies.jsonl")
-policies.clear() 
-
+policies = Policies("policies.jsonl") 
 engine = DecisionEngine(loans, policies)
-
 
 loans.delete("tacobell")
 loans.delete("pizza")
@@ -42,7 +36,7 @@ app = LoanApplication(
     application_id="tacobell"
 )
 
-loans.register(app) 
+loans.new(app) 
  
 applicant = Applicant(
     "Alice",
@@ -62,15 +56,17 @@ app2 = loans.new(
 assert isinstance(app2, LoanApplication)
 # loans.new({ "applicant": applicant, "requested_amount": Decimal(15000), "term_months": 36, "purpose": "car"})
 
-
+credot = {
+    "CreditScoreRule": CreditScoreRule,
+    "DtiRule": DtiRule, 
+    "EmploymentRule": EmploymentRule
+}
 
 policies.delete("rule_based_1234444")
 policies.delete("rule_based_123")
 policies.delete("scorecard")
-
-
 policy1 = policies.new("rule_based_123", "RuleBasedPolicy", [CreditScoreRule(), DtiRule()])
-policy2 = policies.new(ScorecardPolicy("scorecard"))
+policies.new(ScorecardPolicy("scorecard"))
   
 d, trace = policy1.evaluate(app) 
 
@@ -79,36 +75,20 @@ decision, ctx = engine.run(app, policy1)
 print(decision.reason_codes) 
 print("context", ctx) 
 
-print(2)
-policy2 = policies.new("rule_based_1234444", "HybridPolicy", ["CreditScoreRule", "EmploymentRule"])
+policy2 = policies.new("rule_based_1234444", "RuleBasedPolicy", ["CreditScoreRule"])
 policy2 = policies.get("rule_based_1234444") 
-decision, ctx = engine.run(app.application_id, policy2.version)
-print(decision.status)
+decision, ctx = engine.run(app, policy2)
 print(decision.reason_codes)
 print("context", ctx) 
 
 print(3) 
 decision, ctx = engine.run(app, "scorecard")
-print(decision.status)
 print(decision.reason_codes)
 print("context", ctx)
 
-print(3.1)
-decision, ctx = engine.run(app, policy2)
-print(decision.status)
-print(decision.reason_codes)
-print("context", ctx)
 print(4) 
-decision, ctx = engine.run("tacobell", "scorecard")
-print(decision.status)
+decision, ctx = engine.run(app2, "scorecard")
 print(decision.reason_codes)
 print("context", ctx)
-
-audit = AuditEventSink()
-audit.chain.verify_chain()  
-HashChainAuditMixin.verify_chain_in_file() 
-
-
-policies.clear()
-loans.clear() 
-  
+ 
+ 

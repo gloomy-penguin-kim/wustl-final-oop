@@ -5,20 +5,29 @@ from datetime import datetime, UTC
 
 from app.persistence import JsonStore
 from app.domain import LoanApplication, Applicant 
-from app.audit import EmitEvent 
+from app.audit import EmitEvent
+from app.settings import Config
 from .wrapper import Wrapper
- 
-class Loans(Wrapper, JsonStore, EmitEvent):  
-    items = {} 
-    def __init__(self, filename: str, **kwargs):
-        super().__init__(filename, **kwargs)
-        Loans.items = Loans.items | self.load_by_type()
 
-    def register(self, item: LoanApplication) -> None:
-        self._add_item(item)  
+
+class Loans(Wrapper, JsonStore, EmitEvent):
+
+    items = dict()
+
+    def __init__(self, filename: str, **kwargs):
+        super().__init__(filename=filename, **kwargs)
+        self.filename = filename 
+        Loans.items = Loans.items | self.load_by_type() 
+    
+    def register(self, application: LoanApplication):
+        self._add_item(application)
+        return application
  
     @overload
-    def new(self, application: dict) -> LoanApplication:...
+    def new(self, application: LoanApplication) -> LoanApplication: ...
+ 
+    @overload
+    def new(self, application: dict) -> LoanApplication: ...
     
     @overload
     def new(self, 
@@ -26,29 +35,35 @@ class Loans(Wrapper, JsonStore, EmitEvent):
             requested_amount: Decimal, 
             term_months: int, 
             purpose: str,
-            application_id: str | None = None) -> LoanApplication:...
+            application_id: str | None = None) -> LoanApplication: ...
  
     def new(self, *args, **kwargs) -> LoanApplication: 
         if args: 
-            if len(*args) > 0: 
+            if len(args) > 0: 
                 if isinstance(args[0], dict):
                     return self.new_from_dict(*args)
+                if isinstance(args[0], LoanApplication):
+                    self._add_item(*args)
+                    return args[0]
                 else:   
                     return self.new_from_params(*args,**kwargs) 
         if len(kwargs) >= 1:   
             return self.new_from_params(**kwargs)
         raise ValueError("Incorrect arguments supplied to Loans.new(...)")
 
+    # TODO: Clean this up and check for default values or None it all 
     def new_from_dict(self, d: dict) -> LoanApplication: 
+        if d.get("applicant") == None: 
+            raise ValueError(f"Applicant is missing on LoanApplication {d.get("application_id")}")
         if isinstance(d.get("applicant"), dict):
             d["applicant"] = Applicant.from_dict(d.get("applicant"))
         application_id = d.get("application_id", None)
         app = LoanApplication(  
-            applicant        = d.get("applicant"),
-            requested_amount = d.get("requested_amount"),
-            term_months      = d.get("term_months"),
-            purpose          = d.get("purpose"),
-            application_id   = application_id
+            applicant=d.get("applicant"),
+            requested_amount=d.get("requested_amount", Decimal(0)),
+            term_months=d.get("term_months", 0),
+            purpose=d.get("purpose", ""),
+            application_id=application_id
         )
         self._add_item(app) 
         return app 
@@ -72,7 +87,11 @@ class Loans(Wrapper, JsonStore, EmitEvent):
     def _add_item(self, item: LoanApplication) -> None:  
         if item.application_id in Loans.items: 
             raise ValueError("LoanApplication id already exists")
+
+        assert item is not None
+
         Loans.items[item.application_id] = item.to_dict()
+
         self.save({
             "type": "Loans", 
             "id": item.application_id, 
@@ -95,26 +114,27 @@ class Loans(Wrapper, JsonStore, EmitEvent):
         if isinstance(item, str):
             item = LoanApplication.from_json(item)
         if isinstance(item, dict):
-            if "data" in item: item = item.get("data")
+            if "data" in item:
+                item = item.get("data")
             item = LoanApplication.from_dict(item)
         return item
     
     @overload
-    def delete(self, item: LoanApplication):... 
+    def delete(self, application: LoanApplication): ...
     @overload
-    def delete(self, item: str):...
+    def delete(self, item: str): ...
 
-    def delete(self, item: Any) -> None:
-        if isinstance(item, LoanApplication):
-            item = item.application_id
-        self.delete_loan(item)
+    def delete(self, application: Any) -> None:
+        if isinstance(application, LoanApplication):
+            application = application.application_id
+        self.delete_loan(application)
 
-    def delete_loan(self, item: str):
-        if item in Loans.items:  
+    def delete_loan(self, application: str):
+        if application in Loans.items:  
             self.update_file(Loans.items) 
-            del Loans.items[item]
+            del Loans.items[application]
 
     def clear(self): 
         self.clear_file() 
-        Loans.items = {} 
+        Loans.items = dict()
  

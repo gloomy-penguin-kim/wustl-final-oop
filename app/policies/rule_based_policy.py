@@ -27,7 +27,6 @@ class RuleBasedPolicy(Policy):
         else:
             rr = cast(list[Rule], rules) 
         super().__init__(version=version, type=cn, rules=rr, created_at=created_at)
- 
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)
@@ -52,10 +51,10 @@ class RuleBasedPolicy(Policy):
             reason_codes.append(result.code)
  
         human = ctx[result.status]
-        reason_codes = list(human.keys()) 
-          
+        reason_codes = list(human.keys())
+
         self.policy_evaluated(app)
-         
+
         return (
             Decision(
                 status = result.status,

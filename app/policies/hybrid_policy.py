@@ -70,7 +70,7 @@ class HybridPolicy(Policy):
                 requested_amount = Decimal(0)
 
         self.policy_evaluated(app)
-
+        
         return (
             Decision(
                 status=result.status,

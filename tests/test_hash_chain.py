@@ -7,11 +7,11 @@ from app.rules.rule_registry import register_rule
 from app.engine import Policies, Loans
 from app.domain import LoanApplication
 from app.engine import DecisionEngine
-from app.audit import AuditEventSink
+from app.audit import AuditEventSink, FileEventSink
 from app.mixins.hash_chain_mixin import HashChainAuditMixin
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
+TEST_FILE = "tests/output/emit_events.jsonl"
 
 from decimal import Decimal
 import random
@@ -58,10 +58,10 @@ class RuleToDecline(Rule):
 
 def test_hash_chain_events(): 
 
-    with open(Config.AUDIT_FILE, "w") as f:
+    with open(TEST_FILE, "w") as f:
         f.write("")
 
-    policies = Policies("tests/output/test_policies.jsonl")
+    policies = Policies("tests/output/test_policies.jsonl", events=TEST_FILE)
     policies.clear() 
 
     policy12 = policies.new("approved_1_2", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnApproved2()])
@@ -70,10 +70,10 @@ def test_hash_chain_events():
                                                                     RuleToReturnApproved2(), RuleToDecline()])
     policy_declined = policies.new("declined", "RuleBasedPolicy", ["RuleToReturnApproved1", "RuleToReturnApproved2", "RuleToDecline"])
 
-    loans = Loans("tests/output/test_loans.jsonl")
+    loans = Loans("tests/output/test_loans.jsonl", event=TEST_FILE)
     loans.clear()
 
-    engine = DecisionEngine(loans, policies)
+    engine = DecisionEngine(loans, policies, events=TEST_FILE)
         
     audit = AuditEventSink()
 
@@ -117,32 +117,34 @@ def test_hash_chain_events():
     decision6, ctx6 = engine.run(loan, policy12) 
 
     lines = [] 
-    with open(Config.AUDIT_FILE, "r") as f:
+    with open(TEST_FILE, "r") as f:
         lines = f.readlines()
     if lines:  
         idx = random.randrange(1,len(lines)-2)
         removed_line = lines.pop(idx) 
-    with open(Config.AUDIT_FILE, "w") as f:
+    with open(TEST_FILE, "w") as f:
         f.writelines(lines)
- 
+
+    fileEventSink = FileEventSink(events=TEST_FILE)
     print("lines in the file", len(lines)) 
     print("removed line", idx)
-    result = HashChainAuditMixin.verify_chain_in_file()
+    result = fileEventSink.verify()
     assert idx == result[1] 
     assert result[0] == False
- 
-    idx = random.randrange(1,len(audit.chain.events)-2)
-    audit.chain.events.pop(idx)
+
+    auditEventSink = AuditEventSink(events=TEST_FILE)
+    idx = random.randrange(1,len(auditEventSink.chain.events)-2)
+    auditEventSink.chain.events.pop(idx)
     result = audit.chain.verify_chain()
 
-    print("lines in the file", len(audit.chain.events)) 
+    print("lines in the file", len(auditEventSink.chain.events))
     print("removed line", idx)
     assert idx == result[1] 
     assert result[0] == False
 
     loans.clear()
     policies.clear() 
-    with open(Config.AUDIT_FILE, "w") as f:
+    with open(TEST_FILE, "w") as f:
         f.write("")
  
     

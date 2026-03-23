@@ -10,20 +10,25 @@ from app.engine.policies import Policies
 
 class DecisionEngine(EmitEvent):
 
-    def __init__(self, loans: Loans, policies: Policies, filename: str = None): 
+    def __init__(self, loans: Loans, policies: Policies):
         self.policies = policies 
         self.loans = loans 
-        self.filename = filename
-        super().__init__(filename=filename)
  
     @overload 
-    def run(self, application: str, policy_version: str):...  
+    def run(self, application: str, policy_version: str): ...
     @overload 
-    def run(self, application: LoanApplication, policy_version: str):...  
+    def run(self, application: LoanApplication, policy_version: str): ...
     @overload 
-    def run(self, application: str, policy_version: Policy):...  
+    def run(self, application: str, policy_version: Policy): ...
     @overload 
-    def run(self, application: LoanApplication, policy_version: Policy):...  
+    def run(self, application: LoanApplication, policy_version: Policy): ...
+
+    def run(self, application, policy_version) -> Tuple[Decision, Dict]:
+        if isinstance(application, str):
+            application = self.loans.get(application)
+        if isinstance(policy_version, str):
+            policy_version = self.policies.get(policy_version)
+        return self.run_app_policy(application, policy_version)
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):
         decision, ctx = policy.evaluate(application) 
@@ -35,17 +40,8 @@ class DecisionEngine(EmitEvent):
             "decision": decision.to_dict()  
         }) 
         return decision, ctx
-    
 
-    def run(self, application, policy_version) -> Tuple[Decision, Dict]:  
-        if isinstance(application, str):
-            application = self.loans.get(application)
-        if isinstance(policy_version, str):
-            policy_version = self.policies.get(policy_version)
-        return self.run_app_policy(application, policy_version)
-        
-             
     def replay(self, application_id: str, policy_version: str) -> Tuple[Decision, Dict]: 
         application = self.loans.get(application_id)
-        policy_version = self.policies.get(policy_version)
-        return self.run_app_policy(application, policy_version)
+        policy = self.policies.get(policy_version)
+        return self.run_app_policy(application, policy)

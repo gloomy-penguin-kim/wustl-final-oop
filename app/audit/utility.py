@@ -1,5 +1,6 @@
 import json 
-import hashlib 
+import hashlib
+import logging
 from app.settings import Config 
  
 
@@ -12,11 +13,11 @@ def hash_event(event: dict, prev_hash: str) -> str:
     return hashlib.sha256(canonical.encode()).hexdigest()
 
 
-def get_last_hash_from_file():
+def get_last_hash_from_file(filename: str):
     count = 0 
     last_hash = None
     try:   
-        with open(Config.AUDIT_FILE, "r", encoding="utf-8") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             for line in f: 
                 if len(line.strip()) == 0: continue 
                 count += 1 
@@ -32,5 +33,5 @@ def get_last_hash_from_file():
         logging.warning("Audit file not found, starting new hash chain.")
         pass
     if count > 1000: 
-        logging.warning(f"Audit file has {count} records, which may impact performance.")
+        logging.warning(f"Audit file has {count} records, which may impact performance: {filename}")
     return last_hash

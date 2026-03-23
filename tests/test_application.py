@@ -3,6 +3,7 @@ from decimal import Decimal
 
 import pytest
 
+from app.audit import EventSink
 from app.domain import Applicant, LoanApplication
 from app.engine import Loans
 from app.settings import Config
@@ -47,9 +48,10 @@ def test_applicant():
     assert a.purpose == "car"
 
 
-def test_loans():     
+def test_loans():
     loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear() 
+    loans.clear()
+    loans.clear_sink()
 
     applicant = Applicant(
             name="Alice",
