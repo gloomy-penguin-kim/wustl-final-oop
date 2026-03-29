@@ -2,19 +2,16 @@ from __future__ import annotations
 
 from datetime import datetime
 from decimal import Decimal
- 
-from app.audit import FileEventSink
-from app.domain import Applicant
-from app.domain import LoanApplication
-from app.engine import DecisionEngine
+  
 from app.policies import RuleBasedPolicy, ScorecardPolicy, Policy
 from app.rules import CreditScoreRule, DtiRule
 from app.engine import Policies
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
 
-  
+Config.AUDIT_FILE = "tests/output/test_audit.jsonl"
+Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
+
 
 def test_policies(): 
     policies = Policies("tests/output/test_policies.jsonl")
@@ -96,7 +93,7 @@ def test_policies():
 
  
 def test_policies_duplicates():
-    policies = Policies("tests/output/test_policies.jsonl")
+    policies = Policies("tests/output/test_policies.jsonl", events_filename="tests/output/events.jsonl")
     policies.clear()
     
     p = policies.new(version="version123", type="ScorecardPolicy")

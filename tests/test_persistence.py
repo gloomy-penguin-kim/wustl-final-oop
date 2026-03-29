@@ -1,7 +1,9 @@
 from app.persistence import JsonStore 
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
+Config.AUDIT_FILE = "tests/output/test_audit.jsonl"
+Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
+
 
 def test_persist_events():
     store = JsonStore("tests/output/test_persistence.jsonl")

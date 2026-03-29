@@ -9,7 +9,8 @@ from app.domain import LoanApplication
 from app.engine import DecisionEngine
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
+Config.AUDIT_FILE = "tests/output/test_audit.jsonl"
+Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
 
 from decimal import Decimal
 
@@ -61,9 +62,13 @@ def test_reason_codes():
     policy12 = policies.new({ "version": "approved_1_2",
                               "type": "RuleBasedPolicy",
                               "rules": [RuleToReturnApproved1(), RuleToReturnApproved2()]})
-    policy21 = policies.new("approved_2_1", "RuleBasedPolicy", [RuleToReturnApproved2(), RuleToReturnApproved1()])
-    policy_refer = policies.new("refer_policy", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnRefer(), 
-                                                                    RuleToReturnApproved2(), RuleToDecline()])
+    policy21 = policies.new("approved_2_1",
+                            "RuleBasedPolicy",
+                            [RuleToReturnApproved2(), RuleToReturnApproved1()])
+    policy_refer = policies.new("refer_policy",
+                                "RuleBasedPolicy",
+                                [RuleToReturnApproved1(), RuleToReturnRefer(),
+                                RuleToReturnApproved2(), RuleToDecline()])
     policy_declined = policies.new(version="declined",
                                    type="RuleBasedPolicy",
                                    rules=["RuleToReturnApproved1",

@@ -2,24 +2,29 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from datetime import UTC, datetime
+import json
 from typing import Any, Tuple, cast
 
 from app.audit.event_sink import EmitEvent
+from app.audit.hash_chain import HashChain
 from app.domain import LoanApplication
 from app.domain.decision import Decision 
+from app.mixins.json_serializable import JsonSerializableMixin
 from app.policies.policy_registry import POLICY_REGISTRY
 from app.rules import Rule
 from app.rules import RULE_REGISTRY
 
-class Policy(EmitEvent, ABC):
 
-    def __init__(self, 
+class Policy(EmitEvent, JsonSerializableMixin, HashChain, ABC):
+
+    def __init__(self,  
                  version: str,
-                 type: str,
                  rules: list[Rule] | None = None,
-                 created_at: datetime | None = None,):
+                 created_at: datetime | None = None,
+                 **kwargs):
+        super().__init__(**kwargs)
         self._version = version 
-        self._type = type 
+        self._type = self.__class__.__name__
         self._rules = rules or [] 
         self._created_at = created_at or datetime.now(UTC) 
 
@@ -61,7 +66,7 @@ class Policy(EmitEvent, ABC):
                 raise ValueError(f"Policy Rule is invalid: {r.__class__.__name__}")
 
     def policy_selected(self, app: LoanApplication): 
-        self.emit({
+        self.chain_event({
             "event": "POLICY_SELECTED",
             "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
             "application_id": app.application_id,
@@ -69,7 +74,7 @@ class Policy(EmitEvent, ABC):
         })
 
     def policy_evaluated(self, app: LoanApplication): 
-        self.emit({
+        self.chain_event({
             "event": "POLICY_EVALUATED",
             "id": app.application_id + "_" + self.version + "_" + datetime.now(UTC).isoformat(),
             "application_id": app.application_id,
@@ -98,9 +103,11 @@ class Policy(EmitEvent, ABC):
         return data
 
     @classmethod
-    def from_dict(cls, data: dict, events: EmitEvent) -> Policy:
+    def from_dict(cls, data: dict) -> Policy:
         created_at = data.get("created_at", datetime.now(UTC))
         created_at = created_at if isinstance(created_at, datetime) else datetime.fromisoformat(created_at)
         return POLICY_REGISTRY[data.get("type")](data.get("version"),
                                                  data.get("rules"),
                                                  created_at)
+
+    

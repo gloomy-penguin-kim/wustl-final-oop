@@ -1,7 +1,5 @@
 from decimal import Decimal
-
-import pytest
-
+  
 from app.domain import Applicant
 
 def test_applicant(): 

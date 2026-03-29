@@ -17,7 +17,6 @@ from app.rules.rule_result import Status, RuleResult
 class RuleBasedPolicy(Policy):
 
     def __init__(self, version: str, rules: Any, created_at: datetime | None = None):
-        cn = self.__class__.__name__  
         rr = []  
         if Policy.is_list_of_strings(rules):
             r = [] 
@@ -26,7 +25,7 @@ class RuleBasedPolicy(Policy):
             rr = r   
         else:
             rr = cast(list[Rule], rules) 
-        super().__init__(version=version, type=cn, rules=rr, created_at=created_at)
+        super().__init__(version=version, rules=rr, created_at=created_at)
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)

@@ -9,7 +9,7 @@ from decimal import Decimal
 class JsonSerializableMixin: 
 
     def to_dict(self):
-        data = {} 
+        data = dict() 
         for key, value in self.__dict__.items():  
             if isinstance(value, Decimal):
                 data[key] = str(value) 
@@ -26,7 +26,7 @@ class JsonSerializableMixin:
 
     @classmethod
     def from_dict(cls, data): 
-        processed = {} 
+        processed = dict()  
         for key, value in data.items(): 
             if isinstance(value, str): 
                 try:
@@ -44,4 +44,4 @@ class JsonSerializableMixin:
     
     @classmethod
     def from_json(cls, s): 
-        return cls.from_dict(json.loads(s))
+        return cls.from_dict(json.loads(s)) 

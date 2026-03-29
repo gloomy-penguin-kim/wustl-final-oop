@@ -3,6 +3,7 @@ from decimal import Decimal
 from typing import Any, overload
 from datetime import datetime, UTC
 
+from app.audit.hash_chain import HashChain
 from app.persistence import JsonStore
 from app.domain import LoanApplication, Applicant 
 from app.audit import EmitEvent
@@ -10,7 +11,7 @@ from app.settings import Config
 from .wrapper import Wrapper
 
 
-class Loans(Wrapper, JsonStore, EmitEvent):
+class Loans(Wrapper, JsonStore, EmitEvent, HashChain):
 
     items = dict()
 
@@ -53,8 +54,9 @@ class Loans(Wrapper, JsonStore, EmitEvent):
 
     # TODO: Clean this up and check for default values or None it all 
     def new_from_dict(self, d: dict) -> LoanApplication: 
-        if d.get("applicant") == None: 
-            raise ValueError(f"Applicant is missing on LoanApplication {d.get("application_id")}")
+        if d.get("applicant") == None:
+            a = d["application_id"]
+            raise ValueError(f"Applicant is missing on LoanApplication {a}")
         if isinstance(d.get("applicant"), dict):
             d["applicant"] = Applicant.from_dict(d.get("applicant"))
         application_id = d.get("application_id", None)
@@ -97,7 +99,7 @@ class Loans(Wrapper, JsonStore, EmitEvent):
             "id": item.application_id, 
             "data": item.to_dict()
         })
-        self.emit({
+        self.chain_event({
             "event": "SUBMITTED",
             "id": item.application_id,
             "data": item.to_dict()

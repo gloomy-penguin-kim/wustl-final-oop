@@ -2,13 +2,13 @@ from datetime import datetime
 from decimal import Decimal
 
 import pytest
-
-from app.audit import EventSink
+ 
 from app.domain import Applicant, LoanApplication
 from app.engine import Loans
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/emit_events.jsonl"
+Config.AUDIT_FILE = "tests/output/test_audit.jsonl"
+Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
 
 
 def test_applicant(): 
@@ -50,8 +50,7 @@ def test_applicant():
 
 def test_loans():
     loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear()
-    loans.clear_sink()
+    loans.clear() 
 
     applicant = Applicant(
             name="Alice",
@@ -123,9 +122,11 @@ def test_loans():
 
     loans.delete(app4.application_id)
     assert app4.application_id not in loans.items 
+    loans.clear() 
+    loans.clear_sink()
 
 
-def test_loans_duplicate(): 
+def test_loans_duplicate():  
     loans = Loans("tests/output/test_loans.jsonl")
     loans.clear() 
 
@@ -151,12 +152,13 @@ def test_loans_duplicate():
     with pytest.raises(ValueError): 
         loans.register(app)
 
-    loans.clear() 
+    loans.clear()
+    loans.clear_sink() 
 
 
 def test_loans_invalid(): 
     loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear() 
+    loans.clear_sink() 
 
     try: 
         app = LoanApplication( 
@@ -205,11 +207,12 @@ def test_loans_invalid():
 
 
     loans.clear()
+    loans.clear_sink()
 
 
 def test_loans_to_json():
     loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear()
+    loans.clear_sink()
 
     app = LoanApplication(
         applicant=Applicant(
@@ -232,3 +235,4 @@ def test_loans_to_json():
     assert app.submitted_at == l.submitted_at
 
     loans.clear()
+    loans.clear_sink()

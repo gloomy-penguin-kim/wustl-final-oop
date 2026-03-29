@@ -4,34 +4,33 @@ from abc import ABC, abstractmethod
 
 import json
 import logging 
- 
-from app.audit.hash_chain import HashChain
-from .utility import get_last_hash_from_file
-from app.settings import Config
-from app.mixins.hash_chain_mixin import HashChainAuditMixin
+  
+from app.settings import Config 
+
 
 class EventSink(ABC):
     def __init__(self, *args, **kwargs):
         pass
 
     @abstractmethod
-    def emit(self, event: dict):...
+    def emit(self, event: dict): ...
 
     @abstractmethod
-    def clear(self):... 
+    def clear_sink(self): ...
 
 
 class FileEventSink(EventSink):  
-    def __init__(self, filename: str, *args, **kwargs): 
+    def __init__(self, events_filename: str, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
-        self.filename = filename 
+        self.events_filename = events_filename or Config.EVENTS_FILE
+        print("self.events_filename", self.events_filename)
 
     def emit(self, event: dict):  
-        with open(self.filename, "a") as f:
+        with open(self.events_filename, "a") as f:
             f.write(json.dumps(event, default=str) + "\n")     
             
-    def clear(self): 
-        with open(self.filename, "w") as f: 
+    def clear_sink(self): 
+        with open(self.events_filename, "w") as f: 
             f.write("") 
  
         
@@ -40,32 +39,32 @@ class PrintEventSink(EventSink):
         super().__init__(*args, **kwargs) 
 
     def emit(self, event: dict): 
-        print("emit...", event["event"], event["id"])  
+        print("emit...", event.get("event"), event.get("id"))
     
-    def clear(self):
+    def clear_sink(self):
         pass
 
 
 class InMemoryEventSink(EventSink):   
-    events = [] 
+    events = []
+
     def __init__(self, *args, **kwargs):  
         super().__init__(*args, **kwargs) 
          
     def emit(self, event: dict): 
-        InMemoryEventSink.events.append(event)  
+        InMemoryEventSink.events.append(event)   
 
-    def clear(self):  
+    def clear_sink(self):  
         InMemoryEventSink.events = [] 
 
 
 class EmitEvent(InMemoryEventSink, FileEventSink, PrintEventSink):
 
-    def __init__(self, filename: str | None = None, *args, **kwargs): 
-        super().__init__(*args, **kwargs) 
-        self.filename = filename or Config.EVENTS_FILE
+    def __init__(self, events_filename: str | None = None, *args, **kwargs):  
+        super().__init__(*args, events_filename=events_filename, **kwargs)
 
     def emit(self, event: dict): 
         super().emit(event) 
 
-    def clear(self): 
-        super().clear() 
+    def clear_sink(self): 
+        super().clear_sink()

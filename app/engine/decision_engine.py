@@ -2,17 +2,19 @@ from __future__ import annotations
 from typing import Dict, Tuple, overload
 
 from app.audit.event_sink import EmitEvent 
+from app.audit.hash_chain import HashChain
 from app.domain.application import LoanApplication
 from app.domain.decision import Decision
 from app.policies.policy_base import Policy
 from app.engine.loans import Loans
 from app.engine.policies import Policies
 
-class DecisionEngine(EmitEvent):
+class DecisionEngine(EmitEvent, HashChain):
 
-    def __init__(self, loans: Loans, policies: Policies):
+    def __init__(self, loans: Loans, policies: Policies, **kwargs):
+        super().__init__(**kwargs)
         self.policies = policies 
-        self.loans = loans 
+        self.loans = loans
  
     @overload 
     def run(self, application: str, policy_version: str): ...
@@ -32,7 +34,7 @@ class DecisionEngine(EmitEvent):
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):
         decision, ctx = policy.evaluate(application) 
-        self.emit({
+        self.chain_event({
             "event": "DECISIONED",
             "id": decision.decision_id,
             "application_id": application.application_id,

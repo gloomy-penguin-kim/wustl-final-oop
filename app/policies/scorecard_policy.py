@@ -13,9 +13,13 @@ from app.rules.rule_result import Status
 @register_policy
 class ScorecardPolicy(Policy):
 
-    def __init__(self, version: str, rules: list[Rule] | None = None, created_at: datetime | None = None):
-        cn = self.__class__.__name__ 
-        super().__init__(version=version, type=cn, rules=rules, created_at=created_at)
+    def __init__(self, 
+                 version: str,
+                 rules: list[Rule] | None = None, 
+                 created_at: datetime | None = None):
+        super().__init__(version=version,
+                         rules=rules, 
+                         created_at=created_at)
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)

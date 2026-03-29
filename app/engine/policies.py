@@ -5,6 +5,7 @@ from typing import Any, overload
  
 
 from app.audit import EmitEvent
+from app.audit.hash_chain import HashChain
 from app.persistence.json_store import JsonStore 
 from app.policies.policy_base import Policy 
 from app.rules.rule_base import Rule
@@ -12,12 +13,15 @@ from app.engine.wrapper import Wrapper
 from app.policies.policy_registry import POLICY_REGISTRY
   
 
-class Policies(Wrapper, JsonStore, EmitEvent):
+class Policies(Wrapper, JsonStore, EmitEvent, HashChain):
 
     items = dict()
 
-    def __init__(self, filename: str, **kwargs):
-        super().__init__(filename=filename, **kwargs)
+    def __init__(self, 
+                 filename: str,   
+                 **kwargs):
+        super().__init__(filename=filename,  
+                         **kwargs)
         self.filename = filename 
         Policies.items = Policies.items | self.load_by_type()
   
@@ -41,20 +45,23 @@ class Policies(Wrapper, JsonStore, EmitEvent):
     def new_from_dict(self, policy: dict) -> Policy:
         return self.new_from_params(policy.get("version",""),
                                     policy.get("type", ""),
-                                    policy.get("rules"),
+                                    policy.get("rules",[]),
                                     policy.get("created_at", datetime.now(UTC)))
         
     @overload
     def new(self,
             version: str,
             type: str,
-            rules: list[Rule] | list[str] | None = None) -> Policy: ...
+            rules: Any = None,
+            created_at: datetime | None = None
+            ) -> Policy: ...
 
     def new_from_params(self,
                         version: str,
                         type: str,
                         rules: list[Rule] | list[str] | None = None,
-                        created_at: datetime | None = None) -> Policy:
+                        created_at: datetime | None = None
+                        ) -> Policy:
         created_at = created_at or datetime.now(UTC)
         if type in POLICY_REGISTRY:
             policy = POLICY_REGISTRY[type](version, Policy.str_to_rules(rules), created_at)
