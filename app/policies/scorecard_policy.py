@@ -1,6 +1,6 @@
 from __future__ import annotations
 from decimal import ROUND_HALF_UP, Decimal
-from typing import Tuple
+from typing import Tuple, Any
 from datetime import UTC, datetime
 
 from app.domain.application import LoanApplication
@@ -13,13 +13,11 @@ from app.rules.rule_status import RuleStatus
 @register_policy
 class ScorecardPolicy(Policy):
 
-    def __init__(self, 
-                 version: str,
-                 rules: list[Rule] | None = None, 
-                 created_at: datetime | None = None):
-        super().__init__(version=version,
-                         rules=rules, 
-                         created_at=created_at)
+    def __init__(self, rules: Any = None, **kwargs):
+        super().__init__(rules=rules, **kwargs)
+
+    def __repr__(self):
+        return super().__repr__()
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)
@@ -90,7 +88,7 @@ class ScorecardPolicy(Policy):
                     reason_codes = reason_codes,
                     approved_amount = app.requested_amount,
                     apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP),
-                    policy_version = self.version
+                    policy_version = self.id
                 ),
                 ctx
             )
@@ -102,7 +100,7 @@ class ScorecardPolicy(Policy):
                     reason_codes = reason_codes,
                     approved_amount = Decimal(0),
                     apr = Decimal(0),
-                    policy_version = self.version
+                    policy_version = self.id
                 ),
                 ctx
             )
@@ -111,7 +109,7 @@ class ScorecardPolicy(Policy):
             Decision(
                 status = RuleStatus.DECLINE,
                 reason_codes = reason_codes,
-                policy_version = self.version
+                policy_version = self.id
             ),
             ctx
         )

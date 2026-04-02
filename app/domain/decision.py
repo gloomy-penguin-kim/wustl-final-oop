@@ -3,6 +3,7 @@ from __future__ import annotations
 from decimal import Decimal
 import uuid
 from datetime import UTC, datetime
+from typing import Any, Tuple
 
 from app.audit import EmitEvent
 from app.domain.base import BaseEntity
@@ -23,31 +24,19 @@ class Decision(
         reason_codes: list[str],
         approved_amount: Decimal | None = None,
         apr: Decimal | None = None,
-        id: str | None = None,
-        created_at: datetime = datetime.now(UTC),
+        *args,
         **kwargs
     ):
-        super().__init__(**kwargs)
+        super().__init__(*args, **kwargs)
 
-        self._id = id or str(uuid.uuid4())
         self._status = status
         self._reason_codes = list(reason_codes) 
         self._approved_amount = approved_amount
         self._apr = apr
         self._policy_version = policy_version
-        self._created_at = created_at
-        self._type = self.__class__.__name__
 
-        if not created_at:
-            EmitEvent.emit(event={
-                "event": "Decision Created",
-                "date": datetime.now(UTC),
-                "data": str(self),
-                "id": self.id
-            })
         self.validate()
 
-    
     def __eq__(self, other):
         if not isinstance(other, Decision):
             return NotImplemented
@@ -55,7 +44,6 @@ class Decision(
     
     def __str__(self): 
         return f"Decision({self.status}, reason_codes={self.reason_codes}, amount={self.approved_amount}, apr={self.apr}, policy={self.policy_version})"
-
 
     def isequal(self, other: Decision) -> bool:
         if not isinstance(other, Decision):
@@ -76,50 +64,39 @@ class Decision(
         self._id = value
 
     @property
-    def status(self):
+    def status(self) -> RuleStatus:
         return self._status
     @status.setter
-    def status(self, value):
+    def status(self, value: RuleStatus):
         self._status = value
+        self.updated_at = datetime.now(UTC)
 
     @property
-    def reason_codes(self):
+    def reason_codes(self) -> Tuple[str]:
         return tuple(sorted(set(self._reason_codes))) if self._reason_codes else tuple()
     @reason_codes.setter
-    def reason_codes(self, value):
+    def reason_codes(self, value: Any):
         self._reason_codes = list(value)
+        self.updated_at = datetime.now(UTC)
 
     @property
-    def approved_amount(self):
+    def approved_amount(self) -> Decimal:
         return self._approved_amount
     @approved_amount.setter
-    def approved_amount(self, value):
+    def approved_amount(self, value: Decimal):
         self._approved_amount = value
 
     @property
-    def apr(self):
+    def apr(self) -> Decimal:
         return self._apr
     @apr.setter
-    def apr(self, value):
+    def apr(self, value: Decimal):
         self._apr = value
 
     @property
-    def policy_version(self):
+    def policy_version(self) -> str:
         return self._policy_version
     @policy_version.setter
-    def policy_version(self, value):
+    def policy_version(self, value: str):
         self._policy_version = value
 
-    @property
-    def created_at(self):
-        return self._created_at
-    @created_at.setter
-    def created_at(self, value):
-        self._created_at = value
-
-    @property
-    def type(self):
-        return self._type
-    @type.setter
-    def type(self, value):
-        self._type = value

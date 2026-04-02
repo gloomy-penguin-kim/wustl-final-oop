@@ -6,8 +6,6 @@ from app.audit.hash_chain import HashChain
 from app.domain.application import LoanApplication
 from app.domain.decision import Decision
 from app.policies.policy_base import Policy
-from app.engine.loans import Loans
-from app.engine.policies import Policies
 
 class DecisionEngine():
     #

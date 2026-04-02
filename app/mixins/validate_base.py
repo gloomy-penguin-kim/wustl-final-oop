@@ -12,6 +12,9 @@ class ValidateBaseEntity(ABC):
     @property
     def is_validated(self) -> bool: return self.is_validated
 
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
     def validate(self):
         if self.id is None:
             raise ValidationError("Class instance attribute \"id\" is None")

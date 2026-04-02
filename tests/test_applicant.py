@@ -11,13 +11,14 @@ def test_applicant():
     ee = EmitEvent("tests/output/test_events.jsonl")
     ee.clear()
     jc = JsonCrud("tests/output/test_events.jsonl")
+    jc.clear()
 
     applicant = Applicant(
-        "Alice",
-        Decimal("80000"),
-        Decimal("1500"),
-        720,
-        "EMPLOYED"
+        name="Alice",
+        annual_income=Decimal("80000"),
+        monthly_debt=Decimal("1500"),
+        credit_score=720,
+        employment_status="EMPLOYED"
     )
 
     d = applicant.to_dict() 
@@ -26,7 +27,11 @@ def test_applicant():
  
     j = applicant.to_json()
 
-    a = Applicant.from_json(j) 
+    assert isinstance(j, str)
+
+    a = Applicant.from_json(j)
+
+    assert isinstance(a, Applicant)
 
     assert a.name == "Alice"
     assert a.annual_income == Decimal("80000")
@@ -44,5 +49,5 @@ def test_applicant():
     assert a.created_at == applicant.created_at
 
     assert len(hc) == 0
-    assert len(ee.events) == 1
+    assert len(ee.events) == 2
 

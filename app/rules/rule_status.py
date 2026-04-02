@@ -10,6 +10,9 @@ class RuleStatus(JsonSerializableMixin, Enum):
     DECLINE = "DECLINE"
     REFER = "REFER"
 
+    def __init__(self, *args, **kwargs):
+        super().__init__()
+
     def to_dict(self):
         return self.value
 

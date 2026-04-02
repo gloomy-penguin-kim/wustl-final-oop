@@ -1,8 +1,10 @@
 from __future__ import annotations
- 
+
+from app.audit import EmitEvent
 from app.audit.hash_chain import HashChain
+from app.persistence import JsonCrud
 from app.rules import Rule
-from app.rules import Status, RuleResult
+from app.rules import RuleStatus, RuleResult
 from app.rules.rule_registry import register_rule  
 
 from app.engine import Policies, Loans
@@ -25,7 +27,7 @@ class RuleToReturnRefer(Rule):
         self.reason = "refer test for rule codes"
 
     def apply(self, app, ctx) -> RuleResult:
-        result = RuleResult(Status.REFER, self.code) 
+        result = RuleResult(RuleStatus.REFER, self.code)
         ctx[result.status][self.code] = self.reason  
         return result
 
@@ -37,7 +39,7 @@ class RuleToReturnApproved1(Rule):
         self.reason = "approved test for rule codes 1"
 
     def apply(self, app, ctx) -> RuleResult:
-        result = RuleResult(Status.APPROVE, self.code) 
+        result = RuleResult(RuleStatus.APPROVE, self.code)
         ctx[result.status][self.code] = self.reason  
         return result
 
@@ -49,7 +51,7 @@ class RuleToReturnApproved2(Rule):
         self.reason = "approved test for rule codes 2"
 
     def apply(self, app, ctx) -> RuleResult:
-        result = RuleResult(Status.APPROVE, self.code) 
+        result = RuleResult(RuleStatus.APPROVE, self.code)
         ctx[result.status][self.code] = self.reason  
         return result
 
@@ -61,23 +63,21 @@ class RuleToDecline(Rule):
         self.reason = "declined test for rule codes 2"
 
     def apply(self, app, ctx) -> RuleResult:
-        result = RuleResult(Status.DECLINE, self.code) 
+        result = RuleResult(RuleStatus.DECLINE, self.code)
         ctx[result.status][self.code] = self.reason  
         return result
 
 
-def test_hash_chain_events(): 
+def test_hash_chain_events():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
 
-    with open(TEST_FILE, "w") as f:
-        f.write("")
 
-    audit = HashChain()
-
-    policies = Policies("tests/output/test_loans.jsonl")
-    policies.clear() 
-    policies.clear_sink() 
-
-    policy12 = policies.new(version="approved_1_2", type="RuleBasedPolicy", rules=[RuleToReturnApproved1(), RuleToReturnApproved2()])
+    policy12 = Policy.new(version="approved_1_2", type="RuleBasedPolicy", rules=[RuleToReturnApproved1(), RuleToReturnApproved2()])
     policy21 = policies.new("approved_2_1", "RuleBasedPolicy", [RuleToReturnApproved2(), RuleToReturnApproved1()])
     policy_refer = policies.new("refer_policy", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnRefer(), 
                                                                     RuleToReturnApproved2(), RuleToDecline()])

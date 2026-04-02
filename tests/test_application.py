@@ -5,11 +5,10 @@ import pytest
 
 from app.audit import HashChain, EmitEvent
 from app.domain import Applicant, LoanApplication
-from app.engine import Loans
+from app.domain.application import LoanAppInvalidIdError
 from app.mixins.validate_base import ValidationError
 from app.persistence import JsonCrud
 from app.persistence.json_crud import DuplicateIDError
-from app.settings import Config
 
 
 
@@ -22,11 +21,11 @@ def test_applicant():
     jc.clear()
 
     applicant = Applicant(
-            "Alice",
-            Decimal("80000"),
-            Decimal("1500"),
-            720,
-            "EMPLOYED"
+            name="Alice",
+            annual_income=Decimal("80000"),
+            monthly_debt=Decimal("1500"),
+            credit_score=720,
+            employment_status="EMPLOYED"
         )
 
     app = LoanApplication( 
@@ -34,7 +33,7 @@ def test_applicant():
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="A1000",
+        id="A1000",
     )
 
     d = app.to_dict() 
@@ -50,7 +49,7 @@ def test_applicant():
     assert a.applicant.credit_score == 720 
     assert a.applicant.employment_status == "EMPLOYED"
 
-    assert a.application_id == "A1000"
+    assert a.id == "A1000"
     assert a.requested_amount == Decimal("15000")
     assert a.term_months == 36
     assert a.purpose == "car"
@@ -79,7 +78,7 @@ def test_loans_crud():
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="tacobell"
+        id="tacobell"
     )
 
     app_copy = app.copy()
@@ -101,8 +100,12 @@ def test_loans_crud():
 
     LoanApplication.delete(app.id)
 
-    app.submit()
-    app.validate()
+    try:
+        app.submit()
+        app.validate()
+        raise AssertionError(f"not supposed to succeed.... {app.id}")
+    except LoanAppInvalidIdError:
+        pass
 
     app2 = LoanApplication(
         applicant={
@@ -115,7 +118,7 @@ def test_loans_crud():
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="tacobell"
+        id="tacobell"
     )
 
     app2.submit()
@@ -151,12 +154,11 @@ def test_loans_duplicate():
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="something_really_specific"
+        id="something_really_specific"
     )
 
-    print(app.application_id)
     try:
-        app = LoanApplication(
+        app2 = LoanApplication(
             applicant=Applicant(
                 name="Alice",
                 annual_income=Decimal("80000"),
@@ -167,10 +169,11 @@ def test_loans_duplicate():
             requested_amount=Decimal("15000"),
             term_months=36,
             purpose="car",
-            application_id="something_really_specific"
+            id=app.id
         )
         raise AssertionError("1 - not supposed to pass, DuplicateIDError")
-    except DuplicateIDError:
+
+    except DuplicateIDError, ValidationError:
         pass
 
     app2 = LoanApplication(
@@ -184,10 +187,10 @@ def test_loans_duplicate():
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="something_really_specific_else"
+        id="something_really_specific_else"
     )
     try:
-        app2.application_id = "something_really_specific"
+        app2.id = app.id
         raise AssertionError("2 - not supposed to pass, DuplicateIDError")
     except DuplicateIDError:
         pass
@@ -213,19 +216,19 @@ def test_loans_invalid():
                 name="Alice",
                 annual_income=Decimal("80000"),
                 monthly_debt=Decimal("1500"),
-                credit_score=720,
+                credit_score=0,
                 employment_status="EMPLOYED"
             ),
             requested_amount=Decimal("15000"),
             term_months=36,
             purpose="car"
         )
-        app.validate()
+        raise AssertionError("1 - not supposed to pass, invalid value errors: ValidationError")
     except ValidationError as e:
         assert str(e) == "Invalid credit score" 
 
     try:
-        app = LoanApplication( 
+        app = LoanApplication(
             applicant=Applicant(
                 name="Alice",
                 annual_income=Decimal("80000"),
@@ -238,6 +241,7 @@ def test_loans_invalid():
             purpose="car" 
         )
         app.validate()
+        raise AssertionError("2 - not supposed to pass, invalid value errors: ValidationError")
     except ValidationError as e:
         assert str(e) == "Invalid loan amount" 
  

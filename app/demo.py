@@ -29,7 +29,7 @@ app = LoanApplication(
     requested_amount=Decimal("15000"),
     term_months=36,
     purpose="car",
-    application_id="tacobell"
+    id="tacobell"
 )
 
 app_copy = app.copy()
@@ -66,7 +66,7 @@ app2 = LoanApplication(
     requested_amount=Decimal("15000"),
     term_months=36,
     purpose="car",
-    application_id="tacobell"
+    id="tacobell"
 )
 
 app2.submit()

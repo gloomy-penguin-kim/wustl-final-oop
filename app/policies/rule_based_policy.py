@@ -17,8 +17,8 @@ from app.rules.rule_status import RuleStatus
 @register_policy 
 class RuleBasedPolicy(Policy):
 
-    def __init__(self, version: str, rules: Any, created_at: datetime | None = None):
-        rr = []  
+    def __init__(self, rules: Any = None, **kwargs):
+        rr = []
         if Policy.is_list_of_strings(rules):
             r = [] 
             for s in (rules or []): 
@@ -26,7 +26,10 @@ class RuleBasedPolicy(Policy):
             rr = r   
         else:
             rr = cast(list[Rule], rules) 
-        super().__init__(version=version, rules=rr, created_at=created_at)
+        super().__init__(rules=rr, **kwargs)
+
+    def __repr__(self):
+        return super().__repr__()
 
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)
@@ -61,7 +64,7 @@ class RuleBasedPolicy(Policy):
                 reason_codes = reason_codes,
                 approved_amount = requested_amount,
                 apr = apr,
-                policy_version = self.version
+                policy_version = self.id
             ),
             human
         )

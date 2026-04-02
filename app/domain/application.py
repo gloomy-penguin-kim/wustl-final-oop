@@ -5,14 +5,19 @@ from decimal import Decimal
 import uuid
 from typing import Any
 
-from app.audit import EmitEvent, HashChain
+from app.audit import EmitEvent
+from app.domain.base import BaseEntity
 from app.mixins.json_serializable import JsonSerializableMixin
 from app.mixins.validate_application import ValidateApplicationMixin
 from app.domain.applicant import Applicant
 from app.persistence import JsonCrud
 
 
-class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud):
+class LoanAppInvalidIdError(Exception):
+    pass
+
+
+class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, BaseEntity):
 
     def __init__(
         self,
@@ -20,57 +25,25 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
         requested_amount: Decimal,
         term_months: int,
         purpose: str,
-        application_id: str | None = None,
-        created_at: datetime = None,
         submitted_at: datetime = None,
-        validated_at: datetime = None,
-        id: str = None,
-        type: str = None,
+        *args,
+        **kwargs
     ):
-        super().__init__()
-
-        JsonCrud.duplicate_check(application_id)
-
-        self._application_id = application_id or str(uuid.uuid4())
+        super().__init__(*args, **kwargs)
         self._requested_amount = requested_amount
         self._term_months = term_months
         self._purpose = purpose
         self._applicant = Applicant.to_applicant(applicant)
-        self._created_at = created_at or datetime.now(UTC)
         self._submitted_at = submitted_at
-        self._validated_at = validated_at
-        self._type = self.__class__.__name__
 
-        self._id = id or self.application_id
-
+        self.init(**kwargs)
         self.save()
 
-        if not created_at:
-            EmitEvent.emit(event={
-                "event": "Application Created",
-                "date": datetime.now(UTC),
-                "data": str(self),
-                "id": self.id
-            })
-
     def submit(self):
+        if not self.existing_id(self.id):
+            self.raise_not_existinig_error()
         self.submitted_at = datetime.now(UTC)
-        HashChain.append({
-            "event": "SUBMITTED",
-            "date": datetime.now(UTC),
-            "data": self.to_dict(),
-            "id": self.id
-        })
-
-    def validate(self):
-        super().validate()
-        HashChain.append({
-            "event": "VALIDATED",
-            "date": datetime.now(UTC),
-            "data": self.to_dict(),
-            "id": self.id
-        })
-
+        self.save()
     def requested_amount_vs_term_months_vs_income(self):  
         return ((self.requested_amount / self.term_months) * 12) / self.applicant.annual_income
 
@@ -80,26 +53,24 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
         obj.applicant = Applicant.to_applicant(obj.applicant)
         return obj
 
-    
     def __str__(self): 
-        return f"LoanApplication({self.applicant}, amount={self.requested_amount}, term_months={self.term_months}, purpose={self.purpose})"
+        return f"LoanApplication({self.applicant}, {self.requested_amount}, {self.term_months}, {self.purpose})"
+
+    def validate(self):
+        if not self.existing_id(self.id):
+            self.raise_not_existinig_error()
+        super().validate()
+        self.save()
 
     def save(self):
         self.save_to_file()
 
     @classmethod
-    def delete(cls, application_id):
-        cls.delete_from_file_by_id(application_id)
+    def delete(cls, id: str):
+        cls.delete_from_file_by_id(id, cls.__name__)
 
-
-    @property
-    def application_id(self) -> str:
-        return self._application_id
-    @application_id.setter
-    def application_id(self, application_id: str):
-        LoanApplication.duplicate_check(application_id)
-        self._application_id = application_id
-        self._id = application_id
+    def raise_not_existinig_error(self):
+        raise LoanAppInvalidIdError(f"the current loan application record (\"{self.id}\") is invalid according to file persistence: {JsonCrud.filename}")
 
     @property
     def requested_amount(self) -> Decimal:
@@ -107,7 +78,7 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
     @requested_amount.setter
     def requested_amount(self, requested_amount: Decimal):
         self._requested_amount = requested_amount
-        self.validate()
+        self.updated_at = datetime.now(UTC)
 
     @property
     def term_months(self) -> int:
@@ -115,7 +86,7 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
     @term_months.setter
     def term_months(self, term_months: int):
         self._term_months = term_months
-        self.validate()
+        self.updated_at = datetime.now(UTC)
 
     @property
     def purpose(self) -> str:
@@ -123,6 +94,7 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
     @purpose.setter
     def purpose(self, purpose: str):
         self._purpose = purpose
+        self.updated_at = datetime.now(UTC)
 
     @property
     def applicant(self) -> Applicant:
@@ -130,13 +102,7 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
     @applicant.setter
     def applicant(self, applicant: Any):
         self._applicant = Applicant.to_applicant(applicant)
-
-    @property
-    def created_at(self) -> datetime:
-        return self._created_at
-    @created_at.setter
-    def created_at(self, created_at: datetime):
-        self._created_at = created_at
+        self.updated_at = datetime.now(UTC)
 
     @property
     def submitted_at(self) -> datetime:
@@ -144,24 +110,9 @@ class LoanApplication(JsonSerializableMixin, ValidateApplicationMixin, JsonCrud)
     @submitted_at.setter
     def submitted_at(self, submitted_at: datetime):
         self._submitted_at = submitted_at
+        self.updated_at = datetime.now(UTC)
 
     @property
-    def validated_at(self) -> datetime:
-        return self._validated_at
-    @validated_at.setter
-    def validated_at(self, validated_at: datetime):
-        self._validated_at = validated_at
+    def is_submitted(self) -> bool:
+        return self.submitted_at is not None
 
-    @property
-    def id(self): return self._id
-    @id.setter
-    def id(self, value):
-        LoanApplication.duplicate_check(value)
-        self._id = value
-        self.application_id = value
-
-    @property
-    def type(self): return self._type
-    @type.setter
-    def type(self, value):
-        self._type = value

@@ -15,5 +15,5 @@ class ValidateApplicantMixin(ValidateBaseEntity):
         if not (self.annual_income >= 0):
             raise ValidationError("Invalid annual income")
         if self.created_at is None:
-            raise ValidationError("invalid created timestamp")
+            raise ValidationError("Invalid created timestamp")
         super().validate()
