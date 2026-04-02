@@ -2,17 +2,25 @@ from datetime import datetime
 from decimal import Decimal
 
 import pytest
- 
+
+from app.audit import HashChain, EmitEvent
 from app.domain import Applicant, LoanApplication
 from app.engine import Loans
+from app.mixins.validate_base import ValidationError
+from app.persistence import JsonCrud
+from app.persistence.json_crud import DuplicateIDError
 from app.settings import Config
 
-Config.AUDIT_FILE = "tests/output/test_audit.jsonl"
-Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
 
 
-def test_applicant(): 
-        
+def test_applicant():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+
     applicant = Applicant(
             "Alice",
             Decimal("80000"),
@@ -22,11 +30,11 @@ def test_applicant():
         )
 
     app = LoanApplication( 
-        applicant,
-        Decimal("15000"),
-        36,
-        "car",
-        application_id="A1000"
+        applicant=applicant,
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        application_id="A1000",
     )
 
     d = app.to_dict() 
@@ -48,117 +56,156 @@ def test_applicant():
     assert a.purpose == "car"
 
 
-def test_loans():
-    loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear() 
+def test_loans_crud():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
 
     applicant = Applicant(
-            name="Alice",
-            annual_income=Decimal("80000"),
-            monthly_debt=Decimal("1500"),
-            credit_score=720,
-            employment_status="EMPLOYED"
-        )
-    
-    app = LoanApplication( 
-        applicant=applicant,
-        requested_amount=Decimal("15000"),
-        term_months=36,
-        purpose="car"
+        "Alice",
+        Decimal("80000"),
+        Decimal("1500"),
+        720,
+        "EMPLOYED"
     )
 
-    loans.register(app)  
-    assert app.application_id in loans.items 
-    
-    app2 = loans.new( 
-        applicant=applicant,
-        requested_amount=Decimal("15000"),
-        term_months=36,
-        purpose="car"
-    )
+    LoanApplication.delete("tacobell")
 
-    assert isinstance(app2, LoanApplication)
-    assert app2.application_id in loans.items 
-    
-    app3 = loans.new({
-        "applicant": applicant,
-        "requested_amount": Decimal("15000"),
-        "term_months":36,
-        "purpose": "car" 
-        })
-
-    assert isinstance(app3, LoanApplication)
-    assert app3.application_id in loans.items 
-    
-    app4 = loans.new({     
-        "applicant": { "name": "bob", 
-                      "annual_income": Decimal(100000), 
-                      "monthly_debt": Decimal(2500), 
-                      "credit_score": 820, 
-                      "employment_status": "EMPLOYED" },
-        "requested_amount": Decimal("15000"),
-        "term_months":36,
-        "purpose": "car",
-        "application_id": "custom_id_1234"
-        })
-
-    assert isinstance(app4, LoanApplication)
-    assert isinstance(app4.applicant, Applicant)
-    assert app4.application_id in loans.items 
-    assert "custom_id_1234" in loans.items 
-     
-    loans.delete(app.application_id)
-    assert app.application_id not in loans.items 
-    assert app2.application_id in loans.items 
-    assert app3.application_id in loans.items   
-    assert app4.application_id in loans.items
-
-    loans.delete(app2.application_id)
-    assert app3.application_id in loans.items   
-    assert app4.application_id in loans.items 
-
-    loans.delete(app3.application_id)
-    assert app4.application_id in loans.items 
-
-    loans.delete(app4.application_id)
-    assert app4.application_id not in loans.items 
-    loans.clear() 
-    loans.clear_sink()
-
-
-def test_loans_duplicate():  
-    loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear() 
-
-    applicant = Applicant(
-            name="Alice",
-            annual_income=Decimal("80000"),
-            monthly_debt=Decimal("1500"),
-            credit_score=720,
-            employment_status="EMPLOYED"
-        )
-    
-    app = LoanApplication( 
+    app = LoanApplication(
         applicant=applicant,
         requested_amount=Decimal("15000"),
         term_months=36,
         purpose="car",
-        application_id="duplicate_id_1234"
+        application_id="tacobell"
     )
 
-    loans.register(app)  
-    assert app.application_id in loans.items 
+    app_copy = app.copy()
+    assert app.requested_amount == app_copy.requested_amount
+    assert app.created_at == app_copy.created_at
+    assert app.submitted_at == app_copy.submitted_at
+    assert app.validated_at == app_copy.validated_at
+    assert app.applicant.name == app_copy.applicant.name
+    assert app.applicant.isequal(app_copy.applicant)
 
-    with pytest.raises(ValueError): 
-        loans.register(app)
+    app.save()
 
-    loans.clear()
-    loans.clear_sink() 
+    assert app.requested_amount == app_copy.requested_amount
+    assert app.created_at == app_copy.created_at
+    assert app.submitted_at == app_copy.submitted_at
+    assert app.validated_at == app_copy.validated_at
+    assert app.applicant.name == app_copy.applicant.name
+    assert app.applicant.isequal(app_copy.applicant)
+
+    LoanApplication.delete(app.id)
+
+    app.submit()
+    app.validate()
+
+    app2 = LoanApplication(
+        applicant={
+            "name": "Bob",
+            "annual_income": Decimal("15000"),
+            "monthly_debt": Decimal("300"),
+            "credit_score": 800,
+            "employment_status": "SOCIAL SECURITY"
+        },
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        application_id="tacobell"
+    )
+
+    app2.submit()
+    app_copy = app2.copy()
+    app2.validate()
+
+    assert app2.requested_amount == app_copy.requested_amount
+    assert app2.created_at == app_copy.created_at
+    assert app2.submitted_at == app_copy.submitted_at
+    assert app2.validated_at != app_copy.validated_at
+    assert app2.applicant.name == app_copy.applicant.name
+    assert app2.applicant.isequal(app_copy.applicant)
 
 
-def test_loans_invalid(): 
-    loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear_sink() 
+def test_loans_duplicate():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+
+    assert LoanApplication.load_from_file("something_really_specific") is None
+
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("80000"),
+            monthly_debt=Decimal("1500"),
+            credit_score=720,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        application_id="something_really_specific"
+    )
+
+    print(app.application_id)
+    try:
+        app = LoanApplication(
+            applicant=Applicant(
+                name="Alice",
+                annual_income=Decimal("80000"),
+                monthly_debt=Decimal("1500"),
+                credit_score=720,
+                employment_status="EMPLOYED"
+            ),
+            requested_amount=Decimal("15000"),
+            term_months=36,
+            purpose="car",
+            application_id="something_really_specific"
+        )
+        raise AssertionError("1 - not supposed to pass, DuplicateIDError")
+    except DuplicateIDError:
+        pass
+
+    app2 = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("80000"),
+            monthly_debt=Decimal("1500"),
+            credit_score=720,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        application_id="something_really_specific_else"
+    )
+    try:
+        app2.application_id = "something_really_specific"
+        raise AssertionError("2 - not supposed to pass, DuplicateIDError")
+    except DuplicateIDError:
+        pass
+
+    try:
+        app2.id = "something_really_specific"
+        raise AssertionError("3 - not supposed to pass, DuplicateIDError")
+    except DuplicateIDError:
+        pass
+
+
+def test_loans_invalid():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
 
     try: 
         app = LoanApplication( 
@@ -173,7 +220,8 @@ def test_loans_invalid():
             term_months=36,
             purpose="car"
         )
-    except ValueError as e:
+        app.validate()
+    except ValidationError as e:
         assert str(e) == "Invalid credit score" 
 
     try:
@@ -189,7 +237,8 @@ def test_loans_invalid():
             term_months=36,
             purpose="car" 
         )
-    except ValueError as e:
+        app.validate()
+    except ValidationError as e:
         assert str(e) == "Invalid loan amount" 
  
     app = LoanApplication( 
@@ -204,35 +253,7 @@ def test_loans_invalid():
         term_months=36,
         purpose="car"
     )
+    app.validate()
 
 
-    loans.clear()
-    loans.clear_sink()
 
-
-def test_loans_to_json():
-    loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear_sink()
-
-    app = LoanApplication(
-        applicant=Applicant(
-            name="Alice",
-            annual_income=Decimal("0"),
-            monthly_debt=Decimal("1500"),
-            credit_score=700,
-            employment_status="EMPLOYED"
-        ),
-        requested_amount=Decimal("15000"),
-        term_months=36,
-        purpose="car",
-        application_id="testing_tacos_are_soft_tacos"
-    )
-
-    j = app.to_json()
-    assert "testing_tacos_are_soft_tacos" in j
-    l = LoanApplication.from_json(j)
-    assert "testing_tacos_are_soft_tacos" == l.application_id
-    assert app.submitted_at == l.submitted_at
-
-    loans.clear()
-    loans.clear_sink()

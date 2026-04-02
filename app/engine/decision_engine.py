@@ -9,41 +9,41 @@ from app.policies.policy_base import Policy
 from app.engine.loans import Loans
 from app.engine.policies import Policies
 
-class DecisionEngine(EmitEvent, HashChain):
+class DecisionEngine():
+    #
+    # def __init__(self, loans: Loans, policies: Policies, **kwargs):
+    #     super().__init__(**kwargs)
+    #     self.policies = policies
+    #     self.loans = loans
 
-    def __init__(self, loans: Loans, policies: Policies, **kwargs):
-        super().__init__(**kwargs)
-        self.policies = policies 
-        self.loans = loans
- 
     @overload 
-    def run(self, application: str, policy_version: str): ...
+    def run(self, application: str, policy_version: str) -> Tuple[Decision, Dict]: ...
     @overload 
-    def run(self, application: LoanApplication, policy_version: str): ...
+    def run(self, application: LoanApplication, policy_version: str) -> Tuple[Decision, Dict]: ...
     @overload 
-    def run(self, application: str, policy_version: Policy): ...
+    def run(self, application: str, policy_version: Policy) -> Tuple[Decision, Dict]: ...
     @overload 
-    def run(self, application: LoanApplication, policy_version: Policy): ...
+    def run(self, application: LoanApplication, policy_version: Policy) -> Tuple[Decision, Dict]: ...
 
     def run(self, application, policy_version) -> Tuple[Decision, Dict]:
         if isinstance(application, str):
-            application = self.loans.get(application)
+            application = LoanApplication.load_from_file(application)
+            if not application.is_validated:
+                raise ValueError("Loan application is not validated.")
         if isinstance(policy_version, str):
-            policy_version = self.policies.get(policy_version)
+            policy_version = Policy.load_from_file(policy_version)
         return self.run_app_policy(application, policy_version)
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):
         decision, ctx = policy.evaluate(application) 
-        self.chain_event({
-            "event": "DECISIONED",
-            "id": decision.decision_id,
-            "application_id": application.application_id,
-            "policy_version": policy.version,
-            "decision": decision.to_dict()  
-        }) 
+        # self.chain_event({
+        #     "event": "DECISIONED",
+        #     "id": decision.decision_id,
+        #     "application_id": application.application_id,
+        #     "policy_version": policy.version,
+        #     "decision": decision.to_dict()
+        # })
         return decision, ctx
 
-    def replay(self, application_id: str, policy_version: str) -> Tuple[Decision, Dict]: 
-        application = self.loans.get(application_id)
-        policy = self.policies.get(policy_version)
-        return self.run_app_policy(application, policy)
+    def replay(self, application_id: str, policy_version: str) -> Tuple[Decision, Dict]:
+        return self.run(application_id, policy_version)

@@ -8,7 +8,7 @@ from app.domain.decision import Decision
 from app.policies.policy_base import Policy
 from app.policies.policy_registry import register_policy
 from app.rules.rule_base import Rule
-from app.rules.rule_result import Status
+from app.rules.rule_status import RuleStatus
 
 @register_policy
 class ScorecardPolicy(Policy):
@@ -86,7 +86,7 @@ class ScorecardPolicy(Policy):
         if score >= 75:
             return (
                 Decision(
-                    status = Status.APPROVE,
+                    status = RuleStatus.APPROVE,
                     reason_codes = reason_codes,
                     approved_amount = app.requested_amount,
                     apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP),
@@ -98,7 +98,7 @@ class ScorecardPolicy(Policy):
         elif score >= 50:
             return (
                 Decision(
-                    status = Status.REFER,
+                    status = RuleStatus.REFER,
                     reason_codes = reason_codes,
                     approved_amount = Decimal(0),
                     apr = Decimal(0),
@@ -109,7 +109,7 @@ class ScorecardPolicy(Policy):
 
         return (
             Decision(
-                status = Status.DECLINE,
+                status = RuleStatus.DECLINE,
                 reason_codes = reason_codes,
                 policy_version = self.version
             ),

@@ -4,7 +4,7 @@ from app.domain import Decision
 from app.domain.base import BaseEntity
 from app.mixins.hash_chain_mixin import HashChainAuditMixin
 from app.mixins.json_serializable import JsonSerializableMixin
-from app.mixins.validatable import ValidatableMixin
+from app.mixins.validate_decision import ValidatableMixin
 from app.rules import Status
 from app.engine import Loans, Wrapper
 from app.audit import EmitEvent

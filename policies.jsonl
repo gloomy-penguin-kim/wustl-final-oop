@@ -1,4 +1,0 @@
-{"type": "Policies", "id": "scorecard", "version": "scorecard", "data": {"version": "scorecard", "rules": [], "type": "ScorecardPolicy", "created_at": "2026-03-23 09:54:32.954560+00:00"}}
-{"type": "Policies", "id": "rule_based_123", "version": "rule_based_123", "data": {"version": "rule_based_123", "rules": ["CreditScoreRule", "DtiRule"], "type": "RuleBasedPolicy", "created_at": "2026-03-23 09:58:29.647251+00:00"}}
-{"type": "Policies", "id": "scorecard", "version": "scorecard", "data": {"version": "scorecard", "rules": [], "type": "ScorecardPolicy", "created_at": "2026-03-23 09:58:29.647605+00:00"}}
-{"type": "Policies", "id": "rule_based_1234444", "version": "rule_based_1234444", "data": {"version": "rule_based_1234444", "rules": ["CreditScoreRule"], "type": "RuleBasedPolicy", "created_at": "2026-03-23 09:58:29.648283+00:00"}}

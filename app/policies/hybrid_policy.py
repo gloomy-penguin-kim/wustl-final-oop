@@ -11,14 +11,14 @@ from app.policies.policy_registry import register_policy
 from app.rules.rule_base import Rule
 from app.domain.application import LoanApplication
 from app.rules.rule_registry import RULE_REGISTRY
-from app.rules.rule_result import Status, RuleResult
+from app.rules.rule_result import RuleResult
+from app.rules.rule_status import RuleStatus
 
 
 @register_policy
 class HybridPolicy(Policy):
 
     def __init__(self, version: str, rules: Any, created_at: datetime | None = None):
-        rr = []
         if Policy.is_list_of_strings(rules):
             r = []
             for s in (rules or []):
@@ -31,7 +31,7 @@ class HybridPolicy(Policy):
     def evaluate(self, app: LoanApplication) -> Tuple[Decision, dict]:
         self.policy_selected(app)
 
-        result = RuleResult(Status.APPROVE, "")
+        result = RuleResult(RuleStatus.APPROVE, "")
         ctx = defaultdict(dict)
         reason_codes = []
         apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
@@ -39,32 +39,32 @@ class HybridPolicy(Policy):
 
         for rule in self._rules:
             result = rule.apply(app, ctx)
-            if result.status == Status.DECLINE:
+            if result.status == RuleStatus.DECLINE:
                 break
-            elif result.status == Status.REFER:
+            elif result.status == RuleStatus.REFER:
                 break
 
             reason_codes.append(result.code)
 
-        if result.status == Status.DECLINE:
+        if result.status == RuleStatus.DECLINE:
             apr = None
             requested_amount = None
-        elif result.status == Status.REFER:
+        elif result.status == RuleStatus.REFER:
             apr = Decimal(0)
             requested_amount = Decimal(0)
 
         human = ctx[result.status]
         reason_codes = list(human.keys())
 
-        if result.status == Status.REFER:
+        if result.status == RuleStatus.REFER:
             if app.applicant.existing_customer:
-                result.status = Status.APPROVE
+                result.status = RuleStatus.APPROVE
                 apr = Decimal(0.25).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
                 requested_amount = Decimal(0.75) * app.requested_amount
 
-        if result.status == Status.DECLINE:
+        if result.status == RuleStatus.DECLINE:
             if app.applicant.employment_status != "UNEMPLOYED" and app.applicant.dti() <= 45:
-                result.status = Status.REFER
+                result.status = RuleStatus.REFER
                 apr = Decimal(0)
                 requested_amount = Decimal(0)
 

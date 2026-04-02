@@ -8,9 +8,13 @@ from decimal import Decimal
 
 class JsonSerializableMixin: 
 
+    def __init__(self, *args, **kwargs):
+        pass
+
     def to_dict(self):
         data = dict() 
-        for key, value in self.__dict__.items():  
+        for key, value in self.__dict__.items():
+            if key[0] == '_': key = key[1:]
             if isinstance(value, Decimal):
                 data[key] = str(value) 
             elif isinstance(value, datetime):
@@ -38,10 +42,14 @@ class JsonSerializableMixin:
                     processed[key] = datetime.fromisoformat(value)
                     continue
                 except:
-                    pass 
+                    pass
+
             processed[key] = value 
         return cls(**processed)
     
     @classmethod
     def from_json(cls, s): 
-        return cls.from_dict(json.loads(s)) 
+        return cls.from_dict(json.loads(s))
+
+    def copy(self):
+        return self.__class__.from_json((self.to_json()))

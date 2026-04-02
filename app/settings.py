@@ -1,7 +1,10 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Settings:
     EVENTS_FILE = "events.jsonl"
     AUDIT_FILE = "audit.jsonl"
-Config = Settings()
+    PERSISTENCE_FILE = "persistence.jsonl"
 
-import logging
-logging.basicConfig(level=logging.INFO)
+Config = Settings()

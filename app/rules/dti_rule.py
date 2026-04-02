@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from app.domain.application import LoanApplication
-from app.rules.rule_result import Status, RuleResult
+from app.rules.rule_result import RuleResult
+from app.rules.rule_status import RuleStatus
 from app.rules.rule_base import Rule
 from app.rules.rule_registry import register_rule  
 
@@ -11,17 +11,17 @@ class DtiRule(Rule):
         self.code = "DIT30" 
         self.reason = "DTI check"
 
-    def apply(self, app: LoanApplication, ctx: dict) -> RuleResult:
-         
-        result = RuleResult(Status.APPROVE, self.code)
+    def apply(self, app, ctx: dict) -> RuleResult:
+
+        result = RuleResult(RuleStatus.APPROVE, self.code)
         reason = self.reason 
          
         if app.applicant.dti() >= 0.50:
-            result.status = Status.DECLINE
+            result.status = RuleStatus.DECLINE
             reason = "DTI is above 0.50"
 
         elif app.applicant.dti() > 0.43:
-            result.status = Status.REFER
+            result.status = RuleStatus.REFER
             reason = "DTI is above 0.43"
 
         ctx[result.status][self.code] = reason  

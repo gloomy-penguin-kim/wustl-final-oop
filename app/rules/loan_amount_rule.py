@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from app.domain.application import LoanApplication
-from app.rules.rule_result import Status, RuleResult
+from app.rules.rule_result import RuleResult
+from app.rules.rule_status import RuleStatus
 from app.rules.rule_base import Rule
 from app.rules.rule_registry import register_rule  
 
@@ -13,17 +14,17 @@ class LoanAmountRule(Rule):
 
     def apply(self, app: LoanApplication, ctx: dict) -> RuleResult: 
         
-        result = RuleResult(Status.DECLINE, self.code)
+        result = RuleResult(RuleStatus.DECLINE, self.code)
         reason = self.reason   
 
         monthly_disposable = app.applicant.income_vs_monthly_debt() 
         monthly_payment = app.requested_amount / app.term_months
 
         if monthly_disposable > monthly_payment * 4:
-            result.status = Status.APPROVE
+            result.status = RuleStatus.APPROVE
         
         if monthly_disposable > float(monthly_payment) * 2.5:
-            result.status = Status.REFER
+            result.status = RuleStatus.REFER
           
         ctx[result.status][self.code] = reason  
 
