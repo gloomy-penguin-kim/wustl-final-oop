@@ -3,22 +3,19 @@ from __future__ import annotations
 from app.audit import EmitEvent
 from app.audit.hash_chain import HashChain
 from app.persistence import JsonCrud
-from app.rules import Rule
+from app.policies import ScorecardPolicy, RuleBasedPolicy, HybridPolicy
+from app.rules import Rule, EmploymentRule, DtiRule, CreditScoreRule
 from app.rules import RuleStatus, RuleResult
+from app.rules.loan_amount_rule import LoanAmountRule
 from app.rules.rule_registry import register_rule  
 
-from app.engine import Policies, Loans
-from app.domain import LoanApplication
+from app.domain import LoanApplication, Applicant
 from app.engine import DecisionEngine  
 from app.settings import Config
 
 from decimal import Decimal
 import random
 
-TEST_FILE = "tests/output/test_audit.jsonl"
-
-Config.AUDIT_FILE = TEST_FILE
-Config.EVENTS_FILE_FILE = "tests/output/test_events.jsonl"
 
 @register_rule
 class RuleToReturnRefer(Rule):
@@ -69,93 +66,82 @@ class RuleToDecline(Rule):
 
 
 def test_hash_chain_events():
-    hc = HashChain("tests/output/test_audit.jsonl")
+    TEST_AUDIT_FILE = "tests/output/test_audit.jsonl"
+    hc = HashChain(TEST_AUDIT_FILE)
     hc.clear()
     ee = EmitEvent("tests/output/test_events.jsonl")
     ee.clear()
     jc = JsonCrud("tests/output/test_persistence.jsonl")
     jc.clear()
 
+    sc_policy = ScorecardPolicy(id="testing_tacos_are_soft_tacos")
+    ru_policy = RuleBasedPolicy(id="testing_tacos_are_ruly_tacos", rules=[RuleToReturnRefer(), RuleToReturnApproved1()])
+    hy_policy = HybridPolicy(id="testing_tacos_are_hybrid_tacos", rules=[RuleToReturnApproved2(), RuleToReturnApproved1(), RuleToDecline()])
 
-    policy12 = Policy.new(version="approved_1_2", type="RuleBasedPolicy", rules=[RuleToReturnApproved1(), RuleToReturnApproved2()])
-    policy21 = policies.new("approved_2_1", "RuleBasedPolicy", [RuleToReturnApproved2(), RuleToReturnApproved1()])
-    policy_refer = policies.new("refer_policy", "RuleBasedPolicy", [RuleToReturnApproved1(), RuleToReturnRefer(), 
-                                                                    RuleToReturnApproved2(), RuleToDecline()])
-    policy_declined = policies.new("declined", "RuleBasedPolicy", ["RuleToReturnApproved1", "RuleToReturnApproved2", "RuleToDecline"])
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("80000"),
+            monthly_debt=Decimal("1500"),
+            credit_score=720,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car",
+        id="something_really_specific"
+    )
+    app.submit()
+    app.validate()
 
-    loans = Loans("tests/output/test_loans.jsonl")
-    loans.clear()
+    engine = DecisionEngine()
+    decision, ctx = engine.run(app, sc_policy)
 
-    engine = DecisionEngine(loans, policies)
+    assert len(hc.chain) == 5
+    assert hc.chain[0]["event"] == "SUBMITTED"
+    assert hc.chain[1]["event"] == "VALIDATED"
+    assert hc.chain[2]["event"] == "POLICY_SELECTED"
+    assert hc.chain[3]["event"] == "POLICY_EVALUATED"
+    assert hc.chain[4]["event"] == "DECISIONED"
 
-    loan = loans.new({
-        "applicant": {
-            "name": "Test Applicant",
-            "credit_score": 700,
-            "annual_income": Decimal("50000"),
-            "monthly_debt": Decimal("1000"),
-            "employment_status": "employed"
-        },
-        "requested_amount": Decimal("10000"),
-        "term_months": 36,
-        "purpose": "debt_consolidation"
-    })
+    app2 = LoanApplication(
+        applicant=Applicant(
+            name="Bob",
+            annual_income=Decimal("20000"),
+            monthly_debt=Decimal("300"),
+            credit_score=720,
+            employment_status="DISABLED"
+        ),
+        requested_amount=Decimal("90000"),
+        term_months=36,
+        purpose="car",
+        id="APP101023",
+    )
 
-    print("----------------------", len(audit.chain))
-    
-    assert loan.application_id == HashChain.chain[-1].get("id", "")
-    assert "SUBMITTED" == HashChain.chain[-1].get("event", "") 
-
-    decision1, ctx1 = engine.run(loan, policy12) 
-    assert "DECISIONED" == audit.chain[-1].get("event", "") 
-    assert loan.application_id == audit.chain[-1].get("application_id", "")
-    assert policy12.version == audit.chain[-1].get("policy_version", "")
-
-    decision2, ctx2 = engine.run(loan, policy21)   
-    assert "DECISIONED" == audit.chain[-1].get("event", "") 
-    assert loan.application_id == audit.chain[-1].get("application_id", "")
-    assert policy21.version == audit.chain[-1].get("policy_version", "")
-
-    decision3, ctx3 = engine.run(loan, policy_refer) 
-    assert "DECISIONED" == audit.chain[-1].get("event", "") 
-    assert loan.application_id == audit.chain[-1].get("application_id", "")
-    assert policy_refer.version == audit.chain[-1].get("policy_version", "")
-
-    decision4, ctx4 = engine.run(loan, policy_declined)  
-    assert "DECISIONED" == audit.chain[-1].get("event", "") 
-    assert loan.application_id == audit.chain[-1].get("application_id", "")
-    assert policy_declined.version == audit.chain[-1].get("policy_version", "")
-
-    decision5, ctx5 = engine.run(loan, policy12)
-    decision6, ctx6 = engine.run(loan, policy12) 
+    app2.submit()
+    app2.validate()
+    decision5, ctx5 = engine.run(app2, ru_policy)
+    decision6, ctx6 = engine.run(app2, hy_policy)
+    decision5, ctx5 = engine.run(app2, sc_policy)
+    decision6, ctx6 = engine.run(app, hy_policy)
 
     lines = [] 
-    with open(TEST_FILE, "r") as f:
+    with open(TEST_AUDIT_FILE, "r") as f:
         lines = f.readlines()
     if lines:  
         idx = random.randrange(1,len(lines)-2)
         removed_line = lines.pop(idx) 
-    with open(TEST_FILE, "w") as f:
+    with open(TEST_AUDIT_FILE, "w") as f:
         f.writelines(lines)
 
     print("lines in the file", len(lines)) 
-    print("removed line", idx)
-    result = audit.verify_chain()
-    assert idx == result[1] 
-    assert result[0] == False
- 
-    idx = random.randrange(1,len(audit.chain)-2)
-    audit.chain.pop(idx)
-    result = audit.verify_chain()
-
-    print("lines in the file", len(audit.chain))
-    print("removed line", idx)
+    print("removed line", idx, removed_line)
+    result = HashChain.verify_chain()
     assert idx == result[1] 
     assert result[0] == False
 
-    loans.clear()
-    policies.clear() 
-    with open(TEST_FILE, "w") as f:
-        f.write("")
- 
+
+def test_hash_chain():
+     for _ in range(10):
+         test_hash_chain_events()
     

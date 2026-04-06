@@ -40,14 +40,12 @@ def test_applicant():
     assert a.employment_status == "EMPLOYED"
     assert a.created_at == applicant.created_at
 
-    a = Applicant.copy(applicant)
+    a = applicant.copy()
     assert a.name == "Alice"
     assert a.annual_income == Decimal("80000")
     assert a.monthly_debt == Decimal("1500")
     assert a.credit_score == 720
     assert a.employment_status == "EMPLOYED"
     assert a.created_at == applicant.created_at
-
-    assert len(hc) == 0
-    assert len(ee.events) == 2
-
+    assert a.updated_at == applicant.updated_at
+    assert a.validated_at == applicant.validated_at

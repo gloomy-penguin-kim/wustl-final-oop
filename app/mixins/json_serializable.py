@@ -28,18 +28,10 @@ class JsonSerializableMixin:
         return data
     
     def to_json(self):
-        b4_created_at = self.created_at
-        b4_validated_at = self.validated_at
-        b4_updated_at = self.updated_at
-        j = json.dumps(self.to_dict(), default=str)
-        d = json.loads(j)
-        # assert d.get("created_at") == b4_created_at
-        # assert d.get("validated_at") == b4_validated_at
-        # assert d.get("updated_at") == b4_updated_at
-        return j
+        return json.dumps(self.to_dict(), default=str)
 
     @classmethod
-    def from_dict(cls, data): 
+    def from_dict(cls, data):
         processed = dict()  
         for key, value in data.items(): 
             if isinstance(value, str): 
@@ -54,7 +46,7 @@ class JsonSerializableMixin:
                 except:
                     pass
 
-            processed[key] = value 
+            processed[key] = value
         return cls(**processed)
     
     @classmethod
@@ -63,9 +55,5 @@ class JsonSerializableMixin:
 
     def copy(self):
         d = self.to_dict()
-        print("created_at dict", d.get("created_at"))
-        print("validated_at dict", d.get("validated_at"))
         obj = self.__class__.from_dict(d)
-        print("created_at obj", obj.created_at)
-        print("validated_at obj", obj.validated_at)
         return obj

@@ -6,32 +6,36 @@ import json
 from typing import Any, Tuple, cast
 
 from app.audit import HashChain, EmitEvent
-from app.domain.base import BaseEntity
-from app.domain.decision import Decision 
-from app.mixins.json_serializable import JsonSerializableMixin
+from app.domain.base_entity import BaseEntity
+from app.domain.decision import Decision
 from app.mixins.validate_policy import ValidatePolicyMixin
 from app.policies.policy_registry import POLICY_REGISTRY
 from app.rules import Rule
 from app.rules import RULE_REGISTRY
 
 
-class Policy(ValidatePolicyMixin, JsonSerializableMixin, BaseEntity, ABC):
+class Policy(ValidatePolicyMixin, BaseEntity, ABC):
 
     def __init__(self,
                  rules: list[Rule] = None,
+                 *args,
                  **kwargs):
-        super().__init__(**kwargs)
 
-        self._policy = self.__class__.__name__
-
-        self._rules = rules or []
         kwargs["type"] = "Policy"
         kwargs["policy"] = self.__class__.__name__
 
-        self.init(**kwargs)
+        super().__init__(*args, **kwargs)
 
-        assert self.type == "Policy"
-        assert self.policy == self.__class__.__name__
+        self._policy = self.__class__.__name__
+        self._rules = rules or []
+
+        self.init(**kwargs)
+        self.save()
+
+    def _update_id(self, new_id: int, type: str):
+        prev_id = self.id
+        super()._update_id(new_id, type)
+        Policy.delete_from_file_by_id(prev_id)
         self.save()
 
     @abstractmethod
@@ -69,48 +73,30 @@ class Policy(ValidatePolicyMixin, JsonSerializableMixin, BaseEntity, ABC):
 
     def to_dict(self):
         data = super().to_dict()
-        print("data", data)
-        ### this is why the function is here ###
         data["rules"] = self.rules_as_strings
-        ########################################
-        # data["id"] = self.id
-        # data["type"] = "Policy"
-        # data["created_at"] = self.created_at
-        # data["validated_at"] = self.validated_at
-        # data["updated_at"] = self.updated_at
         return data
 
     @classmethod
     def from_dict(cls, data: dict, **kwargs) -> Policy:
-        created_at = data.get("created_at", datetime.now(UTC))
-        created_at = datetime.fromisoformat(created_at) if isinstance(created_at, str) else created_at
-
-        validated_at = data.get("validated_at", None)
-        validated_at = datetime.fromisoformat(validated_at) if isinstance(validated_at, str) else validated_at
-
-        updated_at = data.get("updated_at", created_at)
-        updated_at = datetime.fromisoformat(updated_at) if isinstance(updated_at, str) else updated_at
-
-        kwargs.update({"id": data.get("id"),
-                       "created_at": created_at,
-                       "validated_at": validated_at,
-                       "updated_at": updated_at})
-
-        return (POLICY_REGISTRY[data.get("policy")]
-                (rules=data.get("rules"), **kwargs))
+        obj = POLICY_REGISTRY[data.get("policy")](rules=data.pop("rules"), **data)
+        return obj
 
     def validate(self):
-        super().validate()
-        print("VALIDATE", self.__class__.__name__)
         self.save()
+        super().validate()
+        EmitEvent.emit({
+            "event": "POLICY_VALIDATED",
+            "id": self.id,
+            "date": datetime.now(UTC),
+            "data": self.to_dict()
+        })
 
-    def save(self):
-        self.save_to_file(type="Policy")
+    def save(self, type: str="Policy", id: str=None):
+        super().save(type=type)
 
     @classmethod
-    def delete(cls, id: str):
-        cls.delete_from_file_by_id(id, "Policy")
-
+    def delete(cls, id: str, type: str="Policy"):
+        super().delete(id, type)
 
     @property
     def policy(self) -> str:
@@ -118,15 +104,15 @@ class Policy(ValidatePolicyMixin, JsonSerializableMixin, BaseEntity, ABC):
     @policy.setter
     def policy(self, policy: str):
         self._policy = policy
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now(UTC)
 
     @property
     def rules(self) -> list[Rule]:
         return self._rules
     @rules.setter
     def rules(self, rules: list[Rule]):
-        self._rules = rules
-        self.updated_at = datetime.now(UTC)
+        self._rules = Policy.str_to_rules(rules)
+        self._updated_at = datetime.now(UTC)
 
     @property
     def rules_as_strings(self) -> list[str]:

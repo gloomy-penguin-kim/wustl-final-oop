@@ -7,7 +7,7 @@ from app.domain.application import LoanApplication
 from app.domain.decision import Decision
 from app.policies.policy_base import Policy
 
-class DecisionEngine():
+class DecisionEngine:
     #
     # def __init__(self, loans: Loans, policies: Policies, **kwargs):
     #     super().__init__(**kwargs)
@@ -33,14 +33,16 @@ class DecisionEngine():
         return self.run_app_policy(application, policy_version)
 
     def run_app_policy(self, application: LoanApplication, policy: Policy):
+        if not application.is_validated:
+            raise ValueError("Loan application is not validated.")
         decision, ctx = policy.evaluate(application) 
-        # self.chain_event({
-        #     "event": "DECISIONED",
-        #     "id": decision.decision_id,
-        #     "application_id": application.application_id,
-        #     "policy_version": policy.version,
-        #     "decision": decision.to_dict()
-        # })
+        HashChain.append({
+            "event": "DECISIONED",
+            "id": decision.id,
+            "application_id": application.id,
+            "policy_version": policy.id,
+            "decision": decision.to_dict()
+        })
         return decision, ctx
 
     def replay(self, application_id: str, policy_version: str) -> Tuple[Decision, Dict]:

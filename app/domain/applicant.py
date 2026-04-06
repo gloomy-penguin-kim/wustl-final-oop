@@ -4,12 +4,12 @@ import uuid
 from datetime import datetime, UTC 
 from decimal import Decimal
 
-from app.domain.base import BaseEntity
+from app.domain.base_entity import BaseEntity
 from app.mixins.json_serializable import JsonSerializableMixin
 from app.mixins.validate_applicant import ValidateApplicantMixin
 
 
-class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
+class Applicant(ValidateApplicantMixin, BaseEntity):
 
     def __init__(
         self,
@@ -33,6 +33,11 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
 
         self.init(**kwargs)
         if not self.validated_at: self.validate()
+
+    def __eq__(self, other: Applicant):
+        if isinstance(other, Applicant):
+            return self.isequal(other)
+        return False
 
     def dti(self):
         if self.annual_income == 0:
@@ -59,9 +64,9 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     def name(self) -> str:
         return self._name
     @name.setter
-    def name(self, value:str):
+    def name(self, value: str):
         self._name = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 
     @property
     def annual_income(self) -> Decimal:
@@ -69,7 +74,7 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     @annual_income.setter
     def annual_income(self, value: Decimal):
         self._annual_income = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 
     @property
     def monthly_debt(self) -> Decimal:
@@ -77,7 +82,7 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     @monthly_debt.setter
     def monthly_debt(self, value: Decimal):
         self._monthly_debt = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 
     @property
     def credit_score(self) -> int:
@@ -85,7 +90,7 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     @credit_score.setter
     def credit_score(self, value: int):
         self._credit_score = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 
     @property
     def employment_status(self) -> str:
@@ -93,7 +98,7 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     @employment_status.setter
     def employment_status(self, value: str):
         self._employment_status = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 
     @property
     def existing_customer(self) -> bool:
@@ -101,5 +106,5 @@ class Applicant(JsonSerializableMixin, ValidateApplicantMixin, BaseEntity):
     @existing_customer.setter
     def existing_customer(self, value: bool):
         self._existing_customer = value
-        self.updated_at = datetime.now(UTC)
+        self._updated_at = datetime.now()
 

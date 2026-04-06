@@ -20,7 +20,6 @@ class HashChain(HashChainAuditMixin):
     def __init__(self, filename: str = None, **kwargs):
         super().__init__(**kwargs)
         HashChain.filename = filename or HashChain.filename
-        print("HashChain.filename", HashChain.filename)
         HashChain.last_hash = self._get_last_hash_from_file() or "genesis"
 
     @classmethod
@@ -41,8 +40,9 @@ class HashChain(HashChainAuditMixin):
             "id": event.get("id")
         })
 
-    def verify_chain(self) -> Tuple[bool, int | None]:
-        return self.verify_chain_in_file() 
+    @classmethod
+    def verify_chain(cls) -> Tuple[bool, int | None]:
+        return cls.verify_chain_in_file()
 
     def clear(self):   
         with open(HashChain.filename, "w", encoding="utf-8") as f:

@@ -7,6 +7,7 @@ from app.audit.utility import hash_event
 
 
 class HashChainAuditMixin:
+    filename = ""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

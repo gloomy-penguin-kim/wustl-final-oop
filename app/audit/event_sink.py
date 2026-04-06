@@ -44,7 +44,11 @@ class PrintEventSink(EventSink):
 
     @classmethod
     def emit(cls, event: dict):
-        print("emit...", event.get("date").strftime("%Y-%m-%d %H:%M"), event.get("id"), event.get("event"), event.get("data",""))
+        print("emit...",
+              event.get("date").strftime("%Y-%m-%d %H:%M"),
+              event.get("id"),
+              event.get("event"),
+              event.get("data") or "")
         super().emit(event)
 
     @classmethod

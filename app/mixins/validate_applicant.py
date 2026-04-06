@@ -5,7 +5,11 @@ from app.mixins.validate_base import ValidateBaseEntity, ValidationError
 
 class ValidateApplicantMixin(ValidateBaseEntity):
 
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
     def validate(self):
+        super().validate()
         if not self.name:
             raise ValidationError("Applicant name required")
         if not (300 <= self.credit_score <= 850):
@@ -14,6 +18,3 @@ class ValidateApplicantMixin(ValidateBaseEntity):
             raise ValidationError("Invalid monthly debt")
         if not (self.annual_income >= 0):
             raise ValidationError("Invalid annual income")
-        if self.created_at is None:
-            raise ValidationError("Invalid created timestamp")
-        super().validate()

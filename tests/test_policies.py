@@ -8,7 +8,7 @@ from app.persistence import JsonCrud, DuplicateIDError
 from app.policies import RuleBasedPolicy, ScorecardPolicy, Policy, HybridPolicy
 from app.rules import CreditScoreRule, DtiRule, EmploymentRule
 from app.rules.loan_amount_rule import LoanAmountRule
-from app.settings import Config
+import pytest
 
 
 
@@ -99,8 +99,8 @@ def test_del_policy():
     new_sc_policy = Policy.load_from_file("testing_tacos_are_soft_tacos")
     assert sc_policy.isequal(new_sc_policy)
     Policy.delete(sc_policy.id)
-    new_sc_policy = Policy.load_from_file("testing_tacos_are_soft_tacos")
-    assert new_sc_policy is None
+    with pytest.raises(Exception):
+        _ = Policy.load_from_file("testing_tacos_are_soft_tacos")
 
     ru_policy = RuleBasedPolicy(id="testing_tacos_are_soft_tacos", rules=[EmploymentRule(), LoanAmountRule()])
     assert isinstance(ru_policy, RuleBasedPolicy)
@@ -108,3 +108,21 @@ def test_del_policy():
     assert 'EmploymentRule' in ru_policy.rules_as_strings
     assert 'LoanAmountRule' in ru_policy.rules_as_strings
 
+def test_policy_update():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+
+    hy_policy = HybridPolicy(id="testing_tacos_are_hybrid_tacos", rules=[CreditScoreRule(), DtiRule()])
+    hy_policy.id = "new testing taco id name"
+    assert hy_policy.id == "new testing taco id name"
+
+    hy_policy.rules = ['EmploymentRule']
+    assert hy_policy.rules[0].__class__.__name__ == 'EmploymentRule'
+    hy_policy.save()
+    hy_policy2 = Policy.load_from_file(hy_policy.id)
+    assert hy_policy.id == hy_policy2.id
+    assert hy_policy2.rules[0].__class__.__name__ == 'EmploymentRule'

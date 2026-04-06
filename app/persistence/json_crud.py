@@ -23,11 +23,19 @@ class JsonCrud:
     filename = Config.PERSISTENCE_FILE
 
     def __init__(self, filename: str = None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         if filename: JsonCrud.filename = filename
 
-    def save_to_file(self, type: str = None):
-        id = self.id
+    @classmethod
+    def delete(cls, id: str, type: str = None):
+        type = type or cls.__name__
+        cls.delete_from_file_by_id(id, type)
+
+
+    def save(self, type: str = None, old_id: str = None):
+        id = old_id or self.id
         type = type or self.__class__.__name__
+
         JsonCrud.delete_from_file_by_id_wo_emit(id, type)
 
         with open(JsonCrud.filename, "a", encoding="utf-8") as f:
@@ -37,6 +45,7 @@ class JsonCrud:
                 "date": datetime.now(UTC),
                 "data": self.to_dict(),
             }
+
             json.dump(record, f, default=str)
             f.write("\n")
 
@@ -46,7 +55,6 @@ class JsonCrud:
             "date": datetime.now(UTC),
             "data": str(self),
         })
-
 
     @classmethod
     def existing_id(cls, id: str, type: str = None) -> bool:
@@ -81,7 +89,7 @@ class JsonCrud:
                     except JSONDecodeError as e:
                         print(f"JSONDecodeError (2): {e}, {line}")
                         pass
-            return None
+            raise ValueError(f"Type '{cls.__name__}', ID '{id}' were not found in persistence file: {cls.filename}")
 
     @classmethod
     def delete_from_file_by_id(cls, id: str, type: str = None):

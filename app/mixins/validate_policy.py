@@ -6,6 +6,8 @@ from app.policies.policy_registry import POLICY_REGISTRY
 
 
 class ValidatePolicyMixin(ValidateBaseEntity):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs) 
 
     def validate(self):
         if not self.id:

@@ -141,7 +141,8 @@ def test_loans_duplicate():
     jc = JsonCrud("tests/output/test_persistence.jsonl")
     jc.clear()
 
-    assert LoanApplication.load_from_file("something_really_specific") is None
+    with pytest.raises(Exception):
+        _ = LoanApplication.load_from_file("something_really_specific")
 
     app = LoanApplication(
         applicant=Applicant(
@@ -240,6 +241,7 @@ def test_loans_invalid():
             term_months=36,
             purpose="car" 
         )
+        app.submit()
         app.validate()
         raise AssertionError("2 - not supposed to pass, invalid value errors: ValidationError")
     except ValidationError as e:
@@ -257,7 +259,124 @@ def test_loans_invalid():
         term_months=36,
         purpose="car"
     )
+    app.submit()
     app.validate()
 
+def test_loans_submit_validate():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("0"),
+            monthly_debt=Decimal("1500"),
+            credit_score=700,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car"
+    )
+    app.submit()
+    assert app.submitted_at is not None
+    assert app.is_submitted
+    app.validate()
+    assert app.validated_at is not None
+    assert app.is_validated
+
+def test_loans_update():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("0"),
+            monthly_debt=Decimal("1500"),
+            credit_score=700,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car"
+    )
+    app.applicant.name = "Alice 123"
+    assert app.applicant.name == "Alice 123"
+    app.save()
+    b = LoanApplication.load_from_file(app.id)
+    assert app.applicant.name == b.applicant.name == "Alice 123"
+    app.submit()
+    assert app.applicant.name == "Alice 123"
+    b = LoanApplication.load_from_file(app.id)
+    assert app.applicant.name == b.applicant.name == "Alice 123"
+    assert app.submitted_at == b.submitted_at
+
+    app.requested_amount = Decimal("15222")
+    assert app.requested_amount == Decimal("15222")
+    app.save()
+    b = LoanApplication.load_from_file(app.id)
+    assert app.requested_amount == b.requested_amount
+    assert app.created_at == b.created_at
 
 
+    app2 = LoanApplication(
+        applicant=Applicant(
+            name="Bob",
+            annual_income=Decimal("22000"),
+            monthly_debt=Decimal("300"),
+            credit_score=725,
+            employment_status="DISABLED"
+        ),
+        requested_amount=Decimal("10000"),
+        term_months=72,
+        purpose="car"
+    )
+
+    prev_id = app.id
+    app.id = "something else"
+    assert app.id == "something else"
+    app.validate()
+    assert app.id != prev_id
+    assert app.id == "something else"
+    app.save()
+    b = LoanApplication.load_from_file("something else")
+    assert app.id == b.id == "something else"
+    with pytest.raises(Exception):
+        app2.id = "something else"
+    with pytest.raises(Exception):
+        _ = LoanApplication.load_from_file(prev_id)
+
+
+
+def test_loan_copy():
+    hc = HashChain("tests/output/test_audit.jsonl")
+    hc.clear()
+    ee = EmitEvent("tests/output/test_events.jsonl")
+    ee.clear()
+    jc = JsonCrud("tests/output/test_persistence.jsonl")
+    jc.clear()
+    app = LoanApplication(
+        applicant=Applicant(
+            name="Alice",
+            annual_income=Decimal("0"),
+            monthly_debt=Decimal("1500"),
+            credit_score=700,
+            employment_status="EMPLOYED"
+        ),
+        requested_amount=Decimal("15000"),
+        term_months=36,
+        purpose="car"
+    )
+    app.submit()
+
+    app2 = app.copy()
+    assert app2.created_at == app.created_at
+    assert app2.submitted_at == app.submitted_at
+    assert app2.isequal(app)
