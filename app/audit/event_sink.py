@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC
+from datetime import datetime, UTC
 
 import json
   
@@ -20,6 +21,7 @@ class EventSink(ABC):
 
 class FileEventSink(EventSink):
     filename = Config.EVENTS_FILE
+
     def __init__(self, filename: str = None, *args, **kwargs):
         super().__init__(*args, **kwargs) 
         if filename:
@@ -36,7 +38,12 @@ class FileEventSink(EventSink):
         with open(cls.filename, "w") as f:
             f.write("")
         super().clear()
- 
+        EmitEvent.emit(event={
+            "event": "Clearing emit events file",
+            "id": cls.filename,
+            "date": datetime.now(UTC),
+        })
+
         
 class PrintEventSink(EventSink): 
     def __init__(self, *args, **kwargs): 

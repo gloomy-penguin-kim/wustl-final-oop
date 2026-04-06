@@ -32,14 +32,14 @@ class Policy(ValidatePolicyMixin, BaseEntity, ABC):
         self.init(**kwargs)
         self.save()
 
+    @abstractmethod
+    def evaluate(self, app) -> Tuple[Decision, dict]: ...
+
     def _update_id(self, new_id: int, type: str):
         prev_id = self.id
         super()._update_id(new_id, type)
         Policy.delete_from_file_by_id(prev_id)
         self.save()
-
-    @abstractmethod
-    def evaluate(self, app) -> Tuple[Decision, dict]: ...
 
     def policy_selected(self, app):
         HashChain.append({
@@ -91,8 +91,8 @@ class Policy(ValidatePolicyMixin, BaseEntity, ABC):
             "data": self.to_dict()
         })
 
-    def save(self, type: str="Policy", id: str=None):
-        super().save(type=type)
+    def save(self):
+        super().save("Policy")
 
     @classmethod
     def delete(cls, id: str, type: str="Policy"):

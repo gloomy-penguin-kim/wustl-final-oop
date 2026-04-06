@@ -10,9 +10,9 @@ class ValidateApplicationMixin(ValidateBaseEntity):
 
     def validate(self):
         super().validate()
-        if self.requested_amount <= 0:
+        if self.requested_amount <= 0 or self.requested_amount > 100_000_000:
             raise ValidationError("Invalid loan amount")
-        if self.term_months not in {12, 24, 36, 48, 60}:
+        if self.term_months not in {12, 24, 36, 48, 60, 72}:
             raise ValidationError("Invalid loan term")
         if not self.purpose:
             raise ValidationError("Invalid purpose")

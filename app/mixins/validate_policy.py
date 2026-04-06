@@ -10,6 +10,7 @@ class ValidatePolicyMixin(ValidateBaseEntity):
         super().__init__(*args, **kwargs) 
 
     def validate(self):
+        super().validate()
         if not self.id:
             raise ValidationError("Policy Id cannot be blank")
         # if self.type != "Policy":
@@ -19,4 +20,3 @@ class ValidatePolicyMixin(ValidateBaseEntity):
         for r in (self.rules or []):
             if r.__class__.__name__ not in RULE_REGISTRY:
                 raise ValidationError(f"Policy Rule is invalid: {r.__class__.__name__}")
-        super().validate()

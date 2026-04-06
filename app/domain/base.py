@@ -21,7 +21,6 @@ class Base(ABC):
         self._type = kwargs.get("type") or self.__class__.__name__
         self._id = kwargs.get("id") or str(uuid.uuid4())
 
-
     @property
     def created_at(self) -> datetime:
         return self._created_at

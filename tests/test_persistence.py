@@ -1,8 +1,9 @@
 from app.audit import HashChain, EmitEvent
 from app.domain.base_entity import BaseEntity
-from app.persistence import JsonStore, JsonCrud
+from app.persistence import JsonCrud
 from app.settings import Config
 import pytest
+
 
 class TestClass(BaseEntity):
     def __init__(self, data: dict, *args, **kwargs):
@@ -10,12 +11,15 @@ class TestClass(BaseEntity):
         self._data = data
         self.init(**kwargs)
         self.save()
+
     @property
     def data(self):
         return self._data
+
     @data.setter
     def data(self, value):
         self._data = value
+
     def __repr__(self):
         return f"TestClass(id={self.id}, data={self.data})"
 

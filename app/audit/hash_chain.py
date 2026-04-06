@@ -28,9 +28,9 @@ class HashChain(HashChainAuditMixin):
         event["date"] = normalize_date(event.get("date", None))
         hash_self = hash_event(event)
         event["hash_self"] = hash_self 
-        HashChain.last_hash = hash_self
-        HashChain.chain.append(event)
-        with open(HashChain.filename, "a") as f:
+        cls.last_hash = hash_self
+        cls.chain.append(event)
+        with open(cls.filename, "a") as f:
             f.write(json.dumps(event, default=str, sort_keys=True, ensure_ascii=True, indent=None) + "\n")
 
         EmitEvent.emit(event={
@@ -44,11 +44,17 @@ class HashChain(HashChainAuditMixin):
     def verify_chain(cls) -> Tuple[bool, int | None]:
         return cls.verify_chain_in_file()
 
-    def clear(self):   
-        with open(HashChain.filename, "w", encoding="utf-8") as f:
+    @classmethod
+    def clear(cls):
+        with open(cls.filename, "w", encoding="utf-8") as f:
             f.write("")
-        HashChain.chain = []
-        HashChain.last_hash = "genesis"
+        cls.chain = []
+        cls.last_hash = "genesis"
+        EmitEvent.emit(event={
+            "event": "Clearing hash chain file",
+            "id": cls.filename,
+            "date": datetime.now(UTC),
+        })
 
     @classmethod
     def _get_last_hash_from_file(cls):

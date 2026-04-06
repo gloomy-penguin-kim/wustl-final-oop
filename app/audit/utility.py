@@ -14,6 +14,7 @@ def normalize_date(date: Any = None) -> str:
     return date
 
 
+@staticmethod
 def hash_event(payload: dict) -> str:
     canonical = json.dumps(payload, sort_keys=True, ensure_ascii=True, indent=None)
     return hashlib.sha256(canonical.encode()).hexdigest()

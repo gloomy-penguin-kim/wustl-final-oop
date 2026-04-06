@@ -13,8 +13,11 @@ from app.audit import EmitEvent
 from app.persistence.utility import remove_line_from_large_file
 from app.settings import Config
 
+
 class DuplicateIDError(Exception):
     pass
+
+
 class InvalidApplicationError(Exception):
     pass
 
@@ -30,7 +33,6 @@ class JsonCrud:
     def delete(cls, id: str, type: str = None):
         type = type or cls.__name__
         cls.delete_from_file_by_id(id, type)
-
 
     def save(self, type: str = None, old_id: str = None):
         id = old_id or self.id
@@ -70,7 +72,7 @@ class JsonCrud:
                             data.get("id") == id):
                             return True
                     except JSONDecodeError as e:
-                        print(f"JSONDecodeError (1): {e}")
+                        print(f"JSONDecodeError (1): {e}, {line}")
                         pass
             return False
 
@@ -104,6 +106,7 @@ class JsonCrud:
     @classmethod
     def delete_from_file_by_id_wo_emit(cls, id: str, type: str = None) -> bool:
         type = type or cls.__name__
+
         def to_remove(line):
             if line.strip():
                 try:

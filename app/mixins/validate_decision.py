@@ -16,7 +16,6 @@ class ValidateDecisionMixin(ValidateBaseEntity):
         if self.status == RuleStatus.APPROVE:
             if self.approved_amount is None or self.apr is None:
                 raise ValidationError("Approve must include requested amount and APR")
-            ## TODO uncomment this
         # if self.status == RuleStatus.REFER:
         #     if self.approved_amount is None or self.apr is None:
         #         raise ValueError("REFER must include requested amount and APR")

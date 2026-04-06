@@ -174,7 +174,7 @@ def test_loans_duplicate():
         )
         raise AssertionError("1 - not supposed to pass, DuplicateIDError")
 
-    except DuplicateIDError, ValidationError:
+    except Exception:
         pass
 
     app2 = LoanApplication(

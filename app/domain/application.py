@@ -51,7 +51,7 @@ class LoanApplication(ValidateApplicationMixin, BaseEntity):
             self.raise_not_existing_error()
         self.submitted_at = datetime.now(UTC)
         self.save()
-        HashChain.append({ "event": "SUBMITTED", "id": self.id, "type": self.type})
+        HashChain.append({ "event": "SUBMITTED", "id": self.id, "type": self.type })
 
     def validate(self):
         if not self.existing_id(self.id):
@@ -60,7 +60,7 @@ class LoanApplication(ValidateApplicationMixin, BaseEntity):
             raise ValueError(f"the application needs to be submitted before being validated: {self.id}")
         self.save()
         super().validate()
-        HashChain.append({ "event": "VALIDATED", "id": self.id, "type": self.type})
+        HashChain.append({ "event": "VALIDATED", "id": self.id, "type": self.type })
 
     def requested_amount_vs_term_months_vs_income(self):  
         return ((self.requested_amount / self.term_months) * 12) / self.applicant.annual_income

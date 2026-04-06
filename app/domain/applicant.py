@@ -50,7 +50,6 @@ class Applicant(ValidateApplicantMixin, BaseEntity):
     def __str__(self): 
         return f"Applicant(name={self.name}, income={self.annual_income}, credit_score={self.credit_score}, employment={self.employment_status}, existing_customer={self.existing_customer})"
 
-
     @classmethod
     def to_applicant(cls, applicant) -> Applicant | None:
         if isinstance(applicant, str):

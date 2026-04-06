@@ -1,40 +1,41 @@
-{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-04-06 06:35:09.620150+00:00"}
-{"event": "Policy Created", "id": "approved_1_2", "date": "2026-04-06 06:35:09.620830+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
-{"event": "Policy Saved", "id": "approved_1_2", "date": "2026-04-06 06:35:09.622557+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
-{"event": "Policy Created", "id": "approved_2_1", "date": "2026-04-06 06:35:09.623220+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
-{"event": "Policy Saved", "id": "approved_2_1", "date": "2026-04-06 06:35:09.625507+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
-{"event": "Policy Created", "id": "refer_policy", "date": "2026-04-06 06:35:09.626119+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
-{"event": "Policy Saved", "id": "refer_policy", "date": "2026-04-06 06:35:09.628225+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
-{"event": "Policy Created", "id": "declined", "date": "2026-04-06 06:35:09.628787+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
-{"event": "Policy Saved", "id": "declined", "date": "2026-04-06 06:35:09.630652+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
-{"event": "Applicant Created", "id": "af5e9667-266e-4e18-892d-efa52048a4ec", "date": "2026-04-06 06:35:09.631262+00:00", "data": "Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False)"}
-{"event": "LoanApplication Created", "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667", "date": "2026-04-06 06:35:09.631741+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
-{"event": "LoanApplication Saved", "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667", "date": "2026-04-06 06:35:09.633952+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
-{"event": "LoanApplication Saved", "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667", "date": "2026-04-06 06:35:09.635790+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
-{"event": "SUBMITTED", "date": "2026-04-06 06:35:09.636341+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667"}
-{"event": "LoanApplication Saved", "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667", "date": "2026-04-06 06:35:09.638715+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
-{"event": "VALIDATED", "date": "2026-04-06 06:35:09.639519+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.640102+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_1_2_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.640804+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_1_2_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "449dcd93-0a8a-4af5-ac4d-189e7bb5d164", "date": "2026-04-06 06:35:09.641377+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_1_2)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.642013+00:00", "data": null, "id": "449dcd93-0a8a-4af5-ac4d-189e7bb5d164"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.642574+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.643130+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "8c52ea5b-3e6e-4ffa-b9d5-55d99808c5fb", "date": "2026-04-06 06:35:09.643647+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.644277+00:00", "data": null, "id": "8c52ea5b-3e6e-4ffa-b9d5-55d99808c5fb"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.644766+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_refer_policy_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.645232+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_refer_policy_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "984fcc78-fb87-4604-aebb-c9e9f4fb8cb8", "date": "2026-04-06 06:35:09.645751+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=refer_policy)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.646396+00:00", "data": null, "id": "984fcc78-fb87-4604-aebb-c9e9f4fb8cb8"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.646933+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_declined_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.647420+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_declined_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "994b87b7-5592-4658-be6c-f6953555c71f", "date": "2026-04-06 06:35:09.647851+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DECLINE',), amount=None, apr=None, policy=declined)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.648367+00:00", "data": null, "id": "994b87b7-5592-4658-be6c-f6953555c71f"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.648815+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.649367+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "ab1743ce-76c5-4623-9e8d-836cf2b82072", "date": "2026-04-06 06:35:09.650056+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.650716+00:00", "data": null, "id": "ab1743ce-76c5-4623-9e8d-836cf2b82072"}
-{"event": "POLICY_SELECTED", "date": "2026-04-06 06:35:09.651240+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "POLICY_EVALUATED", "date": "2026-04-06 06:35:09.651808+00:00", "data": null, "id": "54c3c8d8-86b7-4f64-be1e-1de0d0ea0667_approved_2_1_2026-04-06_06:35:09"}
-{"event": "Decision Created", "id": "3fcf2632-9dbf-42c7-a814-7bfcb51c5889", "date": "2026-04-06 06:35:09.652276+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
-{"event": "DECISIONED", "date": "2026-04-06 06:35:09.652849+00:00", "data": null, "id": "3fcf2632-9dbf-42c7-a814-7bfcb51c5889"}
+{"event": "Clearing emit events file", "id": "tests/output/test_events.jsonl", "date": "2026-04-06 16:27:11.329544+00:00"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-04-06 16:27:11.329968+00:00"}
+{"event": "Policy Created", "id": "approved_1_2", "date": "2026-04-06 16:27:11.331004+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
+{"event": "Policy Saved", "id": "approved_1_2", "date": "2026-04-06 16:27:11.333615+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
+{"event": "Policy Created", "id": "approved_2_1", "date": "2026-04-06 16:27:11.341507+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
+{"event": "Policy Saved", "id": "approved_2_1", "date": "2026-04-06 16:27:11.345747+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
+{"event": "Policy Created", "id": "refer_policy", "date": "2026-04-06 16:27:11.353430+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "Policy Saved", "id": "refer_policy", "date": "2026-04-06 16:27:11.357333+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "Policy Created", "id": "declined", "date": "2026-04-06 16:27:11.367809+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "Policy Saved", "id": "declined", "date": "2026-04-06 16:27:11.371975+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "14c934bc-c1be-4853-9655-f9374121ef23", "date": "2026-04-06 16:27:11.382893+00:00", "data": "Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817", "date": "2026-04-06 16:27:11.384219+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "LoanApplication Saved", "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817", "date": "2026-04-06 16:27:11.387954+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "LoanApplication Saved", "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817", "date": "2026-04-06 16:27:11.400027+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "SUBMITTED", "date": "2026-04-06 16:27:11.400845+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817"}
+{"event": "LoanApplication Saved", "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817", "date": "2026-04-06 16:27:11.412594+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "VALIDATED", "date": "2026-04-06 16:27:11.415357+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.416160+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_1_2_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.416921+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_1_2_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "f7934380-08e4-4bf3-96c7-9c1c54683dcd", "date": "2026-04-06 16:27:11.426100+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_1_2)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.428447+00:00", "data": null, "id": "f7934380-08e4-4bf3-96c7-9c1c54683dcd"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.429558+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.430508+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "e9532afc-d121-404e-bea4-7927b719a0f3", "date": "2026-04-06 16:27:11.431248+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.432091+00:00", "data": null, "id": "e9532afc-d121-404e-bea4-7927b719a0f3"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.432781+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_refer_policy_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.433485+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_refer_policy_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "81977474-9841-43c8-8c09-b7f53d764c5d", "date": "2026-04-06 16:27:11.434089+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=refer_policy)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.434980+00:00", "data": null, "id": "81977474-9841-43c8-8c09-b7f53d764c5d"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.435750+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_declined_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.436474+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_declined_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "38d442ea-971f-4089-9a0a-2cb39eff5319", "date": "2026-04-06 16:27:11.437067+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DECLINE',), amount=None, apr=None, policy=declined)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.437872+00:00", "data": null, "id": "38d442ea-971f-4089-9a0a-2cb39eff5319"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.438556+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.439268+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "dcb8be70-7fcb-4118-9847-27b3d05a416a", "date": "2026-04-06 16:27:11.439911+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.440717+00:00", "data": null, "id": "dcb8be70-7fcb-4118-9847-27b3d05a416a"}
+{"event": "POLICY_SELECTED", "date": "2026-04-06 16:27:11.441436+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "POLICY_EVALUATED", "date": "2026-04-06 16:27:11.442132+00:00", "data": null, "id": "2d7ed2ef-2843-46cf-a5d4-eccb9a368817_approved_2_1_2026-04-06_16:27:11"}
+{"event": "Decision Created", "id": "4c68025a-d835-4afb-a928-c3977761f704", "date": "2026-04-06 16:27:11.442858+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-04-06 16:27:11.445730+00:00", "data": null, "id": "4c68025a-d835-4afb-a928-c3977761f704"}
