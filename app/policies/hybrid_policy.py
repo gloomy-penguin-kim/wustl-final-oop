@@ -6,6 +6,7 @@ from typing import Any, Tuple, cast
 from datetime import UTC, datetime
 
 from app.domain import Decision
+from app.domain.domain_registry import register_domain
 from app.policies.policy_base import Policy
 from app.policies.policy_registry import register_policy
 from app.rules.rule_base import Rule
@@ -15,6 +16,7 @@ from app.rules.rule_result import RuleResult
 from app.rules.rule_status import RuleStatus
 
 
+@register_domain
 @register_policy
 class HybridPolicy(Policy):
 
@@ -79,7 +81,11 @@ class HybridPolicy(Policy):
                 reason_codes=reason_codes,
                 approved_amount=requested_amount,
                 apr=apr,
-                policy_version=self.id
+                policy_id = self.id,
+                policy = self.to_dict(),
+                application_id = app.id,
+                application = app.to_dict(),
+                hash_chain = self.hash_chain,
             ),
             human
         )

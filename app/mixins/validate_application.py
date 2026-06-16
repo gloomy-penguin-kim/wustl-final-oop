@@ -18,4 +18,5 @@ class ValidateApplicationMixin(ValidateBaseEntity):
             raise ValidationError("Invalid purpose")
         if isinstance(self.applicant, str) or isinstance(self.applicant, dict):
             raise ValidationError("Invalid applicant")
+        self.applicant.validate()
 

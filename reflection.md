@@ -1,0 +1,17 @@
+Reflection
+
+This project was designed around clear separation of concerns, strong domain modeling, and extensibility. At a high level, I structured the system into domain entities (e.g., LoanApplication, Applicant, Decision), policies (decision logic), rules (atomic evaluations), and infrastructure components (repository, audit/hash chain). This separation allowed each layer to evolve independently while keeping the overall system cohesive.
+
+A key design choice was to make the decision process composable. Policies encapsulate evaluation strategies and operate overrules, which represent small, testable units of logic. This allowed me to support multiple policy types (e.g., RuleBasedPolicy, ScorecardPolicy, HybridPolicy) without changing the engine. The DecisionEngine simply orchestrates interactions between applications and policies, reinforcing single responsibility and making the system easy to extend with new policy types.
+
+I used Abstract Base Classes (ABCs) to define clear contracts across the system. For example, base classes for Policy and Rule ensure that all implementations provide required methods such as evaluate(). This enforces consistency and allows polymorphic behavior: the engine can operate on any policy without needing to know its concrete type. Similarly, mixins such as JsonSerializableMixin and validation-related base classes provide shared behavior without tightly coupling inheritance hierarchies.
+
+Mixins were especially important for cross-cutting concerns like validation and serialization. Instead of embedding validation logic directly into domain classes, I used validation mixins (e.g., ValidateBaseEntity, ValidateApplicationMixin) to enforce invariants such as required fields, valid ranges, and type checks. This keeps domain objects clean while still ensuring correctness. The mixin approach also made it easier to reuse validation logic across multiple classes.
+
+Polymorphism is central to the design. Policies and rules are both used polymorphically: the engine calls policy.evaluate(application) without needing to know whether it is rule-based, scorecard-based, or hybrid. Similarly, rules are interchangeable within policies, allowing flexible composition of decision logic. This design supports extension without modification, aligning with the Open/Closed Principle.
+
+To ensure correct behavior across multiple inheritance layers, I relied on cooperative multiple inheritance using super(). Each mixin’s validate() method calls super().validate(), forming a chain of responsibility across the method resolution order (MRO). I validated MRO correctness through targeted tests, such as intentionally breaking a nested field (e.g., an invalid credit score in Applicant) and confirming that calling LoanApplication.validate() propagates the error. This demonstrates that all validation layers are executed in the correct order and that no mixin overrides another unintentionally.
+
+Finally, I incorporated an audit system using a hash chain to ensure integrity and traceability of decisions. This design supports reproducibility through replay while also highlighting the difference between replaying historical decisions and re-running decisions on updated data.
+
+Overall, the system emphasizes modularity, correctness, and extensibility, with careful use of OOP principles to balance flexibility and structure.

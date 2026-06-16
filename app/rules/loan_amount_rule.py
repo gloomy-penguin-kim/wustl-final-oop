@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from decimal import Decimal
+
 from app.domain.application import LoanApplication
 from app.rules.rule_result import RuleResult
 from app.rules.rule_status import RuleStatus
@@ -25,7 +27,7 @@ class LoanAmountRule(Rule):
         
         if monthly_disposable > float(monthly_payment) * 2.5:
             result.status = RuleStatus.REFER
-          
+
         ctx[result.status][self.code] = reason  
 
         return result

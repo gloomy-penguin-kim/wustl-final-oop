@@ -5,20 +5,17 @@ from app.domain import Applicant
 from app.persistence import JsonCrud
 
 
-def test_applicant():
+def test_applicant(clear_files):
+    clear_files()
     hc = HashChain("tests/output/test_audit.jsonl")
-    hc.clear()
-    ee = EmitEvent("tests/output/test_events.jsonl")
-    ee.clear()
-    jc = JsonCrud("tests/output/test_events.jsonl")
-    jc.clear()
 
     applicant = Applicant(
         name="Alice",
         annual_income=Decimal("80000"),
         monthly_debt=Decimal("1500"),
         credit_score=720,
-        employment_status="EMPLOYED"
+        employment_status="EMPLOYED",
+        hash_chain=hc,
     )
 
     d = applicant.to_dict() 
@@ -29,7 +26,7 @@ def test_applicant():
 
     assert isinstance(j, str)
 
-    a = Applicant.from_json(j)
+    a = Applicant.from_json(hc, j)
 
     assert isinstance(a, Applicant)
 

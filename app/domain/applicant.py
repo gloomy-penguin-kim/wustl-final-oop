@@ -4,6 +4,7 @@ import uuid
 from datetime import datetime, UTC 
 from decimal import Decimal
 
+from app.audit import HashChain
 from app.domain.base_entity import BaseEntity
 from app.mixins.json_serializable import JsonSerializableMixin
 from app.mixins.validate_applicant import ValidateApplicantMixin
@@ -22,17 +23,18 @@ class Applicant(ValidateApplicantMixin, BaseEntity):
         *args,
         **kwargs
     ):
-        super().__init__(*args, **kwargs)
-
         self._name = name
         self._annual_income = annual_income
         self._monthly_debt = monthly_debt
         self._credit_score = credit_score
         self._employment_status = employment_status
         self._existing_customer = existing_customer
+        super().__init__(*args, **kwargs)
 
-        self.init(**kwargs)
         if not self.validated_at: self.validate()
+
+    def validate(self):
+        super().validate()
 
     def __eq__(self, other: Applicant):
         if isinstance(other, Applicant):
@@ -51,11 +53,11 @@ class Applicant(ValidateApplicantMixin, BaseEntity):
         return f"Applicant(name={self.name}, income={self.annual_income}, credit_score={self.credit_score}, employment={self.employment_status}, existing_customer={self.existing_customer})"
 
     @classmethod
-    def to_applicant(cls, applicant) -> Applicant | None:
+    def to_applicant(cls, hash_chain: HashChain, applicant) -> Applicant | None:
         if isinstance(applicant, str):
-            applicant = Applicant.from_json(applicant)
+            applicant = Applicant.from_json(hash_chain, applicant)
         if isinstance(applicant, dict):
-            applicant = Applicant.from_dict(applicant)
+            applicant = Applicant.from_dict(hash_chain, applicant)
         assert applicant is None or isinstance(applicant, Applicant)
         return applicant
 

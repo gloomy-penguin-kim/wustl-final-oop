@@ -4,6 +4,7 @@ from app.audit import EmitEvent
 from app.audit.hash_chain import HashChain
 from app.persistence import JsonCrud
 from app.policies import ScorecardPolicy, RuleBasedPolicy, HybridPolicy
+from app.repository.domain_repo import Repository
 from app.rules import Rule, EmploymentRule, DtiRule, CreditScoreRule
 from app.rules import RuleStatus, RuleResult
 from app.rules.loan_amount_rule import LoanAmountRule
@@ -65,36 +66,30 @@ class RuleToDecline(Rule):
         return result
 
 
-def test_hash_chain_events():
+def test_hash_chain_events(clear_files, loan_factory):
     TEST_AUDIT_FILE = "tests/output/test_audit.jsonl"
-    hc = HashChain(TEST_AUDIT_FILE)
-    hc.clear()
-    ee = EmitEvent("tests/output/test_events.jsonl")
-    ee.clear()
-    jc = JsonCrud("tests/output/test_persistence.jsonl")
-    jc.clear()
+    clear_files()
+    hc = HashChain("tests/output/test_audit.jsonl")
 
-    sc_policy = ScorecardPolicy(id="testing_tacos_are_soft_tacos")
-    ru_policy = RuleBasedPolicy(id="testing_tacos_are_ruly_tacos", rules=[RuleToReturnRefer(), RuleToReturnApproved1()])
-    hy_policy = HybridPolicy(id="testing_tacos_are_hybrid_tacos", rules=[RuleToReturnApproved2(), RuleToReturnApproved1(), RuleToDecline()])
+    sc_policy = ScorecardPolicy(hash_chain=hc,
+                                id="testing_tacos_are_soft_tacos")
+    ru_policy = RuleBasedPolicy(hash_chain=hc,
+                                id="testing_tacos_are_ruly_tacos",
+                                rules=[RuleToReturnRefer(),
+                                       RuleToReturnApproved1()])
+    hy_policy = HybridPolicy(hash_chain=hc,
+                             id="testing_tacos_are_hybrid_tacos",
+                             rules=[RuleToReturnApproved2(),
+                                    RuleToReturnApproved1(),
+                                    RuleToDecline()])
 
-    app = LoanApplication(
-        applicant=Applicant(
-            name="Alice",
-            annual_income=Decimal("80000"),
-            monthly_debt=Decimal("1500"),
-            credit_score=720,
-            employment_status="EMPLOYED"
-        ),
-        requested_amount=Decimal("15000"),
-        term_months=36,
-        purpose="car",
-        id="something_really_specific"
-    )
+    app = loan_factory()
+    app.id = "something_really_specific"
     app.submit()
     app.validate()
 
-    engine = DecisionEngine()
+    repo = Repository(hc, filename="tests/output/test_persistence.jsonl")
+    engine = DecisionEngine(hc, repo)
     decision, ctx = engine.run(app, sc_policy)
 
     assert len(hc.chain) == 5
@@ -104,22 +99,15 @@ def test_hash_chain_events():
     assert hc.chain[3]["event"] == "POLICY_EVALUATED"
     assert hc.chain[4]["event"] == "DECISIONED"
 
-    app2 = LoanApplication(
-        applicant=Applicant(
-            name="Bob",
-            annual_income=Decimal("20000"),
-            monthly_debt=Decimal("300"),
-            credit_score=720,
-            employment_status="DISABLED"
-        ),
-        requested_amount=Decimal("90000"),
-        term_months=36,
-        purpose="car",
-        id="APP101023",
-    )
+    app2 = loan_factory()
+    app2.id = "APP101023"
 
     app2.submit()
     app2.validate()
+    repo.save(app2)
+    repo.save(ru_policy)
+    repo.save(hy_policy)
+    repo.save(sc_policy)
     decision5, ctx5 = engine.run(app2, ru_policy)
     decision6, ctx6 = engine.run(app2, hy_policy)
     decision5, ctx5 = engine.run(app2, sc_policy)
@@ -141,7 +129,7 @@ def test_hash_chain_events():
     assert result[0] == False
 
 
-def test_hash_chain():
+def test_hash_chain(clear_files, loan_factory):
      for _ in range(10):
-         test_hash_chain_events()
+         test_hash_chain_events(clear_files, loan_factory)
     

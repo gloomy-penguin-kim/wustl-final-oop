@@ -5,11 +5,13 @@ from datetime import UTC, datetime
 
 from app.domain.application import LoanApplication
 from app.domain.decision import Decision
+from app.domain.domain_registry import register_domain
 from app.policies.policy_base import Policy
 from app.policies.policy_registry import register_policy
 from app.rules.rule_base import Rule
 from app.rules.rule_status import RuleStatus
 
+@register_domain
 @register_policy
 class ScorecardPolicy(Policy):
 
@@ -46,15 +48,15 @@ class ScorecardPolicy(Policy):
         if app.applicant.dti() < 0.3:
             reason_codes.append("DTI")
             human.append("debt to income (good)")
-            score += 40
+            score += 20
         elif app.applicant.dti() < 0.4:
             reason_codes.append("DTI")
             human.append("debt to income (fair)")
-            score += 25
+            score += 15
         elif app.applicant.dti() < 0.5:
             reason_codes.append("DTI")
             human.append("debt to income (low)")
-            score += 10
+            score -= 10
 
         if app.applicant.employment_status: 
             reason_codes.append("EMP")
@@ -75,32 +77,45 @@ class ScorecardPolicy(Policy):
         if app.requested_amount <= 7500: 
             reason_codes.append("LOWAMT")
             human.append("existing customer")
-            score += 10  
+            score += 10
+
+        if app.applicant.income_vs_monthly_debt() >= app.calculate_monthly_payment(Decimal(0.08)):
+            score += 20
+        else:
+            score -= 30
 
         ctx = dict(zip(reason_codes, human)) 
 
         self.policy_evaluated(app)
 
-        if score >= 75:
+        if score >= 65:
             return (
                 Decision(
                     status = RuleStatus.APPROVE,
                     reason_codes = reason_codes,
                     approved_amount = app.requested_amount,
-                    apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP),
-                    policy_version = self.id
+                    apr = Decimal(0.08).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP),
+                    policy_id = self.id,
+                    policy = self.to_dict(),
+                    application_id = app.id,
+                    application = app.to_dict(),
+                    hash_chain=self.hash_chain,
                 ),
                 ctx
             )
 
-        elif score >= 50:
+        elif score >= 45:
             return (
                 Decision(
                     status = RuleStatus.REFER,
                     reason_codes = reason_codes,
                     approved_amount = Decimal(0),
                     apr = Decimal(0),
-                    policy_version = self.id
+                    policy_id = self.id,
+                    policy = self.to_dict(),
+                    application_id = app.id,
+                    application = app.to_dict(),
+                    hash_chain=self.hash_chain,
                 ),
                 ctx
             )
@@ -109,7 +124,11 @@ class ScorecardPolicy(Policy):
             Decision(
                 status = RuleStatus.DECLINE,
                 reason_codes = reason_codes,
-                policy_version = self.id
+                policy_id = self.id,
+                policy = self.to_dict(),
+                application_id = app.id,
+                application = app.to_dict(),
+                hash_chain=self.hash_chain,
             ),
             ctx
         )

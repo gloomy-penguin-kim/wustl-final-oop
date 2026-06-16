@@ -1,0 +1,74 @@
+{"event": "Clearing emit events file", "id": "events.jsonl", "date": "2026-06-16 17:12:53.288625+00:00"}
+{"event": "Clearing persistence file", "id": "persistence.jsonl", "date": "2026-06-16 17:12:53.291199+00:00"}
+{"event": "Applicant Created", "id": "0c4f7267-59f5-4394-9a68-8499ec040fac", "date": "2026-06-16 17:12:53.293181+00:00", "data": "Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP444487644", "date": "2026-06-16 17:12:53.294565+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-06-16 17:12:53.295815+00:00", "data": null, "id": "AP444487644"}
+{"event": "VALIDATED", "date": "2026-06-16 17:12:53.296532+00:00", "data": null, "id": "AP444487644"}
+{"event": "LoanApplication Added to Repository", "id": "AP444487644", "date": "2026-06-16 17:12:53.297059+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "application_id_123", "date": "2026-06-16 17:12:53.301366+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "hybrid_policy_id", "date": "2026-06-16 17:12:53.303955+00:00", "data": "HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "POLICY_VALIDATED", "id": "hybrid_policy_id", "date": "2026-06-16 17:12:53.304474+00:00", "data": {"policy": "HybridPolicy", "rules": ["EmploymentRule", "DtiRule"], "created_at": "2026-06-16T17:12:53.303950+00:00", "updated_at": "2026-06-16T17:12:53.304459+00:00", "validated_at": "2026-06-16T17:12:53.304459+00:00", "type": "HybridPolicy", "id": "hybrid_policy_id"}}
+{"event": "HybridPolicy Added to Repository", "id": "hybrid_policy_id", "date": "2026-06-16 17:12:53.305407+00:00", "data": "HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.309351+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.310047+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "c81156c1-6924-4f03-98b7-9db513130851", "date": "2026-06-16 17:12:53.310445+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "c81156c1-6924-4f03-98b7-9db513130851", "date": "2026-06-16 17:12:53.310958+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.313816+00:00", "data": null, "id": "c81156c1-6924-4f03-98b7-9db513130851"}
+{"event": "LoanApplication Updated in Repository", "id": "application_id_123", "date": "2026-06-16 17:12:53.314697+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=300, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.319727+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.320908+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "e4bd4ac6-4045-4812-ae4b-f1509750fe2c", "date": "2026-06-16 17:12:53.321455+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "e4bd4ac6-4045-4812-ae4b-f1509750fe2c", "date": "2026-06-16 17:12:53.321898+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.325085+00:00", "data": null, "id": "e4bd4ac6-4045-4812-ae4b-f1509750fe2c"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.326544+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.327499+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "ba02788b-0b9e-415d-9836-15ee5f5f0bab", "date": "2026-06-16 17:12:53.328013+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "ba02788b-0b9e-415d-9836-15ee5f5f0bab", "date": "2026-06-16 17:12:53.328490+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.332871+00:00", "data": null, "id": "ba02788b-0b9e-415d-9836-15ee5f5f0bab"}
+{"event": "Applicant Created", "id": "704c16fa-e58f-47bf-b67e-984312690a95", "date": "2026-06-16 17:12:53.334838+00:00", "data": "Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP123000112", "date": "2026-06-16 17:12:53.335416+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-06-16 17:12:53.336035+00:00", "data": null, "id": "AP123000112"}
+{"event": "VALIDATED", "date": "2026-06-16 17:12:53.337125+00:00", "data": null, "id": "AP123000112"}
+{"event": "ScorecardPolicy Created", "id": "scorecard_policy_id", "date": "2026-06-16 17:12:53.337611+00:00", "data": "ScorecardPolicy(id=scorecard_policy_id, rules=[])"}
+{"event": "POLICY_VALIDATED", "id": "scorecard_policy_id", "date": "2026-06-16 17:12:53.338277+00:00", "data": {"policy": "ScorecardPolicy", "rules": [], "created_at": "2026-06-16T17:12:53.337603+00:00", "updated_at": "2026-06-16T17:12:53.338261+00:00", "validated_at": "2026-06-16T17:12:53.338261+00:00", "type": "ScorecardPolicy", "id": "scorecard_policy_id"}}
+{"event": "ScorecardPolicy Added to Repository", "id": "scorecard_policy_id", "date": "2026-06-16 17:12:53.339350+00:00", "data": "ScorecardPolicy(id=scorecard_policy_id, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.343020+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.343947+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "4b94a2b4-9230-4df2-96bc-65f9896599c2", "date": "2026-06-16 17:12:53.344463+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "4b94a2b4-9230-4df2-96bc-65f9896599c2", "date": "2026-06-16 17:12:53.344874+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.348756+00:00", "data": null, "id": "4b94a2b4-9230-4df2-96bc-65f9896599c2"}
+{"event": "VALIDATED", "date": "2026-06-16 17:12:53.350241+00:00", "data": null, "id": "AP123000112"}
+{"event": "LoanApplication Updated in Repository", "id": "AP123000112", "date": "2026-06-16 17:12:53.350810+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 144000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.354974+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.356048+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "91e95fd2-26fd-444c-8026-c3cca365d610", "date": "2026-06-16 17:12:53.356595+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "91e95fd2-26fd-444c-8026-c3cca365d610", "date": "2026-06-16 17:12:53.357070+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.360773+00:00", "data": null, "id": "91e95fd2-26fd-444c-8026-c3cca365d610"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.362644+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.363473+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "65afc7e6-deac-4853-8bf4-26c678671cc0", "date": "2026-06-16 17:12:53.364177+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "65afc7e6-deac-4853-8bf4-26c678671cc0", "date": "2026-06-16 17:12:53.364810+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.368960+00:00", "data": null, "id": "65afc7e6-deac-4853-8bf4-26c678671cc0"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.370314+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.371554+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "d1db87f1-3c9c-4373-9ed7-0ddc34dc94d7", "date": "2026-06-16 17:12:53.372210+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "d1db87f1-3c9c-4373-9ed7-0ddc34dc94d7", "date": "2026-06-16 17:12:53.372928+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.377262+00:00", "data": null, "id": "d1db87f1-3c9c-4373-9ed7-0ddc34dc94d7"}
+{"event": "VALIDATED", "date": "2026-06-16 17:12:53.378176+00:00", "data": null, "id": "AP123000112"}
+{"event": "LoanApplication Updated in Repository", "id": "AP123000112", "date": "2026-06-16 17:12:53.378552+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-06-16 17:12:53.383865+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "POLICY_EVALUATED", "date": "2026-06-16 17:12:53.385038+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-06-16_17:12:53"}
+{"event": "Decision Created", "id": "7caab414-98aa-4672-b3bd-383df925ce14", "date": "2026-06-16 17:12:53.385648+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "7caab414-98aa-4672-b3bd-383df925ce14", "date": "2026-06-16 17:12:53.386497+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-06-16 17:12:53.390134+00:00", "data": null, "id": "7caab414-98aa-4672-b3bd-383df925ce14"}
+{"event": "Applicant Created", "id": "52a30af5-f75b-44ab-8adc-82fff55fba58", "date": "2026-06-16 17:12:53.391201+00:00", "data": "Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP990009999", "date": "2026-06-16 17:12:53.391888+00:00", "data": "LoanApplication(Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False), 41000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-06-16 17:12:53.392895+00:00", "data": null, "id": "AP990009999"}
+{"event": "VALIDATED", "date": "2026-06-16 17:12:53.393796+00:00", "data": null, "id": "AP990009999"}
+{"event": "RuleBasedPolicy Created", "id": "rule_policy_id", "date": "2026-06-16 17:12:53.394355+00:00", "data": "RuleBasedPolicy(id=rule_policy_id, rules=['CreditScoreRule', 'LoanAmountRule'])"}
+{"event": "POLICY_VALIDATED", "id": "rule_policy_id", "date": "2026-06-16 17:12:53.394899+00:00", "data": {"policy": "RuleBasedPolicy", "rules": ["CreditScoreRule", "LoanAmountRule"], "created_at": "2026-06-16T17:12:53.394349+00:00", "updated_at": "2026-06-16T17:12:53.394884+00:00", "validated_at": "2026-06-16T17:12:53.394884+00:00", "type": "RuleBasedPolicy", "id": "rule_policy_id"}}
+{"event": "EXPORTED", "date": "2026-06-16 17:12:53.396654+00:00", "data": null, "id": "AP990009999"}
+{"event": "EXPORTED", "date": "2026-06-16 17:12:53.398954+00:00", "data": null, "id": "rule_policy_id"}
+{"event": "EXPORTED", "date": "2026-06-16 17:12:53.400963+00:00", "data": null, "id": "c81156c1-6924-4f03-98b7-9db513130851"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-06-16 17:14:05.350293+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-06-16 17:15:13.521145+00:00"}

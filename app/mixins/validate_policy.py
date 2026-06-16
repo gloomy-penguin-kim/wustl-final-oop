@@ -13,8 +13,6 @@ class ValidatePolicyMixin(ValidateBaseEntity):
         super().validate()
         if not self.id:
             raise ValidationError("Policy Id cannot be blank")
-        # if self.type != "Policy":
-        #     raise ValidationError("Type must be 'Policy', instead:", self.type)
         if self.policy not in POLICY_REGISTRY:
             raise ValidationError(f"Policy \"{self.id}\" type \"{self.policy}\" is invalid")
         for r in (self.rules or []):

@@ -3,7 +3,8 @@ from __future__ import annotations
 from app.audit import EmitEvent, HashChain
 from app.persistence import JsonCrud
 from app.policies import RuleBasedPolicy, HybridPolicy
-from app.rules import Rule
+from app.repository.domain_repo import Repository
+from app.rules import Rule, EmploymentRule, DtiRule
 from app.rules import RuleStatus, RuleResult
 from app.rules.rule_registry import register_rule  
 
@@ -64,29 +65,31 @@ class RuleToDecline(Rule):
         ctx[result.status][self.code] = self.reason
         return result
 
-def test_reason_codes():
+def test_reason_codes(clear_files):
+    clear_files()
     hc = HashChain("tests/output/test_audit.jsonl")
-    hc.clear()
-    ee = EmitEvent("tests/output/test_events.jsonl")
-    ee.clear()
-    jc = JsonCrud("tests/output/test_persistence.jsonl")
-    jc.clear()
 
-    policy12 = RuleBasedPolicy(id="approved_1_2",
-                               rules=[RuleToReturnApproved1(), RuleToReturnApproved2()])
-    policy21 = RuleBasedPolicy(id="approved_2_1",
+    policy12 = RuleBasedPolicy(hash_chain=hc,
+                                id="approved_1_2",
+                                rules=[RuleToReturnApproved1(), RuleToReturnApproved2()])
+    policy21 = RuleBasedPolicy(hash_chain=hc,
+                                id="approved_2_1",
                                 rules=[RuleToReturnApproved2(), RuleToReturnApproved1()])
-    policy_refer = RuleBasedPolicy(id="refer_policy",
+    policy_refer = RuleBasedPolicy(hash_chain=hc,
+                                id="refer_policy",
                                 rules=[RuleToReturnApproved1(), RuleToReturnRefer(),
                                             RuleToReturnApproved2(), RuleToDecline()])
-    policy_declined = RuleBasedPolicy(id="declined",
+    policy_declined = RuleBasedPolicy(hash_chain=hc,
+                                id="declined",
                                 rules=["RuleToReturnApproved1",
                                         "RuleToReturnApproved2",
                                         "RuleToDecline"])
 
-    engine = DecisionEngine()
+    repo = Repository(hc, "tests/output/test_persistence.jsonl")
 
-    loan = LoanApplication.from_dict({
+    engine = DecisionEngine(hc, repo)
+
+    loan = LoanApplication.from_dict(hc, {
         "applicant": {
             "name": "Test Applicant",
             "credit_score": 700,
@@ -101,11 +104,17 @@ def test_reason_codes():
     loan.submit()
     loan.validate()
 
+    repo.save(loan)
+    repo.save(policy_refer)
+    repo.save(policy_declined)
+    repo.save(policy12)
+    repo.save(policy21)
+
     decision1, ctx1 = engine.run(loan, policy12)
-    decision2, ctx2 = engine.run(loan, policy21)  
+    decision2, ctx2 = engine.run(loan, policy21)
     assert list(decision1._reason_codes) == ["APPRV_1", "APPRV_2"]
     assert list(decision2._reason_codes) == ["APPRV_2", "APPRV_1"]
-    assert decision1.reason_codes == decision1.reason_codes
+    assert decision1.reason_codes == decision2.reason_codes
 
     decision3, ctx3 = engine.run(loan, policy_refer)
     assert list(decision3.reason_codes) == ["RF_TEST"]
@@ -117,4 +126,77 @@ def test_reason_codes():
     decision2, ctx2 = engine.run(loan, policy21)
     assert decision1.isequivalent(decision2)
 
+
+
+def test_reason_codes_2():
+    HashChain("tests/output/test_audit.jsonl").clear()
+    EmitEvent("tests/output/test_events.jsonl").clear()
+    hc = HashChain("tests/output/test_audit.jsonl")
+
+    policy12 = RuleBasedPolicy(hash_chain=hc,
+                               id="approved_1_2",
+                               rules=[EmploymentRule(), DtiRule()])
+    policy21 = RuleBasedPolicy(hash_chain=hc,
+                                id="approved_2_1",
+                                rules=[DtiRule(), EmploymentRule()])
+    policy_declined = RuleBasedPolicy(hash_chain=hc,
+                                id="declined",
+                                rules=["DtiRule",
+                                        "CreditScoreRule",
+                                        "EmploymentRule"])
+
+    repo = Repository(hc,"tests/output/test_persistence.jsonl")
+    repo.clear()
+    hc = HashChain("tests/output/test_audit.jsonl")
+
+    engine = DecisionEngine(hc,repo)
+
+    loan = LoanApplication.from_dict(hc, {
+        "applicant": {
+            "name": "Test Applicant",
+            "credit_score": 700,
+            "annual_income": Decimal("50000"),
+            "monthly_debt": Decimal("1000"),
+            "employment_status": "employed",
+        },
+        "requested_amount": Decimal("10000"),
+        "term_months": 36,
+        "purpose": "debt_consolidation",
+    })
+    loan.submit()
+    loan.validate()
+
+    repo.save(loan)
+    repo.save(policy_declined)
+    repo.save(policy12)
+    repo.save(policy21)
+
+    decision1, ctx1 = engine.run(loan, policy12)
+    decision2, ctx2 = engine.run(loan, policy21)
+    assert list(decision1._reason_codes) == ["EM333", "DIT30"]
+    assert list(decision2._reason_codes) == ["DIT30", "EM333"]
+    assert decision1.reason_codes == decision2.reason_codes
+
+    loan = LoanApplication.from_dict(hc, {
+        "applicant": {
+            "name": "Test Applicant",
+            "credit_score": 350,
+            "annual_income": Decimal("0"),
+            "monthly_debt": Decimal("1000"),
+            "employment_status": "employed",
+        },
+        "requested_amount": Decimal("100"),
+        "term_months": 36,
+        "purpose": "debt_consolidation",
+    })
+    loan.submit()
+    loan.validate()
+    repo.save(loan)
+
+    decision4, ctx4 = engine.run(loan, policy_declined)
+    assert list(decision4.reason_codes) == ["DIT30"]
+
+    decision1, ctx1 = engine.run(loan, policy21)
+    decision2, ctx2 = engine.run(loan, policy21)
+    assert decision1.isequivalent(decision2)
 

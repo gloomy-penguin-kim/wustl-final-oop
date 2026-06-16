@@ -7,6 +7,8 @@ from decimal import Decimal
 
 from pygments.lexers import data
 
+from app.audit import HashChain
+
 
 class JsonSerializableMixin: 
 
@@ -16,6 +18,7 @@ class JsonSerializableMixin:
     def to_dict(self):
         data = dict() 
         for key, value in self.__dict__.items():
+            if key == '_hash_chain': continue
             if key[0] == '_': key = key[1:]
             if isinstance(value, Decimal):
                 data[key] = str(value) 
@@ -31,10 +34,10 @@ class JsonSerializableMixin:
         return json.dumps(self.to_dict(), default=str)
 
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(cls, hash_chain: HashChain, data: dict):
         processed = dict()  
-        for key, value in data.items(): 
-            if isinstance(value, str): 
+        for key, value in data.items():
+            if isinstance(value, str):
                 try:
                     processed[key] = Decimal(value)
                     continue
@@ -47,13 +50,15 @@ class JsonSerializableMixin:
                     pass
 
             processed[key] = value
+
+        processed["hash_chain"] = hash_chain
         return cls(**processed)
     
     @classmethod
-    def from_json(cls, s): 
-        return cls.from_dict(json.loads(s))
+    def from_json(cls, hash_chain: HashChain, s: str):
+        return cls.from_dict(hash_chain, json.loads(s))
 
     def copy(self):
         d = self.to_dict()
-        obj = self.__class__.from_dict(d)
+        obj = self.__class__.from_dict(self.hash_chain, d)
         return obj

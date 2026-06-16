@@ -1,1 +1,1 @@
-from .json_crud import JsonCrud, DuplicateIDError
+from .json_crud import JsonCrud

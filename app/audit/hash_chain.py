@@ -31,7 +31,7 @@ class HashChain(HashChainAuditMixin):
         cls.last_hash = hash_self
         cls.chain.append(event)
         with open(cls.filename, "a") as f:
-            f.write(json.dumps(event, default=str, sort_keys=True, ensure_ascii=True, indent=None) + "\n")
+            f.write(json.dumps(event, default=str, ensure_ascii=True, indent=None) + "\n")
 
         EmitEvent.emit(event={
             "event": event.get("event"),

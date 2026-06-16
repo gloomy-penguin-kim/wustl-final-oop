@@ -6,6 +6,7 @@ from typing import Any, Tuple, cast
 from datetime import UTC, datetime
 
 from app.domain.decision import Decision
+from app.domain.domain_registry import register_domain
 from app.policies.policy_base import Policy 
 from app.policies.policy_registry import register_policy 
 from app.rules.rule_base import Rule
@@ -14,11 +15,13 @@ from app.rules.rule_registry import RULE_REGISTRY
 from app.rules.rule_result import RuleResult
 from app.rules.rule_status import RuleStatus
 
+@register_domain
 @register_policy 
 class RuleBasedPolicy(Policy):
 
-    def __init__(self, rules: Any = None, **kwargs):
+    def __init__(self, **kwargs):
         rr = []
+        rules = kwargs.pop("rules",[])
         if Policy.is_list_of_strings(rules):
             r = [] 
             for s in (rules or []): 
@@ -40,7 +43,7 @@ class RuleBasedPolicy(Policy):
         apr = Decimal(0.15).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP) 
         requested_amount = app.requested_amount
 
-        for rule in self._rules: 
+        for rule in self.rules:
             result = rule.apply(app, ctx)  
             if result.status == RuleStatus.DECLINE:
                 apr = None 
@@ -64,7 +67,11 @@ class RuleBasedPolicy(Policy):
                 reason_codes = reason_codes,
                 approved_amount = requested_amount,
                 apr = apr,
-                policy_version = self.id
+                policy_id = self.id,
+                hash_chain = self.hash_chain,
+                application_id = app.id,
+                application = app.to_dict(),
+                policy = self.to_dict()
             ),
             human
         )

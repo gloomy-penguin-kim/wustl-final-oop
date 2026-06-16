@@ -4,6 +4,7 @@ import shutil
 
 def remove_line_from_large_file(original_file_path, lines_to_remove_condition):
     """
+    Copilot - Google wrote this
     Reads a large file line by line, skipping lines that meet a removal condition,
     and writes the rest to a new file.
 
@@ -31,10 +32,3 @@ def remove_line_from_large_file(original_file_path, lines_to_remove_condition):
     shutil.move(temp_file_path, original_file_path)
     return updated
 
-# Example usage: Remove lines containing the word "DELETE"
-def should_remove(line):
-    return "DELETE" in line
-
-
-# Replace 'your_large_file.txt' with the actual file path
-remove_line_from_large_file('your_large_file.txt', should_remove)

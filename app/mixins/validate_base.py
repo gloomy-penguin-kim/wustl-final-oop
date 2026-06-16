@@ -3,7 +3,6 @@ from __future__ import annotations
 from datetime import datetime, UTC
 
 from app.domain.base import Base
-from app.persistence import JsonCrud
 
 
 class ValidationError(Exception):
@@ -23,5 +22,3 @@ class ValidateBaseEntity(Base):
             raise ValidationError("Invalid created timestamp")
         self.validated_at = datetime.now(UTC)
 
-    def _update_id(self, id: str, type: str):
-        JsonCrud.duplicate_check_in_file(id, type)

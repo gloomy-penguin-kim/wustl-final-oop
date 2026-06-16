@@ -7,16 +7,15 @@ from typing import Any
 
 from app.audit import EmitEvent, HashChain
 from app.domain.base_entity import BaseEntity
-from app.mixins.json_serializable import JsonSerializableMixin
+from app.domain.domain_registry import register_domain
 from app.mixins.validate_application import ValidateApplicationMixin
 from app.domain.applicant import Applicant
-from app.persistence import JsonCrud
 
 
 class LoanAppInvalidIdError(Exception):
     pass
 
-
+@register_domain
 class LoanApplication(ValidateApplicationMixin, BaseEntity):
 
     def __init__(
@@ -29,46 +28,45 @@ class LoanApplication(ValidateApplicationMixin, BaseEntity):
         *args,
         **kwargs
     ):
-        super().__init__(*args, **kwargs)
-
+        self._applicant = applicant
         self._requested_amount = requested_amount
         self._term_months = term_months
         self._purpose = purpose
-        self._applicant = Applicant.to_applicant(applicant)
         self._submitted_at = submitted_at
+        super().__init__(*args, **kwargs)
 
-        self.init(**kwargs)
-        self.save()
+        self._applicant = Applicant.to_applicant(self.hash_chain, applicant)
 
-    def _update_id(self, new_id: int, type: str):
-        prev_id = self.id
-        super()._update_id(new_id, type)
-        LoanApplication.delete_from_file_by_id(prev_id)
-        self.save()
 
     def submit(self):
-        if not self.existing_id(self.id):
-            self.raise_not_existing_error()
         self.submitted_at = datetime.now(UTC)
-        self.save()
-        HashChain.append({ "event": "SUBMITTED", "id": self.id, "type": self.type })
+        self.hash_chain.append({ "event": "SUBMITTED", "id": self.id, "type": self.type })
 
     def validate(self):
-        if not self.existing_id(self.id):
-            self.raise_not_existing_error()
         if not self.is_submitted:
             raise ValueError(f"the application needs to be submitted before being validated: {self.id}")
-        self.save()
         super().validate()
-        HashChain.append({ "event": "VALIDATED", "id": self.id, "type": self.type })
+        self.hash_chain.append({ "event": "VALIDATED", "id": self.id, "type": self.type })
 
     def requested_amount_vs_term_months_vs_income(self):  
         return ((self.requested_amount / self.term_months) * 12) / self.applicant.annual_income
 
+    def calculate_monthly_payment(self, annual_rate):
+        # Convert annual rate to monthly decimal
+        monthly_rate = (annual_rate / 100) / 12
+        # Convert years to total number of months
+        num_payments = self.term_months
+
+        # Calculate monthly payment using the formula
+        payment = (self.requested_amount * monthly_rate * (1 + monthly_rate) ** num_payments) / \
+                  ((1 + monthly_rate) ** num_payments - 1)
+
+        return payment
+
     @classmethod
-    def from_dict(cls, data):
-        obj = super().from_dict(data)
-        obj._applicant = Applicant.to_applicant(obj.applicant)
+    def from_dict(cls, hash_chain: HashChain, data):
+        obj = super().from_dict(hash_chain, data)
+        obj._applicant = Applicant.to_applicant(hash_chain, obj.applicant)
         return obj
 
     def __str__(self): 
@@ -76,10 +74,6 @@ class LoanApplication(ValidateApplicationMixin, BaseEntity):
 
     def raise_not_existing_error(self):
         raise LoanAppInvalidIdError(f"the current loan application record (\"{self.id}\") is invalid according to file persistence: {JsonCrud.filename}")
-
-    def update_id(self, id: str, type: str):
-        prev_id = self.id
-        self.save(self.type, prev_id)
 
     @property
     def requested_amount(self) -> Decimal:

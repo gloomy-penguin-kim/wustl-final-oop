@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from datetime import datetime, UTC
 
 import json
@@ -13,9 +13,11 @@ class EventSink(ABC):
         pass
 
     @classmethod
+    @abstractmethod
     def emit(cls, event: dict): ...
 
     @classmethod
+    @abstractmethod
     def clear(cls): ...
 
 

@@ -13,8 +13,8 @@ class EmploymentRule(Rule):
 
     def apply(self, app, ctx: dict) -> RuleResult:
          
-        result = RuleResult(RuleStatus.DECLINE, self.code)
-        reason = self.reason  
+        result = RuleResult(RuleStatus.APPROVE, self.code)
+        reason = self.reason
 
         if app.applicant.employment_status != "EMPLOYED":
 
@@ -24,7 +24,9 @@ class EmploymentRule(Rule):
             elif app.applicant.existing_customer and app.requested_amount_vs_term_months_vs_income() < 0.25/2:
                 result.status = RuleStatus.REFER
                 reason = "no employment, but existing customer and high enough income"
-   
+            else:
+                result.status = RuleStatus.DECLINE
+
         ctx[result.status][self.code] = reason  
 
         return result

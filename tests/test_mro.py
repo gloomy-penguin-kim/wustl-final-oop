@@ -18,10 +18,9 @@ def test_decision_mro1():
     assert Decision.__mro__[2] is NormalizeReasonCodesMixin
     assert Decision.__mro__[3] is BaseEntity
     assert Decision.__mro__[4] is ValidateBaseEntity
-    assert Decision.__mro__[5] is JsonCrud
-    assert Decision.__mro__[6] is JsonSerializableMixin
-    assert Decision.__mro__[7] is Base
-    assert Decision.__mro__[8] is ABC
+    assert Decision.__mro__[5] is JsonSerializableMixin
+    assert Decision.__mro__[6] is Base
+    assert Decision.__mro__[7] is ABC
 
   
 def test_mro_loans():   

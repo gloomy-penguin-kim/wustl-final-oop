@@ -8,6 +8,7 @@ from typing import Any, Tuple, cast
 from app.audit import HashChain, EmitEvent
 from app.domain.base_entity import BaseEntity
 from app.domain.decision import Decision
+from app.domain.domain_registry import register_domain
 from app.mixins.validate_policy import ValidatePolicyMixin
 from app.policies.policy_registry import POLICY_REGISTRY
 from app.rules import Rule
@@ -15,41 +16,27 @@ from app.rules import RULE_REGISTRY
 
 
 class Policy(ValidatePolicyMixin, BaseEntity, ABC):
-
     def __init__(self,
                  rules: list[Rule] = None,
                  *args,
                  **kwargs):
-
-        kwargs["type"] = "Policy"
-        kwargs["policy"] = self.__class__.__name__
-
-        super().__init__(*args, **kwargs)
-
         self._policy = self.__class__.__name__
         self._rules = rules or []
+        super().__init__(*args, **kwargs)
 
-        self.init(**kwargs)
-        self.save()
 
     @abstractmethod
     def evaluate(self, app) -> Tuple[Decision, dict]: ...
 
-    def _update_id(self, new_id: int, type: str):
-        prev_id = self.id
-        super()._update_id(new_id, type)
-        Policy.delete_from_file_by_id(prev_id)
-        self.save()
-
     def policy_selected(self, app):
-        HashChain.append({
+        self.hash_chain.append({
             "event": "POLICY_SELECTED",
             "id": app.id + "_" + self.id + "_" + datetime.now(UTC).strftime("%Y-%m-%d_%H:%M:%S"),
             "policy": self.id
         })
 
     def policy_evaluated(self, app):
-        HashChain.append({
+        self.hash_chain.append({
             "event": "POLICY_EVALUATED",
             "id": app.id + "_" + self.id + "_" + datetime.now(UTC).strftime("%Y-%m-%d_%H:%M:%S"),
             "policy": self.id
@@ -77,12 +64,11 @@ class Policy(ValidatePolicyMixin, BaseEntity, ABC):
         return data
 
     @classmethod
-    def from_dict(cls, data: dict, **kwargs) -> Policy:
-        obj = POLICY_REGISTRY[data.get("policy")](rules=data.pop("rules"), **data)
+    def from_dict(cls, hash_chain: HashChain, data: dict, **kwargs) -> Policy:
+        obj = POLICY_REGISTRY[data.get("policy")](hash_chain=hash_chain, rules=data.pop("rules"), **data)
         return obj
 
     def validate(self):
-        self.save()
         super().validate()
         EmitEvent.emit({
             "event": "POLICY_VALIDATED",
@@ -90,13 +76,6 @@ class Policy(ValidatePolicyMixin, BaseEntity, ABC):
             "date": datetime.now(UTC),
             "data": self.to_dict()
         })
-
-    def save(self):
-        super().save("Policy")
-
-    @classmethod
-    def delete(cls, id: str, type: str="Policy"):
-        super().delete(id, type)
 
     @property
     def policy(self) -> str:
