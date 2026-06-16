@@ -1,0 +1,107 @@
+
+=== INITIALIZING SYSTEM ===
+emit... 2026-04-19 18:11 audit.jsonl Clearing hash chain file
+emit... 2026-04-19 18:11 events.jsonl Clearing emit events file
+emit... 2026-04-19 18:11 persistence.jsonl Clearing persistence file
+
+=== APPLICATION 1: HYBRID POLICY ===
+emit... 2026-04-19 18:11 17977376-9128-49db-80b7-ace2ef8bcf1e Applicant Created Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False)
+emit... 2026-04-19 18:11 AP444487644 LoanApplication Created LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)
+emit... 2026-04-19 18:11 AP444487644 SUBMITTED
+emit... 2026-04-19 18:11 AP444487644 VALIDATED
+emit... 2026-04-19 18:11 AP444487644 LoanApplication Added to Repository LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)
+Verifying persistence...
+emit... 2026-04-19 18:11 application_id_123 LoanApplication Updated in Repository LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)
+emit... 2026-04-19 18:11 hybrid_policy_id HybridPolicy Created HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])
+emit... 2026-04-19 18:11 hybrid_policy_id POLICY_VALIDATED {'policy': 'HybridPolicy', 'rules': ['EmploymentRule', 'DtiRule'], 'created_at': '2026-04-19T18:11:51.272032+00:00', 'updated_at': '2026-04-19T18:11:51.272343+00:00', 'validated_at': '2026-04-19T18:11:51.272343+00:00', 'type': 'HybridPolicy', 'id': 'hybrid_policy_id'}
+emit... 2026-04-19 18:11 hybrid_policy_id HybridPolicy Added to Repository HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])
+Running decision (Hybrid Policy)...
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 60ae5302-0ff3-42b8-a3a6-402d3a137607 Decision Created Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 60ae5302-0ff3-42b8-a3a6-402d3a137607 Decision Updated in Repository Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 60ae5302-0ff3-42b8-a3a6-402d3a137607 DECISIONED
+Decision: RuleStatus.REFER
+Reason Codes: ('EM333',)
+
+--- REPLAY DEMONSTRATION ---
+emit... 2026-04-19 18:11 application_id_123 LoanApplication Updated in Repository LoanApplication(Applicant(name=Alice, income=0, credit_score=300, employment=EMPLOYED, existing_customer=False), 15000, 36, car)
+Re-running using current repo state (should differ)...
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 4b3c3627-244d-4b11-b0d3-19ce684a2757 Decision Created Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 4b3c3627-244d-4b11-b0d3-19ce684a2757 Decision Updated in Repository Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 4b3c3627-244d-4b11-b0d3-19ce684a2757 DECISIONED
+Replaying original decision using decision_id...
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 application_id_123_hybrid_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 4d9a2c2d-360f-4078-babf-6d6cc57deb36 Decision Created Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 4d9a2c2d-360f-4078-babf-6d6cc57deb36 Decision Updated in Repository Decision(RuleStatus.REFER, reason_codes=('EM333',), amount=0, apr=0, policy=hybrid_policy_id)
+emit... 2026-04-19 18:11 4d9a2c2d-360f-4078-babf-6d6cc57deb36 DECISIONED
+Replay successful and deterministic ✔
+
+=== APPLICATION 2: SCORECARD POLICY ===
+emit... 2026-04-19 18:11 f043fb11-304f-4100-ae95-d4a20c5cddae Applicant Created Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False)
+emit... 2026-04-19 18:11 AP123000112 LoanApplication Created LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)
+emit... 2026-04-19 18:11 AP123000112 SUBMITTED
+emit... 2026-04-19 18:11 AP123000112 VALIDATED
+emit... 2026-04-19 18:11 scorecard_policy_id ScorecardPolicy Created ScorecardPolicy(id=scorecard_policy_id, rules=[])
+emit... 2026-04-19 18:11 scorecard_policy_id POLICY_VALIDATED {'policy': 'ScorecardPolicy', 'rules': [], 'created_at': '2026-04-19T18:11:51.297312+00:00', 'updated_at': '2026-04-19T18:11:51.297628+00:00', 'validated_at': '2026-04-19T18:11:51.297628+00:00', 'type': 'ScorecardPolicy', 'id': 'scorecard_policy_id'}
+emit... 2026-04-19 18:11 scorecard_policy_id ScorecardPolicy Added to Repository ScorecardPolicy(id=scorecard_policy_id, rules=[])
+Running initial scorecard decision...
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 84f32b3d-e527-4c57-b3e1-8e6c7a4a4ae6 Decision Created Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 84f32b3d-e527-4c57-b3e1-8e6c7a4a4ae6 Decision Updated in Repository Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 84f32b3d-e527-4c57-b3e1-8e6c7a4a4ae6 DECISIONED
+Decision: RuleStatus.APPROVE
+emit... 2026-04-19 18:11 AP123000112 VALIDATED
+emit... 2026-04-19 18:11 AP123000112 LoanApplication Updated in Repository LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 144000, 36, car)
+Running modified decision...
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 a283a5e4-ec64-4d11-a02c-4399b5ebb156 Decision Created Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 a283a5e4-ec64-4d11-a02c-4399b5ebb156 Decision Updated in Repository Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 a283a5e4-ec64-4d11-a02c-4399b5ebb156 DECISIONED
+Decision: RuleStatus.DECLINE
+
+--- REPLAY COMPARISON ---
+Replay using current repo state...
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 d8388783-3065-4785-bf64-3dc0f49ef59c Decision Created Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 d8388783-3065-4785-bf64-3dc0f49ef59c Decision Updated in Repository Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 d8388783-3065-4785-bf64-3dc0f49ef59c DECISIONED
+Replay using decision snapshot (original)...
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 ffb7052c-b225-4abf-b11d-cc7cb1aa910a Decision Created Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 ffb7052c-b225-4abf-b11d-cc7cb1aa910a Decision Updated in Repository Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 ffb7052c-b225-4abf-b11d-cc7cb1aa910a DECISIONED
+Restoring application to original state...
+emit... 2026-04-19 18:11 AP123000112 VALIDATED
+emit... 2026-04-19 18:11 AP123000112 LoanApplication Updated in Repository LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_SELECTED
+emit... 2026-04-19 18:11 AP123000112_scorecard_policy_id_2026-04-19_18:11:51 POLICY_EVALUATED
+emit... 2026-04-19 18:11 43b3925d-c897-44f3-b6e1-5700ade635e9 Decision Created Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 43b3925d-c897-44f3-b6e1-5700ade635e9 Decision Updated in Repository Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)
+emit... 2026-04-19 18:11 43b3925d-c897-44f3-b6e1-5700ade635e9 DECISIONED
+Replay behavior validated ✔
+
+=== APPLICATION 3: RULE-BASED POLICY + EXPORT ===
+emit... 2026-04-19 18:11 771691f9-9ce2-4e2d-a4a2-6cc3a0d8939e Applicant Created Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False)
+emit... 2026-04-19 18:11 AP990009999 LoanApplication Created LoanApplication(Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False), 41000, 36, car)
+emit... 2026-04-19 18:11 AP990009999 SUBMITTED
+emit... 2026-04-19 18:11 AP990009999 VALIDATED
+emit... 2026-04-19 18:11 rule_policy_id RuleBasedPolicy Created RuleBasedPolicy(id=rule_policy_id, rules=['CreditScoreRule', 'LoanAmountRule'])
+emit... 2026-04-19 18:11 rule_policy_id POLICY_VALIDATED {'policy': 'RuleBasedPolicy', 'rules': ['CreditScoreRule', 'LoanAmountRule'], 'created_at': '2026-04-19T18:11:51.336652+00:00', 'updated_at': '2026-04-19T18:11:51.336918+00:00', 'validated_at': '2026-04-19T18:11:51.336918+00:00', 'type': 'RuleBasedPolicy', 'id': 'rule_policy_id'}
+Exporting objects to JSONL...
+emit... 2026-04-19 18:11 AP990009999 EXPORTED
+emit... 2026-04-19 18:11 rule_policy_id EXPORTED
+emit... 2026-04-19 18:11 60ae5302-0ff3-42b8-a3a6-402d3a137607 EXPORTED
+Export complete ✔
+
+=== AUDIT CHAIN VERIFICATION ===
+Audit chain valid ✔
+
+=== DEMO COMPLETE: ALL SYSTEMS WORKING ===
