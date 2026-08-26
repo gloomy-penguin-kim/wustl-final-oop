@@ -1,0 +1,960 @@
+{"event": "Clearing persistence file", "id": "persistence.jsonl", "date": "2026-08-26 04:02:33.792245+00:00"}
+{"event": "Clearing hash chain file", "id": "audit.jsonl", "date": "2026-08-26 04:02:33.797814+00:00"}
+{"event": "Applicant Created", "id": "a15cfad0-8a46-46b3-b5aa-b175dd8dc537", "date": "2026-08-26 04:02:33.799505+00:00", "data": "Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP444487644", "date": "2026-08-26 04:02:33.835749+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:33.884479+00:00", "data": null, "id": "AP444487644"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:33.885646+00:00", "data": null, "id": "AP444487644"}
+{"event": "LoanApplication Added to Repository", "id": "AP444487644", "date": "2026-08-26 04:02:33.886404+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "application_id_123", "date": "2026-08-26 04:02:33.902474+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=700, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "hybrid_policy_id", "date": "2026-08-26 04:02:33.915374+00:00", "data": "HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "POLICY_VALIDATED", "id": "hybrid_policy_id", "date": "2026-08-26 04:02:33.916843+00:00", "data": "HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "hybrid_policy_id", "date": "2026-08-26 04:02:33.927076+00:00", "data": "HybridPolicy(id=hybrid_policy_id, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:33.933235+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:33"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:33.934895+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:33"}
+{"event": "Decision Created", "id": "5c48270e-8d5c-4516-bd73-9611fcf918ed", "date": "2026-08-26 04:02:33.935893+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "5c48270e-8d5c-4516-bd73-9611fcf918ed", "date": "2026-08-26 04:02:33.936793+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:33.962976+00:00", "data": null, "id": "5c48270e-8d5c-4516-bd73-9611fcf918ed"}
+{"event": "LoanApplication Updated in Repository", "id": "application_id_123", "date": "2026-08-26 04:02:34.137159+00:00", "data": "LoanApplication(Applicant(name=Alice, income=0, credit_score=300, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.174869+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.176881+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "b4889ffb-2eaf-46dc-a9f3-0ab311d96690", "date": "2026-08-26 04:02:34.178534+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "b4889ffb-2eaf-46dc-a9f3-0ab311d96690", "date": "2026-08-26 04:02:34.179304+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.185080+00:00", "data": null, "id": "b4889ffb-2eaf-46dc-a9f3-0ab311d96690"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.191613+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.193408+00:00", "data": null, "id": "application_id_123_hybrid_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "25359f44-8905-4851-9ce4-3c109835dd27", "date": "2026-08-26 04:02:34.194298+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "25359f44-8905-4851-9ce4-3c109835dd27", "date": "2026-08-26 04:02:34.195078+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DIT30',), amount=0, apr=0, policy=hybrid_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.201102+00:00", "data": null, "id": "25359f44-8905-4851-9ce4-3c109835dd27"}
+{"event": "Applicant Created", "id": "61e4e885-0d85-48b2-9cc0-71e4021f0c8f", "date": "2026-08-26 04:02:34.206800+00:00", "data": "Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP123000112", "date": "2026-08-26 04:02:34.207705+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:34.209195+00:00", "data": null, "id": "AP123000112"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:34.258880+00:00", "data": null, "id": "AP123000112"}
+{"event": "ScorecardPolicy Created", "id": "scorecard_policy_id", "date": "2026-08-26 04:02:34.281862+00:00", "data": "ScorecardPolicy(id=scorecard_policy_id, rules=[])"}
+{"event": "POLICY_VALIDATED", "id": "scorecard_policy_id", "date": "2026-08-26 04:02:34.303550+00:00", "data": "ScorecardPolicy(id=scorecard_policy_id, rules=[])"}
+{"event": "ScorecardPolicy Added to Repository", "id": "scorecard_policy_id", "date": "2026-08-26 04:02:34.330804+00:00", "data": "ScorecardPolicy(id=scorecard_policy_id, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.383026+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.384899+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "11f65569-3321-4454-b66e-6228cf77379b", "date": "2026-08-26 04:02:34.386958+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "11f65569-3321-4454-b66e-6228cf77379b", "date": "2026-08-26 04:02:34.393171+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.399253+00:00", "data": null, "id": "11f65569-3321-4454-b66e-6228cf77379b"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:34.400901+00:00", "data": null, "id": "AP123000112"}
+{"event": "LoanApplication Updated in Repository", "id": "AP123000112", "date": "2026-08-26 04:02:34.403173+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 144000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.501220+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.507711+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "ec449aa6-6f0e-488b-8137-5f80c822e178", "date": "2026-08-26 04:02:34.509045+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "ec449aa6-6f0e-488b-8137-5f80c822e178", "date": "2026-08-26 04:02:34.510945+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.582151+00:00", "data": null, "id": "ec449aa6-6f0e-488b-8137-5f80c822e178"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.591207+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.594992+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "5178755d-ef0b-4f86-9e88-2a82c5091a15", "date": "2026-08-26 04:02:34.596894+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "5178755d-ef0b-4f86-9e88-2a82c5091a15", "date": "2026-08-26 04:02:34.598410+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.608545+00:00", "data": null, "id": "5178755d-ef0b-4f86-9e88-2a82c5091a15"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.629741+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.635367+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "4dbcd5a4-fb7c-4098-9ba4-67f11e16f5fe", "date": "2026-08-26 04:02:34.645741+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "4dbcd5a4-fb7c-4098-9ba4-67f11e16f5fe", "date": "2026-08-26 04:02:34.647425+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.657732+00:00", "data": null, "id": "4dbcd5a4-fb7c-4098-9ba4-67f11e16f5fe"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:34.734264+00:00", "data": null, "id": "AP123000112"}
+{"event": "LoanApplication Updated in Repository", "id": "AP123000112", "date": "2026-08-26 04:02:34.736957+00:00", "data": "LoanApplication(Applicant(name=Bob, income=22000, credit_score=700, employment=UNEMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:34.897591+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:34.899075+00:00", "data": null, "id": "AP123000112_scorecard_policy_id_2026-08-26_04:02:34"}
+{"event": "Decision Created", "id": "8275b381-1acd-4263-b6a1-1ef2bb548433", "date": "2026-08-26 04:02:34.899892+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "Decision Updated in Repository", "id": "8275b381-1acd-4263-b6a1-1ef2bb548433", "date": "2026-08-26 04:02:34.900905+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=scorecard_policy_id)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:34.910331+00:00", "data": null, "id": "8275b381-1acd-4263-b6a1-1ef2bb548433"}
+{"event": "Applicant Created", "id": "39648340-1456-43b8-9183-cbe77076e973", "date": "2026-08-26 04:02:34.911289+00:00", "data": "Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "AP990009999", "date": "2026-08-26 04:02:34.912302+00:00", "data": "LoanApplication(Applicant(name=Charlie, income=100000, credit_score=780, employment=EMPLOYED, existing_customer=False), 41000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:34.914190+00:00", "data": null, "id": "AP990009999"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:34.916767+00:00", "data": null, "id": "AP990009999"}
+{"event": "RuleBasedPolicy Created", "id": "rule_policy_id", "date": "2026-08-26 04:02:34.918802+00:00", "data": "RuleBasedPolicy(id=rule_policy_id, rules=['CreditScoreRule', 'LoanAmountRule'])"}
+{"event": "POLICY_VALIDATED", "id": "rule_policy_id", "date": "2026-08-26 04:02:34.926855+00:00", "data": "RuleBasedPolicy(id=rule_policy_id, rules=['CreditScoreRule', 'LoanAmountRule'])"}
+{"event": "EXPORTED", "date": "2026-08-26 04:02:34.930857+00:00", "data": null, "id": "AP990009999"}
+{"event": "EXPORTED", "date": "2026-08-26 04:02:34.933932+00:00", "data": null, "id": "rule_policy_id"}
+{"event": "EXPORTED", "date": "2026-08-26 04:02:34.942392+00:00", "data": null, "id": "5c48270e-8d5c-4516-bd73-9611fcf918ed"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.099819+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.101336+00:00"}
+{"event": "Applicant Created", "id": "6dc693a5-74a4-477a-8e74-f29ebd1310e2", "date": "2026-08-26 04:02:40.102285+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.106298+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.109164+00:00"}
+{"event": "Applicant Created", "id": "73a55cfc-c11d-4e45-abae-af4fc09aae71", "date": "2026-08-26 04:02:40.109751+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "A1000", "date": "2026-08-26 04:02:40.110248+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.113238+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.114666+00:00"}
+{"event": "Applicant Created", "id": "53d41d4b-b049-4a1c-8ee0-1f322e206380", "date": "2026-08-26 04:02:40.115342+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Applicant Updated in Repository", "id": "53d41d4b-b049-4a1c-8ee0-1f322e206380", "date": "2026-08-26 04:02:40.115893+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Deleted from Repository", "id": "tacobell", "date": "2026-08-26 04:02:40.120090+00:00"}
+{"event": "LoanApplication Created", "id": "tacobell", "date": "2026-08-26 04:02:40.125247+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "tacobell", "date": "2026-08-26 04:02:40.126951+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Deleted from Repository", "id": "tacobell", "date": "2026-08-26 04:02:40.130265+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.133361+00:00", "data": null, "id": "tacobell"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.133970+00:00", "data": null, "id": "tacobell"}
+{"event": "LoanApplication Updated in Repository", "id": "tacobell", "date": "2026-08-26 04:02:40.134301+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Created", "id": "tacobell", "date": "2026-08-26 04:02:40.136186+00:00", "data": "LoanApplication({'name': 'Bob', 'annual_income': Decimal('15000'), 'monthly_debt': Decimal('300'), 'credit_score': 800, 'employment_status': 'SOCIAL SECURITY', 'hash_chain': <app.audit.hash_chain.HashChain object at 0x00000242B0644B00>}, 15000, 36, car)"}
+{"event": "Applicant Created", "id": "7d62cd5d-d736-412e-b48e-9f8003c3e3c6", "date": "2026-08-26 04:02:40.136583+00:00", "data": "Applicant(name=Bob, income=15000, credit_score=800, employment=SOCIAL SECURITY, existing_customer=False)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.137149+00:00", "data": null, "id": "tacobell"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.137774+00:00", "data": null, "id": "tacobell"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.140534+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.142857+00:00"}
+{"event": "Applicant Created", "id": "67f51da8-d25b-4f0f-aa1e-82332eccdc40", "date": "2026-08-26 04:02:40.143634+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "85225f0a-0689-4b4d-b142-fc481af92f10", "date": "2026-08-26 04:02:40.144082+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "cf65a4b3-e976-4895-a17f-f7837e6bd08f", "date": "2026-08-26 04:02:40.144477+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "f14aeee8-bb77-46dd-ae97-2cd79c56f581", "date": "2026-08-26 04:02:40.144883+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "85225f0a-0689-4b4d-b142-fc481af92f10", "date": "2026-08-26 04:02:40.145292+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.149021+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.149901+00:00"}
+{"event": "Applicant Created", "id": "00ca21ba-9344-4cc1-95ea-a10e3b4976f7", "date": "2026-08-26 04:02:40.150323+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2d24ac25-e3b9-47f0-8ab8-3efdbbae34f6", "date": "2026-08-26 04:02:40.150642+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.151312+00:00", "data": null, "id": "2d24ac25-e3b9-47f0-8ab8-3efdbbae34f6"}
+{"event": "Applicant Created", "id": "99d201d1-0df1-4ad1-9a2d-3b819af8d302", "date": "2026-08-26 04:02:40.151770+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "74222a2a-5c3a-4ec6-8a01-76ef4206f6a8", "date": "2026-08-26 04:02:40.152120+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.153097+00:00", "data": null, "id": "74222a2a-5c3a-4ec6-8a01-76ef4206f6a8"}
+{"event": "Applicant Created", "id": "c92aeeb8-fa28-44b0-b180-91e19175e15d", "date": "2026-08-26 04:02:40.153429+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2d591502-9c4c-4132-bd1e-ed76e423c3aa", "date": "2026-08-26 04:02:40.153735+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.154286+00:00", "data": null, "id": "2d591502-9c4c-4132-bd1e-ed76e423c3aa"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.154782+00:00", "data": null, "id": "2d591502-9c4c-4132-bd1e-ed76e423c3aa"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.159086+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.160401+00:00"}
+{"event": "Applicant Created", "id": "17ecc1f9-4703-4e94-99ae-0bc6b371d4b9", "date": "2026-08-26 04:02:40.160950+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "9cbdcc6c-67f1-4d9f-91ab-7729341c2a18", "date": "2026-08-26 04:02:40.161392+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.162180+00:00", "data": null, "id": "9cbdcc6c-67f1-4d9f-91ab-7729341c2a18"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.163221+00:00", "data": null, "id": "9cbdcc6c-67f1-4d9f-91ab-7729341c2a18"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.165581+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.166967+00:00"}
+{"event": "Applicant Created", "id": "d49966ce-f64e-41d8-890f-6842416949ad", "date": "2026-08-26 04:02:40.167430+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "44badabb-6be2-4b78-9ebb-e3c5decc0319", "date": "2026-08-26 04:02:40.167812+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "44badabb-6be2-4b78-9ebb-e3c5decc0319", "date": "2026-08-26 04:02:40.168134+00:00", "data": "LoanApplication(Applicant(name=Alice 123, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.170458+00:00", "data": null, "id": "44badabb-6be2-4b78-9ebb-e3c5decc0319"}
+{"event": "LoanApplication Updated in Repository", "id": "44badabb-6be2-4b78-9ebb-e3c5decc0319", "date": "2026-08-26 04:02:40.170753+00:00", "data": "LoanApplication(Applicant(name=Alice 123, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "LoanApplication Updated in Repository", "id": "44badabb-6be2-4b78-9ebb-e3c5decc0319", "date": "2026-08-26 04:02:40.173264+00:00", "data": "LoanApplication(Applicant(name=Alice 123, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15222, 36, car)"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.177630+00:00", "data": null, "id": "something else"}
+{"event": "LoanApplication Updated in Repository", "id": "something else", "date": "2026-08-26 04:02:40.178057+00:00", "data": "LoanApplication(Applicant(name=Alice 123, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15222, 36, car)"}
+{"event": "LoanApplication Deleted from Repository", "id": "something else", "date": "2026-08-26 04:02:40.181037+00:00", "data": "LoanApplication(Applicant(name=Alice 123, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15222, 36, car)"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.184928+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.185813+00:00"}
+{"event": "Applicant Created", "id": "600fa2d0-0a8a-44af-80f5-d05dd9698d4c", "date": "2026-08-26 04:02:40.186237+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "0201b77a-a2f5-4588-bf11-1c501eb3aaaf", "date": "2026-08-26 04:02:40.186559+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.189759+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.191967+00:00"}
+{"event": "Applicant Created", "id": "7ab8f54a-590a-4ac9-9b2b-1b259907340b", "date": "2026-08-26 04:02:40.192722+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49", "date": "2026-08-26 04:02:40.193420+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.194509+00:00", "data": null, "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.195620+00:00", "data": null, "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49"}
+{"event": "LoanApplication Added to Repository", "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49", "date": "2026-08-26 04:02:40.196208+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "48f23fbd-ec66-4521-9e92-f208038aff83", "date": "2026-08-26 04:02:40.198319+00:00", "data": "HybridPolicy(id=48f23fbd-ec66-4521-9e92-f208038aff83, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "48f23fbd-ec66-4521-9e92-f208038aff83", "date": "2026-08-26 04:02:40.198768+00:00", "data": "HybridPolicy(id=48f23fbd-ec66-4521-9e92-f208038aff83, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "48f23fbd-ec66-4521-9e92-f208038aff83", "date": "2026-08-26 04:02:40.199346+00:00", "data": "HybridPolicy(id=48f23fbd-ec66-4521-9e92-f208038aff83, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.202002+00:00", "data": null, "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49_48f23fbd-ec66-4521-9e92-f208038aff83_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.202901+00:00", "data": null, "id": "80fc72e1-cf6e-40d4-8f42-ab1ef9a1cf49_48f23fbd-ec66-4521-9e92-f208038aff83_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "e90d010f-1552-41be-a18d-2ea91074d4b5", "date": "2026-08-26 04:02:40.203370+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=48f23fbd-ec66-4521-9e92-f208038aff83)"}
+{"event": "Decision Updated in Repository", "id": "e90d010f-1552-41be-a18d-2ea91074d4b5", "date": "2026-08-26 04:02:40.203728+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=48f23fbd-ec66-4521-9e92-f208038aff83)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.208158+00:00", "data": null, "id": "e90d010f-1552-41be-a18d-2ea91074d4b5"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.211950+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.213375+00:00"}
+{"event": "Applicant Created", "id": "e4b7813f-6474-443a-9b8b-8fa4574792df", "date": "2026-08-26 04:02:40.214015+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "22b05d45-e5fd-4fef-b0de-14964b250e22", "date": "2026-08-26 04:02:40.214600+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.215603+00:00", "data": null, "id": "22b05d45-e5fd-4fef-b0de-14964b250e22"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.216514+00:00", "data": null, "id": "22b05d45-e5fd-4fef-b0de-14964b250e22"}
+{"event": "LoanApplication Added to Repository", "id": "22b05d45-e5fd-4fef-b0de-14964b250e22", "date": "2026-08-26 04:02:40.217147+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "cc5f3afa-3153-4ebf-874c-663c4e3bfc64", "date": "2026-08-26 04:02:40.219104+00:00", "data": "HybridPolicy(id=cc5f3afa-3153-4ebf-874c-663c4e3bfc64, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "cc5f3afa-3153-4ebf-874c-663c4e3bfc64", "date": "2026-08-26 04:02:40.219475+00:00", "data": "HybridPolicy(id=cc5f3afa-3153-4ebf-874c-663c4e3bfc64, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "cc5f3afa-3153-4ebf-874c-663c4e3bfc64", "date": "2026-08-26 04:02:40.219957+00:00", "data": "HybridPolicy(id=cc5f3afa-3153-4ebf-874c-663c4e3bfc64, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.225134+00:00", "data": null, "id": "22b05d45-e5fd-4fef-b0de-14964b250e22_cc5f3afa-3153-4ebf-874c-663c4e3bfc64_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.226372+00:00", "data": null, "id": "22b05d45-e5fd-4fef-b0de-14964b250e22_cc5f3afa-3153-4ebf-874c-663c4e3bfc64_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "00b3be85-215d-47fc-9512-898145de4634", "date": "2026-08-26 04:02:40.226938+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=cc5f3afa-3153-4ebf-874c-663c4e3bfc64)"}
+{"event": "Decision Updated in Repository", "id": "00b3be85-215d-47fc-9512-898145de4634", "date": "2026-08-26 04:02:40.227507+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=cc5f3afa-3153-4ebf-874c-663c4e3bfc64)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.231423+00:00", "data": null, "id": "00b3be85-215d-47fc-9512-898145de4634"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.234128+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.235158+00:00"}
+{"event": "Applicant Created", "id": "3747741e-94e8-42ff-a527-5194093bf4a6", "date": "2026-08-26 04:02:40.235591+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee", "date": "2026-08-26 04:02:40.235932+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.236513+00:00", "data": null, "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.237045+00:00", "data": null, "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee"}
+{"event": "LoanApplication Added to Repository", "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee", "date": "2026-08-26 04:02:40.237443+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Created", "id": "a8f6cb60-dd18-4690-8b5b-b30f958ef20f", "date": "2026-08-26 04:02:40.241970+00:00", "data": "RuleBasedPolicy(id=a8f6cb60-dd18-4690-8b5b-b30f958ef20f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "a8f6cb60-dd18-4690-8b5b-b30f958ef20f", "date": "2026-08-26 04:02:40.242649+00:00", "data": "RuleBasedPolicy(id=a8f6cb60-dd18-4690-8b5b-b30f958ef20f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "RuleBasedPolicy Added to Repository", "id": "a8f6cb60-dd18-4690-8b5b-b30f958ef20f", "date": "2026-08-26 04:02:40.243323+00:00", "data": "RuleBasedPolicy(id=a8f6cb60-dd18-4690-8b5b-b30f958ef20f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.246545+00:00", "data": null, "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee_a8f6cb60-dd18-4690-8b5b-b30f958ef20f_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.247467+00:00", "data": null, "id": "ad9f8ea9-d1be-47d4-9269-e5191c00c5ee_a8f6cb60-dd18-4690-8b5b-b30f958ef20f_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1b017fbe-1ee9-4448-b016-0fa1c8df32ac", "date": "2026-08-26 04:02:40.248766+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=a8f6cb60-dd18-4690-8b5b-b30f958ef20f)"}
+{"event": "Decision Updated in Repository", "id": "1b017fbe-1ee9-4448-b016-0fa1c8df32ac", "date": "2026-08-26 04:02:40.249328+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=a8f6cb60-dd18-4690-8b5b-b30f958ef20f)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.252521+00:00", "data": null, "id": "1b017fbe-1ee9-4448-b016-0fa1c8df32ac"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.254726+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.257493+00:00"}
+{"event": "Applicant Created", "id": "067497bb-aba7-4bbc-ba4d-946efe823c3d", "date": "2026-08-26 04:02:40.258376+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "167beff8-4948-42bc-92cb-20acf333fe58", "date": "2026-08-26 04:02:40.259071+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.260032+00:00", "data": null, "id": "167beff8-4948-42bc-92cb-20acf333fe58"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.260754+00:00", "data": null, "id": "167beff8-4948-42bc-92cb-20acf333fe58"}
+{"event": "LoanApplication Added to Repository", "id": "167beff8-4948-42bc-92cb-20acf333fe58", "date": "2026-08-26 04:02:40.261201+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "ScorecardPolicy Created", "id": "77835f26-6ce1-4e03-9c20-01b970d4a637", "date": "2026-08-26 04:02:40.263187+00:00", "data": "ScorecardPolicy(id=77835f26-6ce1-4e03-9c20-01b970d4a637, rules=[])"}
+{"event": "POLICY_VALIDATED", "id": "77835f26-6ce1-4e03-9c20-01b970d4a637", "date": "2026-08-26 04:02:40.263542+00:00", "data": "ScorecardPolicy(id=77835f26-6ce1-4e03-9c20-01b970d4a637, rules=[])"}
+{"event": "ScorecardPolicy Added to Repository", "id": "77835f26-6ce1-4e03-9c20-01b970d4a637", "date": "2026-08-26 04:02:40.264064+00:00", "data": "ScorecardPolicy(id=77835f26-6ce1-4e03-9c20-01b970d4a637, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.266449+00:00", "data": null, "id": "167beff8-4948-42bc-92cb-20acf333fe58_77835f26-6ce1-4e03-9c20-01b970d4a637_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.267025+00:00", "data": null, "id": "167beff8-4948-42bc-92cb-20acf333fe58_77835f26-6ce1-4e03-9c20-01b970d4a637_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "39a292f0-af1a-479a-93f9-a13ff69a9e50", "date": "2026-08-26 04:02:40.267391+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=77835f26-6ce1-4e03-9c20-01b970d4a637)"}
+{"event": "Decision Updated in Repository", "id": "39a292f0-af1a-479a-93f9-a13ff69a9e50", "date": "2026-08-26 04:02:40.267718+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=77835f26-6ce1-4e03-9c20-01b970d4a637)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.269892+00:00", "data": null, "id": "39a292f0-af1a-479a-93f9-a13ff69a9e50"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.273168+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.276004+00:00"}
+{"event": "Applicant Created", "id": "585fb46f-8e1c-4024-8efe-b1d84e9184d9", "date": "2026-08-26 04:02:40.277091+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2b793da0-3198-4127-9a78-9575982bc5b1", "date": "2026-08-26 04:02:40.277622+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.278393+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.279028+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1"}
+{"event": "LoanApplication Added to Repository", "id": "2b793da0-3198-4127-9a78-9575982bc5b1", "date": "2026-08-26 04:02:40.279461+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "bd8328fb-9a85-43d0-bc1e-af0abac37053", "date": "2026-08-26 04:02:40.281280+00:00", "data": "HybridPolicy(id=bd8328fb-9a85-43d0-bc1e-af0abac37053, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "bd8328fb-9a85-43d0-bc1e-af0abac37053", "date": "2026-08-26 04:02:40.281659+00:00", "data": "HybridPolicy(id=bd8328fb-9a85-43d0-bc1e-af0abac37053, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "bd8328fb-9a85-43d0-bc1e-af0abac37053", "date": "2026-08-26 04:02:40.282138+00:00", "data": "HybridPolicy(id=bd8328fb-9a85-43d0-bc1e-af0abac37053, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.284451+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1_bd8328fb-9a85-43d0-bc1e-af0abac37053_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.285035+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1_bd8328fb-9a85-43d0-bc1e-af0abac37053_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "cd8cfa0e-63e7-4341-9f8a-e9b9faf8b1ee", "date": "2026-08-26 04:02:40.285399+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=bd8328fb-9a85-43d0-bc1e-af0abac37053)"}
+{"event": "Decision Updated in Repository", "id": "cd8cfa0e-63e7-4341-9f8a-e9b9faf8b1ee", "date": "2026-08-26 04:02:40.285698+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=bd8328fb-9a85-43d0-bc1e-af0abac37053)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.288718+00:00", "data": null, "id": "cd8cfa0e-63e7-4341-9f8a-e9b9faf8b1ee"}
+{"event": "LoanApplication Updated in Repository", "id": "2b793da0-3198-4127-9a78-9575982bc5b1", "date": "2026-08-26 04:02:40.289224+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=300, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.293077+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1_bd8328fb-9a85-43d0-bc1e-af0abac37053_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.293712+00:00", "data": null, "id": "2b793da0-3198-4127-9a78-9575982bc5b1_bd8328fb-9a85-43d0-bc1e-af0abac37053_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "f04c9b05-575d-4ba3-93fb-ba76a4094013", "date": "2026-08-26 04:02:40.294089+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=bd8328fb-9a85-43d0-bc1e-af0abac37053)"}
+{"event": "Decision Updated in Repository", "id": "f04c9b05-575d-4ba3-93fb-ba76a4094013", "date": "2026-08-26 04:02:40.294432+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=bd8328fb-9a85-43d0-bc1e-af0abac37053)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.296892+00:00", "data": null, "id": "f04c9b05-575d-4ba3-93fb-ba76a4094013"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.299135+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.300028+00:00"}
+{"event": "Applicant Created", "id": "dffc7b4d-d4a5-46aa-8cf9-84aec314b309", "date": "2026-08-26 04:02:40.300434+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04", "date": "2026-08-26 04:02:40.300761+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.301297+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.301825+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04"}
+{"event": "LoanApplication Added to Repository", "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04", "date": "2026-08-26 04:02:40.302187+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "255fc9d8-cabd-4470-b20a-a48ebcac76fb", "date": "2026-08-26 04:02:40.303677+00:00", "data": "HybridPolicy(id=255fc9d8-cabd-4470-b20a-a48ebcac76fb, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "255fc9d8-cabd-4470-b20a-a48ebcac76fb", "date": "2026-08-26 04:02:40.303977+00:00", "data": "HybridPolicy(id=255fc9d8-cabd-4470-b20a-a48ebcac76fb, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "255fc9d8-cabd-4470-b20a-a48ebcac76fb", "date": "2026-08-26 04:02:40.305228+00:00", "data": "HybridPolicy(id=255fc9d8-cabd-4470-b20a-a48ebcac76fb, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.310542+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04_255fc9d8-cabd-4470-b20a-a48ebcac76fb_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.311832+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04_255fc9d8-cabd-4470-b20a-a48ebcac76fb_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "172edf8c-cc2d-497c-be59-3824d762a8a8", "date": "2026-08-26 04:02:40.312543+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=255fc9d8-cabd-4470-b20a-a48ebcac76fb)"}
+{"event": "Decision Updated in Repository", "id": "172edf8c-cc2d-497c-be59-3824d762a8a8", "date": "2026-08-26 04:02:40.313099+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=255fc9d8-cabd-4470-b20a-a48ebcac76fb)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.316454+00:00", "data": null, "id": "172edf8c-cc2d-497c-be59-3824d762a8a8"}
+{"event": "LoanApplication Updated in Repository", "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04", "date": "2026-08-26 04:02:40.316799+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=300, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.319786+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04_255fc9d8-cabd-4470-b20a-a48ebcac76fb_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.320435+00:00", "data": null, "id": "7a0e932d-f6b2-41c8-9eac-63c5ff39ba04_255fc9d8-cabd-4470-b20a-a48ebcac76fb_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "20081f2c-a0ce-40a2-968c-2cc33bdb76f6", "date": "2026-08-26 04:02:40.320836+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=255fc9d8-cabd-4470-b20a-a48ebcac76fb)"}
+{"event": "Decision Updated in Repository", "id": "20081f2c-a0ce-40a2-968c-2cc33bdb76f6", "date": "2026-08-26 04:02:40.321188+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=255fc9d8-cabd-4470-b20a-a48ebcac76fb)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.326485+00:00", "data": null, "id": "20081f2c-a0ce-40a2-968c-2cc33bdb76f6"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.328696+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.329779+00:00"}
+{"event": "Applicant Created", "id": "f194918f-453a-4cfa-92c3-d51474c43a2f", "date": "2026-08-26 04:02:40.330157+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "639a06dd-4f2c-4dc6-819e-e07e74912060", "date": "2026-08-26 04:02:40.330494+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.331085+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.331669+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060"}
+{"event": "LoanApplication Added to Repository", "id": "639a06dd-4f2c-4dc6-819e-e07e74912060", "date": "2026-08-26 04:02:40.332054+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "ScorecardPolicy Created", "id": "31c4ae67-ab1d-412f-99e7-4e309ba178aa", "date": "2026-08-26 04:02:40.333910+00:00", "data": "ScorecardPolicy(id=31c4ae67-ab1d-412f-99e7-4e309ba178aa, rules=[])"}
+{"event": "POLICY_VALIDATED", "id": "31c4ae67-ab1d-412f-99e7-4e309ba178aa", "date": "2026-08-26 04:02:40.334274+00:00", "data": "ScorecardPolicy(id=31c4ae67-ab1d-412f-99e7-4e309ba178aa, rules=[])"}
+{"event": "ScorecardPolicy Added to Repository", "id": "31c4ae67-ab1d-412f-99e7-4e309ba178aa", "date": "2026-08-26 04:02:40.334710+00:00", "data": "ScorecardPolicy(id=31c4ae67-ab1d-412f-99e7-4e309ba178aa, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.336816+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060_31c4ae67-ab1d-412f-99e7-4e309ba178aa_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.337380+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060_31c4ae67-ab1d-412f-99e7-4e309ba178aa_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "6c221ff1-1421-4b15-812d-6df912092dd1", "date": "2026-08-26 04:02:40.337735+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=31c4ae67-ab1d-412f-99e7-4e309ba178aa)"}
+{"event": "Decision Updated in Repository", "id": "6c221ff1-1421-4b15-812d-6df912092dd1", "date": "2026-08-26 04:02:40.338167+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=31c4ae67-ab1d-412f-99e7-4e309ba178aa)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.344346+00:00", "data": null, "id": "6c221ff1-1421-4b15-812d-6df912092dd1"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.345646+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060"}
+{"event": "LoanApplication Updated in Repository", "id": "639a06dd-4f2c-4dc6-819e-e07e74912060", "date": "2026-08-26 04:02:40.346244+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 999999, 36, car)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.349475+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060_31c4ae67-ab1d-412f-99e7-4e309ba178aa_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.350124+00:00", "data": null, "id": "639a06dd-4f2c-4dc6-819e-e07e74912060_31c4ae67-ab1d-412f-99e7-4e309ba178aa_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "349c703f-bdf1-43f5-a09c-b2777a55aa1b", "date": "2026-08-26 04:02:40.350508+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=31c4ae67-ab1d-412f-99e7-4e309ba178aa)"}
+{"event": "Decision Updated in Repository", "id": "349c703f-bdf1-43f5-a09c-b2777a55aa1b", "date": "2026-08-26 04:02:40.350861+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=None, apr=None, policy=31c4ae67-ab1d-412f-99e7-4e309ba178aa)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.353558+00:00", "data": null, "id": "349c703f-bdf1-43f5-a09c-b2777a55aa1b"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.358000+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.359549+00:00"}
+{"event": "Applicant Created", "id": "0773ebb6-d702-42bd-a6b3-3bb6ddfd68ad", "date": "2026-08-26 04:02:40.360046+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5", "date": "2026-08-26 04:02:40.360473+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.361140+00:00", "data": null, "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.361760+00:00", "data": null, "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5"}
+{"event": "LoanApplication Added to Repository", "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5", "date": "2026-08-26 04:02:40.362190+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Created", "id": "75096223-18e8-43b6-be64-53697f8f9a6f", "date": "2026-08-26 04:02:40.364135+00:00", "data": "RuleBasedPolicy(id=75096223-18e8-43b6-be64-53697f8f9a6f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "75096223-18e8-43b6-be64-53697f8f9a6f", "date": "2026-08-26 04:02:40.364560+00:00", "data": "RuleBasedPolicy(id=75096223-18e8-43b6-be64-53697f8f9a6f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "RuleBasedPolicy Added to Repository", "id": "75096223-18e8-43b6-be64-53697f8f9a6f", "date": "2026-08-26 04:02:40.365148+00:00", "data": "RuleBasedPolicy(id=75096223-18e8-43b6-be64-53697f8f9a6f, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.367960+00:00", "data": null, "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5_75096223-18e8-43b6-be64-53697f8f9a6f_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.368717+00:00", "data": null, "id": "fe7cca17-0b8f-4305-a773-76ab92e724e5_75096223-18e8-43b6-be64-53697f8f9a6f_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "3f482d4c-62b3-4be0-9de9-794394086128", "date": "2026-08-26 04:02:40.369328+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=75096223-18e8-43b6-be64-53697f8f9a6f)"}
+{"event": "Decision Updated in Repository", "id": "3f482d4c-62b3-4be0-9de9-794394086128", "date": "2026-08-26 04:02:40.369769+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=75096223-18e8-43b6-be64-53697f8f9a6f)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.375430+00:00", "data": null, "id": "3f482d4c-62b3-4be0-9de9-794394086128"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.379029+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.380800+00:00"}
+{"event": "Applicant Created", "id": "efceb710-3d29-4039-b3ea-d364c6c5e624", "date": "2026-08-26 04:02:40.381461+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "d9489066-db4e-4c6e-907f-204bb57f808b", "date": "2026-08-26 04:02:40.382059+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.383067+00:00", "data": null, "id": "d9489066-db4e-4c6e-907f-204bb57f808b"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.383994+00:00", "data": null, "id": "d9489066-db4e-4c6e-907f-204bb57f808b"}
+{"event": "LoanApplication Added to Repository", "id": "d9489066-db4e-4c6e-907f-204bb57f808b", "date": "2026-08-26 04:02:40.384612+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "HybridPolicy Created", "id": "85d84a4d-538d-4d40-afbb-58adc083475e", "date": "2026-08-26 04:02:40.387174+00:00", "data": "HybridPolicy(id=85d84a4d-538d-4d40-afbb-58adc083475e, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_VALIDATED", "id": "85d84a4d-538d-4d40-afbb-58adc083475e", "date": "2026-08-26 04:02:40.387591+00:00", "data": "HybridPolicy(id=85d84a4d-538d-4d40-afbb-58adc083475e, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "HybridPolicy Added to Repository", "id": "85d84a4d-538d-4d40-afbb-58adc083475e", "date": "2026-08-26 04:02:40.388100+00:00", "data": "HybridPolicy(id=85d84a4d-538d-4d40-afbb-58adc083475e, rules=['EmploymentRule', 'DtiRule', 'LoanAmountRule', 'CreditScoreRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.394718+00:00", "data": null, "id": "d9489066-db4e-4c6e-907f-204bb57f808b_85d84a4d-538d-4d40-afbb-58adc083475e_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.395681+00:00", "data": null, "id": "d9489066-db4e-4c6e-907f-204bb57f808b_85d84a4d-538d-4d40-afbb-58adc083475e_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "b87e5e45-8e94-4c91-aa1f-abbde14596b1", "date": "2026-08-26 04:02:40.396195+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=85d84a4d-538d-4d40-afbb-58adc083475e)"}
+{"event": "Decision Updated in Repository", "id": "b87e5e45-8e94-4c91-aa1f-abbde14596b1", "date": "2026-08-26 04:02:40.396648+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('LA500',), amount=0, apr=0, policy=85d84a4d-538d-4d40-afbb-58adc083475e)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.399843+00:00", "data": null, "id": "b87e5e45-8e94-4c91-aa1f-abbde14596b1"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.403478+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.404755+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.405389+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.407287+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.408372+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "56c52cc0-433c-4ce2-a61b-7425498c9ca9", "date": "2026-08-26 04:02:40.409097+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "55313678-45c5-433b-b962-459b0cbe6adf", "date": "2026-08-26 04:02:40.409856+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.411157+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.412280+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.413326+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.414106+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "b88e8730-20fe-4e46-8f7b-9c931700be86", "date": "2026-08-26 04:02:40.414540+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "b88e8730-20fe-4e46-8f7b-9c931700be86", "date": "2026-08-26 04:02:40.414993+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.417633+00:00", "data": null, "id": "b88e8730-20fe-4e46-8f7b-9c931700be86"}
+{"event": "Applicant Created", "id": "52dc8562-f164-4a71-b605-98f3cf120cc7", "date": "2026-08-26 04:02:40.418180+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "10fd1802-20ac-4b35-a74b-fd71f02fe6f9", "date": "2026-08-26 04:02:40.418764+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.419630+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.420320+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.420957+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.425036+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.428032+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.430318+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.433203+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.434005+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "fb6fa7c5-eff0-4ff8-ac59-401127160e37", "date": "2026-08-26 04:02:40.434454+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "fb6fa7c5-eff0-4ff8-ac59-401127160e37", "date": "2026-08-26 04:02:40.434840+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.438223+00:00", "data": null, "id": "fb6fa7c5-eff0-4ff8-ac59-401127160e37"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.440019+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.441950+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "8e9076ab-d789-4c8e-8091-58624ad77c23", "date": "2026-08-26 04:02:40.442761+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "8e9076ab-d789-4c8e-8091-58624ad77c23", "date": "2026-08-26 04:02:40.443384+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.446962+00:00", "data": null, "id": "8e9076ab-d789-4c8e-8091-58624ad77c23"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.447676+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.448328+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "e8e94ec3-dfe4-448a-bb6d-769180306d6b", "date": "2026-08-26 04:02:40.448739+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "e8e94ec3-dfe4-448a-bb6d-769180306d6b", "date": "2026-08-26 04:02:40.449104+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.452003+00:00", "data": null, "id": "e8e94ec3-dfe4-448a-bb6d-769180306d6b"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.452836+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.453582+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "f7f00ec7-8af6-469b-88c0-2db61a2ab018", "date": "2026-08-26 04:02:40.454045+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "f7f00ec7-8af6-469b-88c0-2db61a2ab018", "date": "2026-08-26 04:02:40.454451+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.459868+00:00", "data": null, "id": "f7f00ec7-8af6-469b-88c0-2db61a2ab018"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.464226+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.465534+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.466312+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.466727+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.467087+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "db3178d9-c917-4f80-a5cd-e9f08cebeb8b", "date": "2026-08-26 04:02:40.467459+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "f0adbecf-b269-40b2-88c8-015a54a9682e", "date": "2026-08-26 04:02:40.467845+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.468506+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.469127+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.469751+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.470389+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1e4fd430-034b-48b2-8e2c-a0ca798dd41b", "date": "2026-08-26 04:02:40.470785+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "1e4fd430-034b-48b2-8e2c-a0ca798dd41b", "date": "2026-08-26 04:02:40.471126+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.476135+00:00", "data": null, "id": "1e4fd430-034b-48b2-8e2c-a0ca798dd41b"}
+{"event": "Applicant Created", "id": "7a4d4fc6-a2dc-468c-8559-3641844423a1", "date": "2026-08-26 04:02:40.476866+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "882900b5-5220-453f-827d-a7fd5b849b59", "date": "2026-08-26 04:02:40.477475+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.478275+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.478974+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.479384+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.482137+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.484521+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.486926+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.493008+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.494055+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "3e16c788-19f0-4cec-9e4c-eee2045c497c", "date": "2026-08-26 04:02:40.494651+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "3e16c788-19f0-4cec-9e4c-eee2045c497c", "date": "2026-08-26 04:02:40.495114+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.499045+00:00", "data": null, "id": "3e16c788-19f0-4cec-9e4c-eee2045c497c"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.499831+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.500776+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "7dbee060-609d-40c4-9a9d-bd785990849b", "date": "2026-08-26 04:02:40.501431+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "7dbee060-609d-40c4-9a9d-bd785990849b", "date": "2026-08-26 04:02:40.502007+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.507014+00:00", "data": null, "id": "7dbee060-609d-40c4-9a9d-bd785990849b"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.508593+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.509823+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "fa02aae7-604c-40ab-b950-168b77fccd62", "date": "2026-08-26 04:02:40.510451+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "fa02aae7-604c-40ab-b950-168b77fccd62", "date": "2026-08-26 04:02:40.511073+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.515118+00:00", "data": null, "id": "fa02aae7-604c-40ab-b950-168b77fccd62"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.516481+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.517456+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "5c81301a-0ac1-4e0c-a892-2d9bb928d090", "date": "2026-08-26 04:02:40.518186+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "5c81301a-0ac1-4e0c-a892-2d9bb928d090", "date": "2026-08-26 04:02:40.518859+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.523533+00:00", "data": null, "id": "5c81301a-0ac1-4e0c-a892-2d9bb928d090"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.526512+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.528104+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.528813+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.529366+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.529846+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "a985184e-d309-4d5c-bb2b-46ba94d0a48e", "date": "2026-08-26 04:02:40.530377+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "32cb0595-25f9-4fd0-8602-1c2037d08398", "date": "2026-08-26 04:02:40.530820+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.531538+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.532219+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.533187+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.534066+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "f59a9939-8513-4f5e-8aa4-7447e8094e5e", "date": "2026-08-26 04:02:40.534587+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "f59a9939-8513-4f5e-8aa4-7447e8094e5e", "date": "2026-08-26 04:02:40.535046+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.538168+00:00", "data": null, "id": "f59a9939-8513-4f5e-8aa4-7447e8094e5e"}
+{"event": "Applicant Created", "id": "73566cde-1d1f-4d3e-9f41-26f0459adb6c", "date": "2026-08-26 04:02:40.540236+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "7c351d2e-a95a-4d8a-8848-a5925b2cc392", "date": "2026-08-26 04:02:40.541113+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.542311+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.543345+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.543881+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.547407+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.550253+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.553538+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.558837+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.560239+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "2a0e9f03-4ecd-43e3-b896-68b7071159bf", "date": "2026-08-26 04:02:40.560932+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "2a0e9f03-4ecd-43e3-b896-68b7071159bf", "date": "2026-08-26 04:02:40.561477+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.565371+00:00", "data": null, "id": "2a0e9f03-4ecd-43e3-b896-68b7071159bf"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.566200+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.567014+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "467d57e9-a708-4680-af50-2838d60209ef", "date": "2026-08-26 04:02:40.567536+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "467d57e9-a708-4680-af50-2838d60209ef", "date": "2026-08-26 04:02:40.567973+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.571160+00:00", "data": null, "id": "467d57e9-a708-4680-af50-2838d60209ef"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.571976+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.574271+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "9cf4e687-37fa-49ed-ac79-32067fed16bb", "date": "2026-08-26 04:02:40.575079+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "9cf4e687-37fa-49ed-ac79-32067fed16bb", "date": "2026-08-26 04:02:40.575583+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.579290+00:00", "data": null, "id": "9cf4e687-37fa-49ed-ac79-32067fed16bb"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.580030+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.580691+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "e98fb2cb-c0ab-4563-821c-f309320df967", "date": "2026-08-26 04:02:40.581095+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "e98fb2cb-c0ab-4563-821c-f309320df967", "date": "2026-08-26 04:02:40.581468+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.584966+00:00", "data": null, "id": "e98fb2cb-c0ab-4563-821c-f309320df967"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.587648+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.590571+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.591799+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.592550+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.593291+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "418cb941-b117-4d2f-ae77-5c8af592460c", "date": "2026-08-26 04:02:40.593974+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "0707d04c-ee73-444b-b865-0cc3af172a79", "date": "2026-08-26 04:02:40.594706+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.595910+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.596848+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.597540+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.598265+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "06e75f93-8d67-48a5-86bb-be72790d0536", "date": "2026-08-26 04:02:40.598750+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "06e75f93-8d67-48a5-86bb-be72790d0536", "date": "2026-08-26 04:02:40.599171+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.602279+00:00", "data": null, "id": "06e75f93-8d67-48a5-86bb-be72790d0536"}
+{"event": "Applicant Created", "id": "f6ef23e6-6003-4272-b993-2fc3ecba6660", "date": "2026-08-26 04:02:40.602808+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "8ded3d24-5b10-4fba-8973-054a75a5c608", "date": "2026-08-26 04:02:40.603355+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.604359+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.605146+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.605906+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.612022+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.615918+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.619607+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.625678+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.626943+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "7920ebbf-c5f8-44af-93d9-13c845ebee29", "date": "2026-08-26 04:02:40.627666+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "7920ebbf-c5f8-44af-93d9-13c845ebee29", "date": "2026-08-26 04:02:40.628375+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.633279+00:00", "data": null, "id": "7920ebbf-c5f8-44af-93d9-13c845ebee29"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.634594+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.635863+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "c308f4fc-0620-4c19-88eb-8df8f5e014e0", "date": "2026-08-26 04:02:40.636631+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c308f4fc-0620-4c19-88eb-8df8f5e014e0", "date": "2026-08-26 04:02:40.637293+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.644405+00:00", "data": null, "id": "c308f4fc-0620-4c19-88eb-8df8f5e014e0"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.645487+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.646657+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "b38f49dd-aeb0-497a-9610-316e9f35f43b", "date": "2026-08-26 04:02:40.647389+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "b38f49dd-aeb0-497a-9610-316e9f35f43b", "date": "2026-08-26 04:02:40.648071+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.653504+00:00", "data": null, "id": "b38f49dd-aeb0-497a-9610-316e9f35f43b"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.654301+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.655350+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "94e15210-696c-4f9e-9980-70609c917daa", "date": "2026-08-26 04:02:40.657063+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "94e15210-696c-4f9e-9980-70609c917daa", "date": "2026-08-26 04:02:40.658153+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.662917+00:00", "data": null, "id": "94e15210-696c-4f9e-9980-70609c917daa"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.665507+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.667322+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.668075+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.668672+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.669288+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "45e05112-4d3b-4bda-8ae4-09e04b73fb2d", "date": "2026-08-26 04:02:40.669915+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "80c32f5e-36bb-4b7f-b0b1-a70ad28bbebd", "date": "2026-08-26 04:02:40.670588+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.676378+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.680437+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.682206+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.683719+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "dd0ec677-bf2e-4ee8-8ca0-41f1f0b8d47b", "date": "2026-08-26 04:02:40.684550+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "dd0ec677-bf2e-4ee8-8ca0-41f1f0b8d47b", "date": "2026-08-26 04:02:40.685376+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.688358+00:00", "data": null, "id": "dd0ec677-bf2e-4ee8-8ca0-41f1f0b8d47b"}
+{"event": "Applicant Created", "id": "511c2eed-308b-4e5a-90b6-2e93124b1971", "date": "2026-08-26 04:02:40.689130+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "a0e6ac39-71bb-40b6-8097-a076e8eed7e5", "date": "2026-08-26 04:02:40.690267+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.691566+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.692341+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.692829+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.695452+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.697936+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.700336+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.702838+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.703548+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "3894b8de-91c8-4f4a-9860-03d36b23ff20", "date": "2026-08-26 04:02:40.703967+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "3894b8de-91c8-4f4a-9860-03d36b23ff20", "date": "2026-08-26 04:02:40.704313+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.708213+00:00", "data": null, "id": "3894b8de-91c8-4f4a-9860-03d36b23ff20"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.708903+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.709492+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "7e7e96da-73aa-43ab-8523-2c4323e12b42", "date": "2026-08-26 04:02:40.709850+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "7e7e96da-73aa-43ab-8523-2c4323e12b42", "date": "2026-08-26 04:02:40.710167+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.712761+00:00", "data": null, "id": "7e7e96da-73aa-43ab-8523-2c4323e12b42"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.713389+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.714090+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "8076f05e-3128-496f-9945-cf552583617b", "date": "2026-08-26 04:02:40.714482+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "8076f05e-3128-496f-9945-cf552583617b", "date": "2026-08-26 04:02:40.714794+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.717372+00:00", "data": null, "id": "8076f05e-3128-496f-9945-cf552583617b"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.717952+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.718507+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "c0977564-dc56-4cf7-a80e-bc334592f867", "date": "2026-08-26 04:02:40.718859+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c0977564-dc56-4cf7-a80e-bc334592f867", "date": "2026-08-26 04:02:40.719201+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.722185+00:00", "data": null, "id": "c0977564-dc56-4cf7-a80e-bc334592f867"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.724849+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.726311+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.726939+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.727320+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.727692+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "67c064d3-6921-43e2-bf5c-2e47bee2e3ab", "date": "2026-08-26 04:02:40.728332+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "77a2b74d-f869-409b-9eab-c4ae973ac52d", "date": "2026-08-26 04:02:40.728765+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.729457+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.730076+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.730659+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.731238+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "76220633-29b3-4d60-982f-73c268ff6279", "date": "2026-08-26 04:02:40.731619+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "76220633-29b3-4d60-982f-73c268ff6279", "date": "2026-08-26 04:02:40.731955+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.734485+00:00", "data": null, "id": "76220633-29b3-4d60-982f-73c268ff6279"}
+{"event": "Applicant Created", "id": "bbb769cf-4772-4ff6-9d65-502ed33577a6", "date": "2026-08-26 04:02:40.734868+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "3bf16564-312b-4fce-b349-babef36fc783", "date": "2026-08-26 04:02:40.735205+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.735783+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.736294+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.736572+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.739024+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.742227+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.744599+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.747030+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.747763+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "c1894eaf-d7f5-46e9-9e39-306890fb2c62", "date": "2026-08-26 04:02:40.748178+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c1894eaf-d7f5-46e9-9e39-306890fb2c62", "date": "2026-08-26 04:02:40.748524+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.751372+00:00", "data": null, "id": "c1894eaf-d7f5-46e9-9e39-306890fb2c62"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.751966+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.752578+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1fa2e3ed-3398-4612-afbb-5763b1b2e29c", "date": "2026-08-26 04:02:40.752933+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "1fa2e3ed-3398-4612-afbb-5763b1b2e29c", "date": "2026-08-26 04:02:40.753263+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.756947+00:00", "data": null, "id": "1fa2e3ed-3398-4612-afbb-5763b1b2e29c"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.758206+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.759243+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "d0c17c78-1d6d-4196-bfed-1d19104980c7", "date": "2026-08-26 04:02:40.759697+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "d0c17c78-1d6d-4196-bfed-1d19104980c7", "date": "2026-08-26 04:02:40.760066+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.762950+00:00", "data": null, "id": "d0c17c78-1d6d-4196-bfed-1d19104980c7"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.763579+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.764146+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "64a54422-6b37-4f36-8f9d-538ec4f0eb4f", "date": "2026-08-26 04:02:40.764512+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "64a54422-6b37-4f36-8f9d-538ec4f0eb4f", "date": "2026-08-26 04:02:40.764819+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.767926+00:00", "data": null, "id": "64a54422-6b37-4f36-8f9d-538ec4f0eb4f"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.769569+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.770684+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.771105+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.771439+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.772278+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "f346706d-5cc0-44b4-88df-fc544be8f508", "date": "2026-08-26 04:02:40.774149+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "7dca8463-d71d-4bd0-860e-20e23b4f6418", "date": "2026-08-26 04:02:40.775004+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.776052+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.776852+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.777474+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.778092+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "3d9b7c3d-0a4d-46fa-8498-dff6d5ec97fb", "date": "2026-08-26 04:02:40.778498+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "3d9b7c3d-0a4d-46fa-8498-dff6d5ec97fb", "date": "2026-08-26 04:02:40.778849+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.781229+00:00", "data": null, "id": "3d9b7c3d-0a4d-46fa-8498-dff6d5ec97fb"}
+{"event": "Applicant Created", "id": "36a5a75d-f690-4005-8601-7bc0798c9791", "date": "2026-08-26 04:02:40.781618+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "585aca88-5a34-4c32-830f-cf54428c4bfd", "date": "2026-08-26 04:02:40.782007+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.782610+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.783142+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.783426+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.785534+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.788185+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.792198+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.794977+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.795614+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "43582c7e-5aaa-4fb2-9199-ade1f7b2f046", "date": "2026-08-26 04:02:40.795975+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "43582c7e-5aaa-4fb2-9199-ade1f7b2f046", "date": "2026-08-26 04:02:40.796270+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.798707+00:00", "data": null, "id": "43582c7e-5aaa-4fb2-9199-ade1f7b2f046"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.799260+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.799784+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1e15f4e8-acfd-45ac-8096-e030672e4bcb", "date": "2026-08-26 04:02:40.800100+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "1e15f4e8-acfd-45ac-8096-e030672e4bcb", "date": "2026-08-26 04:02:40.800394+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.802740+00:00", "data": null, "id": "1e15f4e8-acfd-45ac-8096-e030672e4bcb"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.803338+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.803877+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "2230e4d8-057a-48d5-9cde-9b7886c23620", "date": "2026-08-26 04:02:40.804204+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "2230e4d8-057a-48d5-9cde-9b7886c23620", "date": "2026-08-26 04:02:40.804541+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.810599+00:00", "data": null, "id": "2230e4d8-057a-48d5-9cde-9b7886c23620"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.811301+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.811970+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "e21e81f6-d4b3-4914-83ad-e5e59f90cbf8", "date": "2026-08-26 04:02:40.812404+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "e21e81f6-d4b3-4914-83ad-e5e59f90cbf8", "date": "2026-08-26 04:02:40.812763+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.816202+00:00", "data": null, "id": "e21e81f6-d4b3-4914-83ad-e5e59f90cbf8"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.818510+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.820260+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.821007+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.821564+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.822685+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "6a4e0d8f-8605-4d78-bb9f-9cbdb1bb61c6", "date": "2026-08-26 04:02:40.823864+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "eb1833cd-c4fc-4609-83e8-43755eba96cd", "date": "2026-08-26 04:02:40.824946+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.826214+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.827077+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.827826+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.828513+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "2eab9574-2800-4e6d-8e05-b9045c767be3", "date": "2026-08-26 04:02:40.828983+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "2eab9574-2800-4e6d-8e05-b9045c767be3", "date": "2026-08-26 04:02:40.829352+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.831441+00:00", "data": null, "id": "2eab9574-2800-4e6d-8e05-b9045c767be3"}
+{"event": "Applicant Created", "id": "2929461c-443c-4de6-b158-822583887936", "date": "2026-08-26 04:02:40.831788+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "a408c9fe-2e90-43fe-96f6-7a6c89315176", "date": "2026-08-26 04:02:40.832177+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.832738+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.833269+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.833526+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.835685+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.838494+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.842430+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.845826+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.846942+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "4faab1c2-a976-46e8-9cd0-25237b800dd7", "date": "2026-08-26 04:02:40.847592+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "4faab1c2-a976-46e8-9cd0-25237b800dd7", "date": "2026-08-26 04:02:40.848136+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.851575+00:00", "data": null, "id": "4faab1c2-a976-46e8-9cd0-25237b800dd7"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.852308+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.853018+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "02c7f526-4b2d-427b-a5e0-004205a92ee7", "date": "2026-08-26 04:02:40.853441+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "02c7f526-4b2d-427b-a5e0-004205a92ee7", "date": "2026-08-26 04:02:40.853873+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.859621+00:00", "data": null, "id": "02c7f526-4b2d-427b-a5e0-004205a92ee7"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.860996+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.861944+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "cbaa5a16-6e4e-4f9f-8d0b-c8eba69e8719", "date": "2026-08-26 04:02:40.862478+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "cbaa5a16-6e4e-4f9f-8d0b-c8eba69e8719", "date": "2026-08-26 04:02:40.862918+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.867181+00:00", "data": null, "id": "cbaa5a16-6e4e-4f9f-8d0b-c8eba69e8719"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.868170+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.869194+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "c314092e-e68a-469c-bd23-0ab3a00731cf", "date": "2026-08-26 04:02:40.869813+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c314092e-e68a-469c-bd23-0ab3a00731cf", "date": "2026-08-26 04:02:40.870338+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.874975+00:00", "data": null, "id": "c314092e-e68a-469c-bd23-0ab3a00731cf"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.877383+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.878721+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.879266+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.879669+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.880069+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "230cc46e-16ad-4a06-a51b-e87e92cc43b1", "date": "2026-08-26 04:02:40.880510+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "309c13b1-38bf-4636-b85e-7876837127d4", "date": "2026-08-26 04:02:40.880922+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.881619+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.882331+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.883002+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.883671+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "b57d20ff-63d7-4259-8492-0727be7c1309", "date": "2026-08-26 04:02:40.884118+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "b57d20ff-63d7-4259-8492-0727be7c1309", "date": "2026-08-26 04:02:40.884483+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.886951+00:00", "data": null, "id": "b57d20ff-63d7-4259-8492-0727be7c1309"}
+{"event": "Applicant Created", "id": "b2b974ad-21ba-47b5-93df-64e9a248d564", "date": "2026-08-26 04:02:40.887432+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "120b0a47-79ef-41d5-83fa-70934752dcb8", "date": "2026-08-26 04:02:40.888020+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.889514+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.890736+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.891164+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.894303+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.896850+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.900108+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.903308+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.904108+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "217292fa-1376-4b7a-99eb-7f32187d82de", "date": "2026-08-26 04:02:40.904610+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "217292fa-1376-4b7a-99eb-7f32187d82de", "date": "2026-08-26 04:02:40.905105+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.913299+00:00", "data": null, "id": "217292fa-1376-4b7a-99eb-7f32187d82de"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.914083+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.914856+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "c755e2d8-0c04-4a7c-8327-288dbc9b5dbc", "date": "2026-08-26 04:02:40.915336+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c755e2d8-0c04-4a7c-8327-288dbc9b5dbc", "date": "2026-08-26 04:02:40.915726+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.918915+00:00", "data": null, "id": "c755e2d8-0c04-4a7c-8327-288dbc9b5dbc"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.919591+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.920210+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "6ec8f49d-288c-414e-ba64-6f9d0d639267", "date": "2026-08-26 04:02:40.920631+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "6ec8f49d-288c-414e-ba64-6f9d0d639267", "date": "2026-08-26 04:02:40.920959+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.925906+00:00", "data": null, "id": "6ec8f49d-288c-414e-ba64-6f9d0d639267"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.926674+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.927360+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "2892ddf3-af02-4cb2-bef8-fbf3ba9ccf48", "date": "2026-08-26 04:02:40.927863+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "2892ddf3-af02-4cb2-bef8-fbf3ba9ccf48", "date": "2026-08-26 04:02:40.928214+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.931113+00:00", "data": null, "id": "2892ddf3-af02-4cb2-bef8-fbf3ba9ccf48"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.932986+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.934076+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.934538+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.934892+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.935219+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "068952ca-f30a-4039-a50e-5e1b2ef8704f", "date": "2026-08-26 04:02:40.935599+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "fc6bec96-e6d2-4913-927d-6c931479e36d", "date": "2026-08-26 04:02:40.935985+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.936689+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.937279+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.937833+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.938638+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "efca842e-44d8-4cf7-aa20-e504cafdf729", "date": "2026-08-26 04:02:40.939392+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "efca842e-44d8-4cf7-aa20-e504cafdf729", "date": "2026-08-26 04:02:40.940104+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.943181+00:00", "data": null, "id": "efca842e-44d8-4cf7-aa20-e504cafdf729"}
+{"event": "Applicant Created", "id": "095df0a5-d6a3-4950-8940-21435f9eb84c", "date": "2026-08-26 04:02:40.943633+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "9b9668bc-49cf-40de-b9cb-cc32b52c18a4", "date": "2026-08-26 04:02:40.944028+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.944668+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.945247+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.945530+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.947994+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.950216+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.952450+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.954883+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.956035+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "27ed6b92-ec56-46e6-a561-96e54843982d", "date": "2026-08-26 04:02:40.956724+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "27ed6b92-ec56-46e6-a561-96e54843982d", "date": "2026-08-26 04:02:40.957358+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.960969+00:00", "data": null, "id": "27ed6b92-ec56-46e6-a561-96e54843982d"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.961619+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.962185+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "4274d49a-ff61-4269-88d8-6ba48ac2244d", "date": "2026-08-26 04:02:40.962539+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "4274d49a-ff61-4269-88d8-6ba48ac2244d", "date": "2026-08-26 04:02:40.962872+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.965943+00:00", "data": null, "id": "4274d49a-ff61-4269-88d8-6ba48ac2244d"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.966675+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.967280+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "f9177c2d-6f56-4d84-9c9d-c61297f93a29", "date": "2026-08-26 04:02:40.967667+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "f9177c2d-6f56-4d84-9c9d-c61297f93a29", "date": "2026-08-26 04:02:40.968105+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.970738+00:00", "data": null, "id": "f9177c2d-6f56-4d84-9c9d-c61297f93a29"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.971310+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.971857+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "7c0bc58f-87a4-4799-9cd6-767d592b04fd", "date": "2026-08-26 04:02:40.972334+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "7c0bc58f-87a4-4799-9cd6-767d592b04fd", "date": "2026-08-26 04:02:40.973018+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.976449+00:00", "data": null, "id": "7c0bc58f-87a4-4799-9cd6-767d592b04fd"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:40.978163+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:40.979134+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.979501+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.979811+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.980143+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "Applicant Created", "id": "771118de-edaf-4b64-a836-5d09bb15d9a4", "date": "2026-08-26 04:02:40.980476+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "cae6d524-e44b-4c42-86c2-b45f66bb08b4", "date": "2026-08-26 04:02:40.980768+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.981270+00:00", "data": null, "id": "something_really_specific"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.981758+00:00", "data": null, "id": "something_really_specific"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.982319+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.982898+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_soft_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1f8c09ca-4947-4bb5-93bb-fb84b3ca4f04", "date": "2026-08-26 04:02:40.983231+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "1f8c09ca-4947-4bb5-93bb-fb84b3ca4f04", "date": "2026-08-26 04:02:40.983556+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:40.985404+00:00", "data": null, "id": "1f8c09ca-4947-4bb5-93bb-fb84b3ca4f04"}
+{"event": "Applicant Created", "id": "e943f144-4e53-4ce9-a946-7e9e50308d30", "date": "2026-08-26 04:02:40.985729+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "f5a24764-b086-48f6-9549-e17039fd3022", "date": "2026-08-26 04:02:40.986043+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:40.986558+00:00", "data": null, "id": "APP101023"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:40.987055+00:00", "data": null, "id": "APP101023"}
+{"event": "LoanApplication Updated in Repository", "id": "APP101023", "date": "2026-08-26 04:02:40.987318+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:40.991182+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['RuleToReturnRefer', 'RuleToReturnApproved1'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:40.993694+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1', 'RuleToDecline'])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:40.996006+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:40.998406+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:40.999084+00:00", "data": null, "id": "APP101023_testing_tacos_are_ruly_tacos_2026-08-26_04:02:40"}
+{"event": "Decision Created", "id": "1a311e1c-607a-4e72-a4e5-27693d709817", "date": "2026-08-26 04:02:40.999513+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "Decision Updated in Repository", "id": "1a311e1c-607a-4e72-a4e5-27693d709817", "date": "2026-08-26 04:02:40.999840+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=testing_tacos_are_ruly_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.002551+00:00", "data": null, "id": "1a311e1c-607a-4e72-a4e5-27693d709817"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.003195+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.003881+00:00", "data": null, "id": "APP101023_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "7935c71d-e961-4d84-b95b-74938922b72f", "date": "2026-08-26 04:02:41.004494+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "7935c71d-e961-4d84-b95b-74938922b72f", "date": "2026-08-26 04:02:41.005101+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.010483+00:00", "data": null, "id": "7935c71d-e961-4d84-b95b-74938922b72f"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.011513+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.012318+00:00", "data": null, "id": "APP101023_testing_tacos_are_soft_tacos_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "c492d377-c429-4ee5-a0a9-06329074068e", "date": "2026-08-26 04:02:41.012745+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "Decision Updated in Repository", "id": "c492d377-c429-4ee5-a0a9-06329074068e", "date": "2026-08-26 04:02:41.013108+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('CCMED', 'DTI', 'EMP', 'NOTEC'), amount=15000, apr=0.08, policy=testing_tacos_are_soft_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.015892+00:00", "data": null, "id": "c492d377-c429-4ee5-a0a9-06329074068e"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.016499+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.017134+00:00", "data": null, "id": "something_really_specific_testing_tacos_are_hybrid_tacos_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "68ba0525-e40f-4d95-b7cb-45b5f160660e", "date": "2026-08-26 04:02:41.017514+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "Decision Updated in Repository", "id": "68ba0525-e40f-4d95-b7cb-45b5f160660e", "date": "2026-08-26 04:02:41.017903+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('DECLINE',), amount=0, apr=0, policy=testing_tacos_are_hybrid_tacos)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.021216+00:00", "data": null, "id": "68ba0525-e40f-4d95-b7cb-45b5f160660e"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.028378+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.029563+00:00"}
+{"event": "TestClass Created", "id": "test0", "date": "2026-08-26 04:02:41.029922+00:00", "data": "TestClass(id=test0, data={'value': 0})"}
+{"event": "TestClass Updated in Repository", "id": "test0", "date": "2026-08-26 04:02:41.030252+00:00", "data": "TestClass(id=test0, data={'value': 0})"}
+{"event": "TestClass Created", "id": "test1", "date": "2026-08-26 04:02:41.031854+00:00", "data": "TestClass(id=test1, data={'value': 1})"}
+{"event": "TestClass Updated in Repository", "id": "test1", "date": "2026-08-26 04:02:41.032156+00:00", "data": "TestClass(id=test1, data={'value': 1})"}
+{"event": "TestClass Created", "id": "test2", "date": "2026-08-26 04:02:41.033963+00:00", "data": "TestClass(id=test2, data={'value': 2})"}
+{"event": "TestClass Updated in Repository", "id": "test2", "date": "2026-08-26 04:02:41.034286+00:00", "data": "TestClass(id=test2, data={'value': 2})"}
+{"event": "TestClass Created", "id": "test3", "date": "2026-08-26 04:02:41.036053+00:00", "data": "TestClass(id=test3, data={'value': 3})"}
+{"event": "TestClass Updated in Repository", "id": "test3", "date": "2026-08-26 04:02:41.036337+00:00", "data": "TestClass(id=test3, data={'value': 3})"}
+{"event": "TestClass Created", "id": "test4", "date": "2026-08-26 04:02:41.038033+00:00", "data": "TestClass(id=test4, data={'value': 4})"}
+{"event": "TestClass Updated in Repository", "id": "test4", "date": "2026-08-26 04:02:41.038314+00:00", "data": "TestClass(id=test4, data={'value': 4})"}
+{"event": "TestClass Created", "id": "test5", "date": "2026-08-26 04:02:41.041837+00:00", "data": "TestClass(id=test5, data={'value': 5})"}
+{"event": "TestClass Updated in Repository", "id": "test5", "date": "2026-08-26 04:02:41.042409+00:00", "data": "TestClass(id=test5, data={'value': 5})"}
+{"event": "TestClass Created", "id": "test6", "date": "2026-08-26 04:02:41.045436+00:00", "data": "TestClass(id=test6, data={'value': 6})"}
+{"event": "TestClass Updated in Repository", "id": "test6", "date": "2026-08-26 04:02:41.046050+00:00", "data": "TestClass(id=test6, data={'value': 6})"}
+{"event": "TestClass Created", "id": "test7", "date": "2026-08-26 04:02:41.048679+00:00", "data": "TestClass(id=test7, data={'value': 7})"}
+{"event": "TestClass Updated in Repository", "id": "test7", "date": "2026-08-26 04:02:41.049060+00:00", "data": "TestClass(id=test7, data={'value': 7})"}
+{"event": "TestClass Created", "id": "test8", "date": "2026-08-26 04:02:41.051634+00:00", "data": "TestClass(id=test8, data={'value': 8})"}
+{"event": "TestClass Updated in Repository", "id": "test8", "date": "2026-08-26 04:02:41.052122+00:00", "data": "TestClass(id=test8, data={'value': 8})"}
+{"event": "TestClass Created", "id": "test9", "date": "2026-08-26 04:02:41.054601+00:00", "data": "TestClass(id=test9, data={'value': 9})"}
+{"event": "TestClass Updated in Repository", "id": "test9", "date": "2026-08-26 04:02:41.054918+00:00", "data": "TestClass(id=test9, data={'value': 9})"}
+{"event": "TestClass Created", "id": "test10", "date": "2026-08-26 04:02:41.059063+00:00", "data": "TestClass(id=test10, data={'value': 10})"}
+{"event": "TestClass Updated in Repository", "id": "test10", "date": "2026-08-26 04:02:41.059684+00:00", "data": "TestClass(id=test10, data={'value': 10})"}
+{"event": "TestClass Created", "id": "test11", "date": "2026-08-26 04:02:41.062270+00:00", "data": "TestClass(id=test11, data={'value': 11})"}
+{"event": "TestClass Updated in Repository", "id": "test11", "date": "2026-08-26 04:02:41.062635+00:00", "data": "TestClass(id=test11, data={'value': 11})"}
+{"event": "TestClass Created", "id": "test12", "date": "2026-08-26 04:02:41.064711+00:00", "data": "TestClass(id=test12, data={'value': 12})"}
+{"event": "TestClass Updated in Repository", "id": "test12", "date": "2026-08-26 04:02:41.065055+00:00", "data": "TestClass(id=test12, data={'value': 12})"}
+{"event": "TestClass Created", "id": "test13", "date": "2026-08-26 04:02:41.067602+00:00", "data": "TestClass(id=test13, data={'value': 13})"}
+{"event": "TestClass Updated in Repository", "id": "test13", "date": "2026-08-26 04:02:41.067992+00:00", "data": "TestClass(id=test13, data={'value': 13})"}
+{"event": "TestClass Created", "id": "test14", "date": "2026-08-26 04:02:41.070464+00:00", "data": "TestClass(id=test14, data={'value': 14})"}
+{"event": "TestClass Updated in Repository", "id": "test14", "date": "2026-08-26 04:02:41.070824+00:00", "data": "TestClass(id=test14, data={'value': 14})"}
+{"event": "TestClass Created", "id": "test15", "date": "2026-08-26 04:02:41.074112+00:00", "data": "TestClass(id=test15, data={'value': 15})"}
+{"event": "TestClass Updated in Repository", "id": "test15", "date": "2026-08-26 04:02:41.074825+00:00", "data": "TestClass(id=test15, data={'value': 15})"}
+{"event": "TestClass Created", "id": "test16", "date": "2026-08-26 04:02:41.077406+00:00", "data": "TestClass(id=test16, data={'value': 16})"}
+{"event": "TestClass Updated in Repository", "id": "test16", "date": "2026-08-26 04:02:41.077751+00:00", "data": "TestClass(id=test16, data={'value': 16})"}
+{"event": "TestClass Created", "id": "test17", "date": "2026-08-26 04:02:41.080173+00:00", "data": "TestClass(id=test17, data={'value': 17})"}
+{"event": "TestClass Updated in Repository", "id": "test17", "date": "2026-08-26 04:02:41.080537+00:00", "data": "TestClass(id=test17, data={'value': 17})"}
+{"event": "TestClass Created", "id": "test18", "date": "2026-08-26 04:02:41.082630+00:00", "data": "TestClass(id=test18, data={'value': 18})"}
+{"event": "TestClass Updated in Repository", "id": "test18", "date": "2026-08-26 04:02:41.082982+00:00", "data": "TestClass(id=test18, data={'value': 18})"}
+{"event": "TestClass Created", "id": "test19", "date": "2026-08-26 04:02:41.085000+00:00", "data": "TestClass(id=test19, data={'value': 19})"}
+{"event": "TestClass Updated in Repository", "id": "test19", "date": "2026-08-26 04:02:41.085303+00:00", "data": "TestClass(id=test19, data={'value': 19})"}
+{"event": "Deleted from Repository", "id": "test6", "date": "2026-08-26 04:02:41.087105+00:00"}
+{"event": "Deleted from Repository", "id": "test12", "date": "2026-08-26 04:02:41.089293+00:00"}
+{"event": "TestClass Updated in Repository", "id": "test0", "date": "2026-08-26 04:02:41.093951+00:00", "data": "TestClass(id=test0, data={'value': 123})"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.098661+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.099544+00:00"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:41.099884+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['EmploymentRule', 'LoanAmountRule'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.100254+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "POLICY_VALIDATED", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.100580+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:41.100956+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['EmploymentRule', 'LoanAmountRule'])"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.104188+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.106155+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.107009+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.107848+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:41.112114+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['EmploymentRule', 'LoanAmountRule'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "testing_tacos_are_ruly_tacos", "date": "2026-08-26 04:02:41.112811+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_ruly_tacos, rules=['EmploymentRule', 'LoanAmountRule'])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.116373+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.117069+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.121218+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.128200+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.130218+00:00"}
+{"event": "ScorecardPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.130800+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "ScorecardPolicy Updated in Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.131407+00:00", "data": "ScorecardPolicy(id=testing_tacos_are_soft_tacos, rules=[])"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.134516+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.135053+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "Deleted from Repository", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.137750+00:00"}
+{"event": "RuleBasedPolicy Created", "id": "testing_tacos_are_soft_tacos", "date": "2026-08-26 04:02:41.146325+00:00", "data": "RuleBasedPolicy(id=testing_tacos_are_soft_tacos, rules=['EmploymentRule', 'LoanAmountRule'])"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.150438+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.152024+00:00"}
+{"event": "HybridPolicy Created", "id": "testing_tacos_are_hybrid_tacos", "date": "2026-08-26 04:02:41.152583+00:00", "data": "HybridPolicy(id=testing_tacos_are_hybrid_tacos, rules=['CreditScoreRule', 'DtiRule'])"}
+{"event": "HybridPolicy Updated in Repository", "id": "new testing taco id name", "date": "2026-08-26 04:02:41.153022+00:00", "data": "HybridPolicy(id=new testing taco id name, rules=['EmploymentRule'])"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.160913+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.162283+00:00"}
+{"event": "RuleBasedPolicy Created", "id": "approved_1_2", "date": "2026-08-26 04:02:41.162999+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
+{"event": "RuleBasedPolicy Created", "id": "approved_2_1", "date": "2026-08-26 04:02:41.163616+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
+{"event": "RuleBasedPolicy Created", "id": "refer_policy", "date": "2026-08-26 04:02:41.164153+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "RuleBasedPolicy Created", "id": "declined", "date": "2026-08-26 04:02:41.164621+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "LoanApplication Created", "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff", "date": "2026-08-26 04:02:41.165228+00:00", "data": "LoanApplication({'name': 'Test Applicant', 'credit_score': 700, 'annual_income': Decimal('50000'), 'monthly_debt': Decimal('1000'), 'employment_status': 'employed'}, 10000, 36, debt_consolidation)"}
+{"event": "Applicant Created", "id": "77cbb92d-4893-4316-a16f-212ca3d72d2a", "date": "2026-08-26 04:02:41.165916+00:00", "data": "Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.166980+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:41.167701+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff"}
+{"event": "LoanApplication Updated in Repository", "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff", "date": "2026-08-26 04:02:41.168141+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "refer_policy", "date": "2026-08-26 04:02:41.170549+00:00", "data": "RuleBasedPolicy(id=refer_policy, rules=['RuleToReturnApproved1', 'RuleToReturnRefer', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "declined", "date": "2026-08-26 04:02:41.176154+00:00", "data": "RuleBasedPolicy(id=declined, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2', 'RuleToDecline'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "approved_1_2", "date": "2026-08-26 04:02:41.180332+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['RuleToReturnApproved1', 'RuleToReturnApproved2'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "approved_2_1", "date": "2026-08-26 04:02:41.183844+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['RuleToReturnApproved2', 'RuleToReturnApproved1'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.188321+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_1_2_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.189725+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_1_2_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "4601a1dd-47c8-4b16-aaa1-69fe6eeabfc0", "date": "2026-08-26 04:02:41.192110+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_1_2)"}
+{"event": "Decision Updated in Repository", "id": "4601a1dd-47c8-4b16-aaa1-69fe6eeabfc0", "date": "2026-08-26 04:02:41.192960+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_1_2)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.197539+00:00", "data": null, "id": "4601a1dd-47c8-4b16-aaa1-69fe6eeabfc0"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.198513+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.199505+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "93e0b114-4725-4212-820f-80b5880f8abf", "date": "2026-08-26 04:02:41.200108+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "93e0b114-4725-4212-820f-80b5880f8abf", "date": "2026-08-26 04:02:41.200609+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.204462+00:00", "data": null, "id": "93e0b114-4725-4212-820f-80b5880f8abf"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.205594+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_refer_policy_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.206984+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_refer_policy_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "954d9571-c061-44f0-ad67-977d988e056a", "date": "2026-08-26 04:02:41.207919+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=refer_policy)"}
+{"event": "Decision Updated in Repository", "id": "954d9571-c061-44f0-ad67-977d988e056a", "date": "2026-08-26 04:02:41.208732+00:00", "data": "Decision(RuleStatus.REFER, reason_codes=('RF_TEST',), amount=0, apr=0, policy=refer_policy)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.213515+00:00", "data": null, "id": "954d9571-c061-44f0-ad67-977d988e056a"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.214752+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_declined_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.215909+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_declined_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "4ddbc375-4b13-40f0-b693-c3a293f43b0c", "date": "2026-08-26 04:02:41.216608+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DECLINE',), amount=None, apr=None, policy=declined)"}
+{"event": "Decision Updated in Repository", "id": "4ddbc375-4b13-40f0-b693-c3a293f43b0c", "date": "2026-08-26 04:02:41.217101+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DECLINE',), amount=None, apr=None, policy=declined)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.220620+00:00", "data": null, "id": "4ddbc375-4b13-40f0-b693-c3a293f43b0c"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.221328+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.221971+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "024f03d7-fcbe-4e4b-8b08-462cfb8bb164", "date": "2026-08-26 04:02:41.222432+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "024f03d7-fcbe-4e4b-8b08-462cfb8bb164", "date": "2026-08-26 04:02:41.223066+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.228266+00:00", "data": null, "id": "024f03d7-fcbe-4e4b-8b08-462cfb8bb164"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.228965+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.229613+00:00", "data": null, "id": "f014cf45-d2bc-493d-8cf6-b4dadd30a4ff_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "cd636c69-2708-4242-bfd0-f6baa024ae3b", "date": "2026-08-26 04:02:41.230029+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "cd636c69-2708-4242-bfd0-f6baa024ae3b", "date": "2026-08-26 04:02:41.230381+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('APPRV_1', 'APPRV_2'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.237765+00:00", "data": null, "id": "cd636c69-2708-4242-bfd0-f6baa024ae3b"}
+{"event": "Clearing persistence file", "id": "tests/output/test_persistence.jsonl", "date": "2026-08-26 04:02:41.241628+00:00"}
+{"event": "Clearing hash chain file", "id": "tests/output/test_audit.jsonl", "date": "2026-08-26 04:02:41.242990+00:00"}
+{"event": "RuleBasedPolicy Created", "id": "approved_1_2", "date": "2026-08-26 04:02:41.243457+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "RuleBasedPolicy Created", "id": "approved_2_1", "date": "2026-08-26 04:02:41.243863+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['DtiRule', 'EmploymentRule'])"}
+{"event": "RuleBasedPolicy Created", "id": "declined", "date": "2026-08-26 04:02:41.244204+00:00", "data": "RuleBasedPolicy(id=declined, rules=['DtiRule', 'CreditScoreRule', 'EmploymentRule'])"}
+{"event": "LoanApplication Created", "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8", "date": "2026-08-26 04:02:41.244564+00:00", "data": "LoanApplication({'name': 'Test Applicant', 'credit_score': 700, 'annual_income': Decimal('50000'), 'monthly_debt': Decimal('1000'), 'employment_status': 'employed'}, 10000, 36, debt_consolidation)"}
+{"event": "Applicant Created", "id": "7df3bfb5-a3dc-4f6f-b91b-3c29da7471d2", "date": "2026-08-26 04:02:41.244916+00:00", "data": "Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.245795+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:41.246525+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8"}
+{"event": "LoanApplication Updated in Repository", "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8", "date": "2026-08-26 04:02:41.246828+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=50000, credit_score=700, employment=employed, existing_customer=False), 10000, 36, debt_consolidation)"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "declined", "date": "2026-08-26 04:02:41.248536+00:00", "data": "RuleBasedPolicy(id=declined, rules=['DtiRule', 'CreditScoreRule', 'EmploymentRule'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "approved_1_2", "date": "2026-08-26 04:02:41.250553+00:00", "data": "RuleBasedPolicy(id=approved_1_2, rules=['EmploymentRule', 'DtiRule'])"}
+{"event": "RuleBasedPolicy Updated in Repository", "id": "approved_2_1", "date": "2026-08-26 04:02:41.252360+00:00", "data": "RuleBasedPolicy(id=approved_2_1, rules=['DtiRule', 'EmploymentRule'])"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.255052+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8_approved_1_2_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.256326+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8_approved_1_2_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "8d3df2cd-ee77-4f73-95dd-b705bdde828e", "date": "2026-08-26 04:02:41.257958+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('DIT30', 'EM333'), amount=10000, apr=0.15, policy=approved_1_2)"}
+{"event": "Decision Updated in Repository", "id": "8d3df2cd-ee77-4f73-95dd-b705bdde828e", "date": "2026-08-26 04:02:41.258818+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('DIT30', 'EM333'), amount=10000, apr=0.15, policy=approved_1_2)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.262068+00:00", "data": null, "id": "8d3df2cd-ee77-4f73-95dd-b705bdde828e"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.262766+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.263446+00:00", "data": null, "id": "ea3f900c-ab11-4daa-82d6-c9112cfa53c8_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "a9f3a9b0-7219-481c-9fd9-27f851a1bf9f", "date": "2026-08-26 04:02:41.263835+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('DIT30', 'EM333'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "a9f3a9b0-7219-481c-9fd9-27f851a1bf9f", "date": "2026-08-26 04:02:41.264168+00:00", "data": "Decision(RuleStatus.APPROVE, reason_codes=('DIT30', 'EM333'), amount=10000, apr=0.15, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.266380+00:00", "data": null, "id": "a9f3a9b0-7219-481c-9fd9-27f851a1bf9f"}
+{"event": "LoanApplication Created", "id": "84b4d8db-9664-4700-9b46-97db73575c5a", "date": "2026-08-26 04:02:41.266725+00:00", "data": "LoanApplication({'name': 'Test Applicant', 'credit_score': 350, 'annual_income': Decimal('0'), 'monthly_debt': Decimal('1000'), 'employment_status': 'employed'}, 100, 36, debt_consolidation)"}
+{"event": "Applicant Created", "id": "464259a6-bb35-4f21-bb0d-6eeb31a74307", "date": "2026-08-26 04:02:41.267045+00:00", "data": "Applicant(name=Test Applicant, income=0, credit_score=350, employment=employed, existing_customer=False)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.267596+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:41.268060+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a"}
+{"event": "LoanApplication Updated in Repository", "id": "84b4d8db-9664-4700-9b46-97db73575c5a", "date": "2026-08-26 04:02:41.268301+00:00", "data": "LoanApplication(Applicant(name=Test Applicant, income=0, credit_score=350, employment=employed, existing_customer=False), 100, 36, debt_consolidation)"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.270444+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_declined_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.270961+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_declined_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "9327a3d2-0841-404f-ac58-36a65df1579c", "date": "2026-08-26 04:02:41.271264+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=declined)"}
+{"event": "Decision Updated in Repository", "id": "9327a3d2-0841-404f-ac58-36a65df1579c", "date": "2026-08-26 04:02:41.271674+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=declined)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.275786+00:00", "data": null, "id": "9327a3d2-0841-404f-ac58-36a65df1579c"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.276433+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.277186+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "da4656e6-59e9-4599-a9ed-ccb00aef6407", "date": "2026-08-26 04:02:41.277561+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "da4656e6-59e9-4599-a9ed-ccb00aef6407", "date": "2026-08-26 04:02:41.277882+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.280726+00:00", "data": null, "id": "da4656e6-59e9-4599-a9ed-ccb00aef6407"}
+{"event": "POLICY_SELECTED", "date": "2026-08-26 04:02:41.281366+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_approved_2_1_2026-08-26_04:02:41"}
+{"event": "POLICY_EVALUATED", "date": "2026-08-26 04:02:41.281946+00:00", "data": null, "id": "84b4d8db-9664-4700-9b46-97db73575c5a_approved_2_1_2026-08-26_04:02:41"}
+{"event": "Decision Created", "id": "b3642e6c-8eb9-432a-9c77-8c38f693a081", "date": "2026-08-26 04:02:41.282346+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=approved_2_1)"}
+{"event": "Decision Updated in Repository", "id": "b3642e6c-8eb9-432a-9c77-8c38f693a081", "date": "2026-08-26 04:02:41.282682+00:00", "data": "Decision(RuleStatus.DECLINE, reason_codes=('DIT30',), amount=None, apr=None, policy=approved_2_1)"}
+{"event": "DECISIONED", "date": "2026-08-26 04:02:41.285841+00:00", "data": null, "id": "b3642e6c-8eb9-432a-9c77-8c38f693a081"}
+{"event": "Applicant Created", "id": "f8dae77a-26c3-4d20-8b34-b67c15464b77", "date": "2026-08-26 04:02:41.289360+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "eff31251-a9d0-4fec-9eeb-21f55d4f5818", "date": "2026-08-26 04:02:41.290780+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "3a30f652-13f9-42c9-8403-1625bf2fd46d", "date": "2026-08-26 04:02:41.296858+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "0868a278-7b27-46f0-906a-d5f0a0ababa8", "date": "2026-08-26 04:02:41.297732+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "0f0fb0b3-c777-4f90-af9a-79708b66a4ba", "date": "2026-08-26 04:02:41.301008+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "860542da-0b01-4c7c-8759-905be6279cbd", "date": "2026-08-26 04:02:41.301792+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "53400502-b88f-4c07-8d15-34366e7c6723", "date": "2026-08-26 04:02:41.304391+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "a2acd49b-9fef-4182-844a-5db72a443872", "date": "2026-08-26 04:02:41.305033+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "03053b09-1884-40ea-b82b-a1ca777a91dc", "date": "2026-08-26 04:02:41.308922+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "1093befb-9f32-42a1-9037-719f4d9fbe6b", "date": "2026-08-26 04:02:41.309678+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "d878476a-8f9a-476c-a63a-ee0cca6127d4", "date": "2026-08-26 04:02:41.312360+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "7f968323-f60d-4e63-b77a-c3bfcfca1331", "date": "2026-08-26 04:02:41.313201+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "475bf546-dbdc-48b4-8dd2-e6d276ed759d", "date": "2026-08-26 04:02:41.315736+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "01ae1d19-ddd6-49e4-8104-00dd83670527", "date": "2026-08-26 04:02:41.316371+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "45a35de6-9780-4f1c-91d0-d41783284d9f", "date": "2026-08-26 04:02:41.318494+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2f9144dd-1f7e-4d9b-a6d5-595e727c2730", "date": "2026-08-26 04:02:41.319065+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "ae714444-a807-4856-be50-3ffaeea7bd85", "date": "2026-08-26 04:02:41.321069+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "a46faa20-d0f3-4207-b96e-38647e1d0e13", "date": "2026-08-26 04:02:41.321854+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "f735dcea-e7e9-478a-9bb2-87c8500e069a", "date": "2026-08-26 04:02:41.328520+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "2ebe98af-11c7-4a22-9408-87f4e97869e7", "date": "2026-08-26 04:02:41.329266+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "93b09e68-35f8-4864-887b-cefd521e5bbe", "date": "2026-08-26 04:02:41.331783+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "863d2e4c-f7cf-4f03-a4db-5b52c4c90c5c", "date": "2026-08-26 04:02:41.332452+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "f87c2bd5-7c15-4a69-bd0a-9b85bb985c26", "date": "2026-08-26 04:02:41.334850+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "ec886f23-7064-4ac4-bdc3-f998941267e8", "date": "2026-08-26 04:02:41.335469+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "d9c0ab59-2f60-476f-94ba-8bd3ec86477c", "date": "2026-08-26 04:02:41.337598+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "57372b77-c547-41b6-895d-d8eecab86ffa", "date": "2026-08-26 04:02:41.338191+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "f67f71ee-5652-4449-a110-40b6560c15c3", "date": "2026-08-26 04:02:41.345150+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "3963ecaf-d9e5-42a2-b48e-62ffa052bfb1", "date": "2026-08-26 04:02:41.346297+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.347512+00:00", "data": null, "id": "3963ecaf-d9e5-42a2-b48e-62ffa052bfb1"}
+{"event": "VALIDATED", "date": "2026-08-26 04:02:41.348555+00:00", "data": null, "id": "3963ecaf-d9e5-42a2-b48e-62ffa052bfb1"}
+{"event": "Applicant Created", "id": "5746bd55-378f-499c-b0e3-dd4d480fbd1e", "date": "2026-08-26 04:02:41.351572+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "cad46f6d-1c8d-4d03-9228-70e600541e79", "date": "2026-08-26 04:02:41.352184+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.352978+00:00", "data": null, "id": "cad46f6d-1c8d-4d03-9228-70e600541e79"}
+{"event": "Applicant Created", "id": "a701ad09-d023-404d-957f-9065095297b8", "date": "2026-08-26 04:02:41.355098+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "3004924b-48d5-47f6-8c1d-e4831d095485", "date": "2026-08-26 04:02:41.356505+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.358807+00:00", "data": null, "id": "3004924b-48d5-47f6-8c1d-e4831d095485"}
+{"event": "Applicant Created", "id": "ae023b84-8b7a-4191-94ac-b0505afbab5d", "date": "2026-08-26 04:02:41.362102+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "3ff7dedf-c85c-497a-9b84-f2e82e448693", "date": "2026-08-26 04:02:41.362890+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.364006+00:00", "data": null, "id": "3ff7dedf-c85c-497a-9b84-f2e82e448693"}
+{"event": "Applicant Created", "id": "0207673d-3fcd-4f28-946d-6f7e5f103bc5", "date": "2026-08-26 04:02:41.367027+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "69d688b5-15ad-43ec-b296-cf4bdcf7667c", "date": "2026-08-26 04:02:41.367875+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.368906+00:00", "data": null, "id": "69d688b5-15ad-43ec-b296-cf4bdcf7667c"}
+{"event": "Applicant Created", "id": "534f8c95-4a63-4891-8d74-e5cfa5f1dff4", "date": "2026-08-26 04:02:41.370985+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "0561dfe2-295d-4df2-a60b-b1e663d04465", "date": "2026-08-26 04:02:41.371505+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "Applicant Created", "id": "355040e7-2574-4f5f-ba2c-19b2332c6f08", "date": "2026-08-26 04:02:41.374722+00:00", "data": "Applicant(name=Alice, income=50000, credit_score=700, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Applicant Created", "id": "9294a96e-f83b-4f9a-8201-e7841401ebc0", "date": "2026-08-26 04:02:41.377563+00:00", "data": "Applicant(name=Alice, income=50000, credit_score=-10, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Applicant Created", "id": "5b4b9a3d-e1c5-4bfe-8704-8d11e8877556", "date": "2026-08-26 04:02:41.380169+00:00", "data": "Applicant(name=Alice, income=-1, credit_score=700, employment=EMPLOYED, existing_customer=False)"}
+{"event": "Applicant Created", "id": "466ab0af-587e-40c7-a470-b73437365951", "date": "2026-08-26 04:02:41.382466+00:00", "data": "Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False)"}
+{"event": "LoanApplication Created", "id": "5258e48f-a40d-4559-99a8-053618554506", "date": "2026-08-26 04:02:41.382993+00:00", "data": "LoanApplication(Applicant(name=Alice, income=80000, credit_score=720, employment=EMPLOYED, existing_customer=False), 15000, 36, car)"}
+{"event": "SUBMITTED", "date": "2026-08-26 04:02:41.383660+00:00", "data": null, "id": "5258e48f-a40d-4559-99a8-053618554506"}

@@ -69,7 +69,8 @@ class RuleToDecline(Rule):
 def test_hash_chain_events(clear_files, loan_factory):
     TEST_AUDIT_FILE = "tests/output/test_audit.jsonl"
     clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
+    hc = HashChain(TEST_AUDIT_FILE)
+    assert hc.filename == TEST_AUDIT_FILE
 
     sc_policy = ScorecardPolicy(hash_chain=hc,
                                 id="testing_tacos_are_soft_tacos")
@@ -82,24 +83,24 @@ def test_hash_chain_events(clear_files, loan_factory):
                              rules=[RuleToReturnApproved2(),
                                     RuleToReturnApproved1(),
                                     RuleToDecline()])
-
-    app = loan_factory()
+    assert sc_policy.hash_chain.filename == TEST_AUDIT_FILE
+    app = loan_factory(hc)
     app.id = "something_really_specific"
     app.submit()
     app.validate()
 
-    repo = Repository(hc, filename="tests/output/test_persistence.jsonl")
-    engine = DecisionEngine(hc, repo)
+    repo = Repository(hash_chain=hc, filename="tests/output/test_persistence.jsonl")
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
     decision, ctx = engine.run(app, sc_policy)
 
-    assert len(hc.chain) == 5
     assert hc.chain[0]["event"] == "SUBMITTED"
     assert hc.chain[1]["event"] == "VALIDATED"
     assert hc.chain[2]["event"] == "POLICY_SELECTED"
     assert hc.chain[3]["event"] == "POLICY_EVALUATED"
     assert hc.chain[4]["event"] == "DECISIONED"
+    assert len(hc.chain) == 5
 
-    app2 = loan_factory()
+    app2 = loan_factory(hc)
     app2.id = "APP101023"
 
     app2.submit()
@@ -124,7 +125,7 @@ def test_hash_chain_events(clear_files, loan_factory):
 
     print("lines in the file", len(lines)) 
     print("removed line", idx, removed_line)
-    result = HashChain.verify_chain()
+    result = hc.verify_chain()
     assert idx == result[1] 
     assert result[0] == False
 

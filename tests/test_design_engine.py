@@ -1,10 +1,10 @@
 import pytest
 from decimal import Decimal
 
-from app.audit import HashChain, EmitEvent
+from app.audit import HashChain
 from app.engine import DecisionEngine
 from app.repository.domain_repo import Repository
-from app.rules import RuleStatus
+from app.audit.event_sink import emit
 
 
 # =========================================================
@@ -12,20 +12,17 @@ from app.rules import RuleStatus
 # =========================================================
 
 def test_engine_runs_with_hybrid_policy(loan_factory, policy_factory, clear_files):
-    clear_files()
-
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    hc, repo = clear_files()
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("hybrid", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     decision, ctx = engine.run(app, policy)
 
@@ -43,16 +40,16 @@ def test_engine_supports_multiple_policies(ptype, loan_factory, policy_factory, 
 
     hc = HashChain("tests/output/test_audit.jsonl")
     repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory(ptype, hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     decision, _ = engine.run(app, policy)
 
@@ -68,16 +65,16 @@ def test_replay_by_decision_id_is_deterministic(loan_factory, policy_factory, cl
 
     hc = HashChain("tests/output/test_audit.jsonl")
     repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("hybrid", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     decision, _ = engine.run(app, policy)
 
@@ -99,16 +96,16 @@ def test_replay_by_ids_uses_current_state(loan_factory, policy_factory, clear_fi
 
     hc = HashChain("tests/output/test_audit.jsonl")
     repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("hybrid", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     decision, _ = engine.run(app, policy)
 
@@ -126,20 +123,17 @@ def test_replay_by_ids_uses_current_state(loan_factory, policy_factory, clear_fi
 # =========================================================
 
 def test_engine_decision_changes_when_application_changes(loan_factory, policy_factory, clear_files):
-    clear_files()
-
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    hc, repo = clear_files()
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("scorecard", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     decision1, _ = engine.run(app, policy)
 
@@ -158,24 +152,21 @@ def test_engine_decision_changes_when_application_changes(loan_factory, policy_f
 # =========================================================
 
 def test_decision_creates_audit_event(loan_factory, policy_factory, clear_files):
-    clear_files()
-
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    hc, repo = clear_files()
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("rulebased", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     engine.run(app, policy)
 
-    events = EmitEvent.events
+    events = emit.events
 
     assert any(e.get("event") == "DECISIONED" for e in events)
 
@@ -185,20 +176,17 @@ def test_decision_creates_audit_event(loan_factory, policy_factory, clear_files)
 # =========================================================
 
 def test_audit_chain_valid_after_engine_run(loan_factory, policy_factory, clear_files):
-    clear_files()
-
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc)
-    engine = DecisionEngine(hc, repo)
+    hc, repo = clear_files()
+    engine = DecisionEngine(hash_chain=hc, repo=repo)
 
     app = loan_factory(hc)
     app.submit()
     app.validate()
-    repo.add(app)
+    repo.update(app)
 
     policy = policy_factory("hybrid", hc)
     policy.validate()
-    repo.add(policy)
+    repo.update(policy)
 
     engine.run(app, policy)
 

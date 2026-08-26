@@ -20,15 +20,8 @@ from app.rules.rule_status import RuleStatus
 @register_policy
 class HybridPolicy(Policy):
 
-    def __init__(self, rules: Any = None, **kwargs):
-        if Policy.is_list_of_strings(rules):
-            r = []
-            for s in (rules or []):
-                r.append(RULE_REGISTRY[s]())
-            rr = r
-        else:
-            rr = cast(list[Rule], rules)
-        super().__init__(rules=rr, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
     def __repr__(self):
         return super().__repr__()

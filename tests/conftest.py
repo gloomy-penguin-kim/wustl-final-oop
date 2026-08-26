@@ -7,13 +7,14 @@ from app.audit import HashChain, EmitEvent
 from app.domain import LoanApplication, Applicant
 from app.persistence import JsonCrud
 from app.policies import HybridPolicy, RuleBasedPolicy, ScorecardPolicy
+from app.repository.domain_repo import Repository
 from app.rules import EmploymentRule, DtiRule, CreditScoreRule
 from app.rules.loan_amount_rule import LoanAmountRule
 
 
 @pytest.fixture
 def loan_factory():
-    def _make(hc = HashChain("tests/output/test_audit.jsonl")):
+    def _make(hc: HashChain = HashChain("tests/output/test_audit.jsonl")):
         return LoanApplication(
             applicant=Applicant(
                 name="Alice",
@@ -33,9 +34,13 @@ def loan_factory():
 @pytest.fixture
 def clear_files():
     def _make():
-        HashChain("tests/output/test_audit.jsonl").clear()
         EmitEvent("tests/output/test_events.jsonl").clear()
         JsonCrud("tests/output/test_persistence.jsonl").clear()
+        hc = HashChain("tests/output/test_audit.jsonl")
+        hc.clear()
+        repo = Repository(hash_chain=hc, filename="tests/output/test_persistence.jsonl")
+        assert repo._hash_chain == hc
+        return hc, repo
     return _make
 
 

@@ -66,8 +66,7 @@ class RuleToDecline(Rule):
         return result
 
 def test_reason_codes(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
+    hc, repo = clear_files()
 
     policy12 = RuleBasedPolicy(hash_chain=hc,
                                 id="approved_1_2",
@@ -84,10 +83,7 @@ def test_reason_codes(clear_files):
                                 rules=["RuleToReturnApproved1",
                                         "RuleToReturnApproved2",
                                         "RuleToDecline"])
-
-    repo = Repository(hc, "tests/output/test_persistence.jsonl")
-
-    engine = DecisionEngine(hc, repo)
+    engine = DecisionEngine(repo, hc)
 
     loan = LoanApplication.from_dict(hc, {
         "applicant": {
@@ -128,10 +124,8 @@ def test_reason_codes(clear_files):
 
 
 
-def test_reason_codes_2():
-    HashChain("tests/output/test_audit.jsonl").clear()
-    EmitEvent("tests/output/test_events.jsonl").clear()
-    hc = HashChain("tests/output/test_audit.jsonl")
+def test_reason_codes_2(clear_files):
+    hc, repo = clear_files()
 
     policy12 = RuleBasedPolicy(hash_chain=hc,
                                id="approved_1_2",
@@ -145,11 +139,7 @@ def test_reason_codes_2():
                                         "CreditScoreRule",
                                         "EmploymentRule"])
 
-    repo = Repository(hc,"tests/output/test_persistence.jsonl")
-    repo.clear()
-    hc = HashChain("tests/output/test_audit.jsonl")
-
-    engine = DecisionEngine(hc,repo)
+    engine = DecisionEngine(repo, hc)
 
     loan = LoanApplication.from_dict(hc, {
         "applicant": {

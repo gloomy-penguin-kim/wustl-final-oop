@@ -7,28 +7,33 @@ from app.persistence import JsonCrud
 
 from typing import Protocol, Any, overload
 
+from app.audit.hash_chain import hc
+from app.audit.event_sink import emit
+
 
 class DomainRepository(Protocol):
     def get(self, id: str) -> BaseEntity: ...
-    def add(self, item: BaseEntity) -> None: ...
+    def update(self, item: BaseEntity) -> None: ...
     def save(self, item: BaseEntity) -> None: ...
     def delete(self, item: Any) -> None: ...
 
-class Repository(JsonCrud, EmitEvent, DomainRepository):
-    def __init__(self, hash_chain: HashChain = HashChain(), filename: str = None):
+class Repository(JsonCrud, DomainRepository):
+    def __init__(self, hash_chain: HashChain = None, filename: str = None):
+        self._hash_chain = hc if hash_chain is None else hash_chain
         super().__init__(filename=filename)
-        self._hash_chain = hash_chain
 
-    def get(self, id: str) -> Any:
+    def get(self, id: str, hash_chain: HashChain = None) -> Any:
         data = self.load_from_file(id)
+        hash_chain = hash_chain or self._hash_chain
+        print("repository", hash_chain)
         if not data:
             raise ValueError(f"Item not found: {id}")
-        return DOMAIN_REGISTRY[data.get("type")].from_dict(self._hash_chain, data=data.get("data"))
+        return DOMAIN_REGISTRY[data.get("type")].from_dict(hash_chain, data=data.get("data"))
 
-    def add(self, item: BaseEntity):
+    def update(self, item: BaseEntity):
         if self.load_from_file(id=item.id):
             raise Exception(f"duplicate id: {item.type}, {item.id}")
-        EmitEvent.emit(event={
+        emit.emit(event={
             "event": item.type + " Added to Repository",
             "id": item.id,
             "date": datetime.now(UTC),
@@ -37,7 +42,7 @@ class Repository(JsonCrud, EmitEvent, DomainRepository):
         return self.save_to_file(item)
 
     def save(self, item: BaseEntity):
-        EmitEvent.emit(event={
+        emit.emit(event={
             "event": item.type + " Updated in Repository",
             "id": item.id,
             "date": datetime.now(UTC),
@@ -48,7 +53,7 @@ class Repository(JsonCrud, EmitEvent, DomainRepository):
     @overload
     def delete(self, item: BaseEntity): ...
     def delete_by_item(self, item: BaseEntity):
-        EmitEvent.emit(event={
+        emit.emit(event={
             "event": item.type + " Deleted from Repository",
             "id": item.id,
             "date": datetime.now(UTC),
@@ -59,7 +64,7 @@ class Repository(JsonCrud, EmitEvent, DomainRepository):
     @overload
     def delete(self, id: str): ...
     def delete_by_str(self, id: str):
-        EmitEvent.emit(event={
+        emit.emit(event={
             "event": "Deleted from Repository",
             "id": id,
             "date": datetime.now(UTC)
@@ -74,3 +79,5 @@ class Repository(JsonCrud, EmitEvent, DomainRepository):
 
     def existing(self, id: str):
         return self.load_from_file(id) is not None
+
+repo = Repository(hash_chain=hc)

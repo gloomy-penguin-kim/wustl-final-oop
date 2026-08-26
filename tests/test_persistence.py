@@ -13,6 +13,7 @@ import pytest
 
 @register_domain
 class TestClass(BaseEntity):
+    __test__ = False
     def __init__(self, data: dict, *args, **kwargs):
         self._data = data
         super(TestClass, self).__init__(*args, **kwargs)
@@ -39,12 +40,10 @@ def check_file_for_string(id: str):
         return None
 
 def test_persist_events(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc, filename="tests/output/test_persistence.jsonl")
+    hc, repo = clear_files()
     arr = []
     for i in range(20):
-        t = TestClass(id="test" + str(i), type="TestClass", data={"value": i})
+        t = TestClass(id="test" + str(i), type="TestClass", hash_chain=hc, data={"value": i})
         repo.save(t)
         arr.append(t)
 

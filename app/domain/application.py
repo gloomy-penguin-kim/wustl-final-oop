@@ -65,6 +65,7 @@ class LoanApplication(ValidateApplicationMixin, BaseEntity):
 
     @classmethod
     def from_dict(cls, hash_chain: HashChain, data):
+        print("application", hash_chain)
         obj = super().from_dict(hash_chain, data)
         obj._applicant = Applicant.to_applicant(hash_chain, obj.applicant)
         return obj

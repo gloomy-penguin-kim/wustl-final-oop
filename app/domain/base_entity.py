@@ -7,6 +7,7 @@ from app.audit import EmitEvent
 from app.domain.base import Base
 from app.mixins.json_serializable import JsonSerializableMixin
 from app.mixins.validate_base import ValidateBaseEntity
+from app.audit.event_sink import emit
 
 class BaseEntity(ValidateBaseEntity, JsonSerializableMixin, Base):
 
@@ -14,7 +15,7 @@ class BaseEntity(ValidateBaseEntity, JsonSerializableMixin, Base):
         super().__init__(*args, **kwargs)
         if not kwargs.get("created_at"):
             self.updated_at = self.created_at = datetime.now(UTC)
-            EmitEvent.emit(event={
+            emit.emit(event={
                 "event": self.type + " Created",
                 "id": self.id,
                 "date": datetime.now(UTC),
@@ -33,8 +34,8 @@ class BaseEntity(ValidateBaseEntity, JsonSerializableMixin, Base):
                 if self.rules_as_strings != other.rules_as_strings:
                     return False
             elif self.__getattribute__(i) != getattr(other, i):
-                # print(i)
-                # print(self.__getattribute__(i))
-                # print(other.__getattribute__(i))
+                print(i)
+                print(self.__getattribute__(i))
+                print(other.__getattribute__(i))
                 return False
         return True

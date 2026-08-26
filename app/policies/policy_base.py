@@ -13,16 +13,23 @@ from app.mixins.validate_policy import ValidatePolicyMixin
 from app.policies.policy_registry import POLICY_REGISTRY
 from app.rules import Rule
 from app.rules import RULE_REGISTRY
-
+from app.audit.event_sink import emit
 
 class Policy(ValidatePolicyMixin, BaseEntity, ABC):
     def __init__(self,
-                 rules: list[Rule] = None,
-                 *args,
+                 rules = None,
                  **kwargs):
+        rr = []
+        if self.is_list_of_strings(rules):
+            r = []
+            for s in (rules or []):
+                r.append(RULE_REGISTRY[s]())
+            rr = r
+        else:
+            rr = cast(list[Rule], rules)
         self._policy = self.__class__.__name__
-        self._rules = rules or []
-        super().__init__(*args, **kwargs)
+        self._rules = rr or []
+        super().__init__(**kwargs)
 
 
     @abstractmethod
@@ -70,11 +77,11 @@ class Policy(ValidatePolicyMixin, BaseEntity, ABC):
 
     def validate(self):
         super().validate()
-        EmitEvent.emit({
+        emit.emit({
             "event": "POLICY_VALIDATED",
             "id": self.id,
             "date": datetime.now(UTC),
-            "data": self.to_dict()
+            "data": str(self)
         })
 
     @property

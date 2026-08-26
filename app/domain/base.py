@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from datetime import datetime, UTC
 from typing import Any
 
-from app.audit import HashChain
+from app.audit.hash_chain import hc, HashChain
 
 
 class Base(ABC):
@@ -22,7 +22,9 @@ class Base(ABC):
         self._validated_at = kwargs2time(kwargs.get("validated_at"))
         self._type = kwargs.get("type") or self.__class__.__name__
         self._id = kwargs.get("id") or str(uuid.uuid4())
-        self._hash_chain = kwargs.get("hash_chain")
+        hash_chain = kwargs.get("hash_chain")
+        self.hash_chain = hc
+        self.hash_chain = hash_chain
 
     @property
     def hash_chain(self) -> HashChain:
@@ -31,6 +33,8 @@ class Base(ABC):
     def hash_chain(self, value: HashChain):
         if isinstance(value, HashChain):
             self._hash_chain = value
+        elif isinstance(value, str):
+            self._hash_chain = HashChain(value)
 
     @property
     def created_at(self) -> datetime:

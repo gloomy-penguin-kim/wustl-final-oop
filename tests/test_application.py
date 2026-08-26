@@ -12,8 +12,7 @@ from app.repository.domain_repo import Repository
 
 
 def test_applicant(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
+    hc, repo = clear_files()
 
     applicant = Applicant(
             name="Alice",
@@ -53,9 +52,7 @@ def test_applicant(clear_files):
 
 
 def test_loans_crud(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hash_chain=hc, filename="tests/output/test_persistence.jsonl")
+    hc, repo = clear_files()
 
     applicant = Applicant(
         "Alice",
@@ -65,6 +62,10 @@ def test_loans_crud(clear_files):
         "EMPLOYED",
         hash_chain=hc,
     )
+    assert applicant.hash_chain == hc
+    repo.save(applicant)
+    applicant2 = repo.get(applicant.id)
+    assert applicant.isequal(applicant2)
 
     repo.delete("tacobell")
 
@@ -76,6 +77,7 @@ def test_loans_crud(clear_files):
         id="tacobell",
         hash_chain=hc,
     )
+    print("APPPPPPPPPPP", app.hash_chain)
 
     app_copy = app.copy()
     assert app.requested_amount == app_copy.requested_amount
@@ -85,9 +87,13 @@ def test_loans_crud(clear_files):
     assert app.applicant.name == app_copy.applicant.name
     assert app.applicant.isequal(app_copy.applicant)
 
-    repo = Repository(hc, "tests/output/test_persistence.jsonl")
+    repo = Repository(hash_chain=hc,filename="tests/output/test_persistence.jsonl")
+    print("APPPPPPPPPPP11111", app.hash_chain)
     repo.save(app)
-    app2 = repo.get(app.id)
+    print("APPPPPPPPPPP22222222", app.hash_chain)
+    app2 = repo.get(app.id, hash_chain=hc)
+    print("APPPPPPPPPPP33333333", app.hash_chain)
+    print("APPPPPPPPPPP22222", app2.hash_chain)
 
     assert app2.requested_amount == app_copy.requested_amount
     assert app2.created_at == app_copy.created_at

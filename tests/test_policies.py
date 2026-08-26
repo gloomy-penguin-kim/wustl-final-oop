@@ -10,8 +10,7 @@ import pytest
 
 
 def test_policies(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
+    hc, repo = clear_files()
 
     ru_policy = RuleBasedPolicy(hash_chain=hc,
                                 id="testing_tacos_are_ruly_tacos",
@@ -27,8 +26,6 @@ def test_policies(clear_files):
     hy_policy.validate()
     validated_at = hy_policy.validated_at
     hy_copy = hy_policy.copy()
-    print(hy_policy.validated_at)
-    print(hy_copy.validated_at)
 
     assert hy_policy.id == hy_copy.id
     assert hy_policy.type == hy_copy.type
@@ -49,7 +46,6 @@ def test_policies(clear_files):
     assert ru_policy2.validated_at == ru_policy.validated_at
     assert ru_policy2.updated_at == ru_policy.updated_at
 
-    repo = Repository("tests/output/test_persistence.jsonl")
     repo.save(ru_policy)
     ru_policy2 = repo.get(ru_policy.id)
     assert ru_policy2.type == "RuleBasedPolicy"
@@ -61,10 +57,7 @@ def test_policies(clear_files):
 
 
 def test_policies_duplicates(clear_files):
-    clear_files()
-
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc, filename="tests/output/test_persistence.jsonl")
+    hc, repo = clear_files()
 
     sc_policy = ScorecardPolicy(id="testing_tacos_are_soft_tacos")
     sc_created_at = sc_policy.created_at
@@ -83,13 +76,12 @@ def test_policies_duplicates(clear_files):
         pass 
 
 def test_del_policy(clear_files):
-    clear_files()
-    hc = HashChain("tests/output/test_audit.jsonl")
-    repo = Repository(hc,filename="tests/output/test_persistence.jsonl")
+    hc, repo = clear_files()
 
     sc_policy = ScorecardPolicy(hash_chain=hc,
                                 id="testing_tacos_are_soft_tacos")
     repo.save(sc_policy)
+
     hy_policy = HybridPolicy(hash_chain=hc,
                              id="testing_tacos_are_hybrid_tacos",
                              rules=[CreditScoreRule(),
@@ -127,6 +119,6 @@ def test_policy_update(clear_files):
     hy_policy.rules = ['EmploymentRule']
     assert hy_policy.rules[0].__class__.__name__ == 'EmploymentRule'
     repo.save(hy_policy)
-    hy_policy2 = repo.get(hy_policy.id)
+    hy_policy2 = repo.get(hy_policy.id, hash_chain=hc)
     assert hy_policy.id == hy_policy2.id
     assert hy_policy2.rules[0].__class__.__name__ == 'EmploymentRule'

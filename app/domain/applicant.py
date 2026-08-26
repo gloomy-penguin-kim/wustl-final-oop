@@ -6,10 +6,10 @@ from decimal import Decimal
 
 from app.audit import HashChain
 from app.domain.base_entity import BaseEntity
-from app.mixins.json_serializable import JsonSerializableMixin
+from app.domain.domain_registry import register_domain
 from app.mixins.validate_applicant import ValidateApplicantMixin
 
-
+@register_domain
 class Applicant(ValidateApplicantMixin, BaseEntity):
 
     def __init__(

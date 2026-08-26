@@ -9,6 +9,7 @@ from app.audit import EmitEvent
 from app.persistence.utility import remove_line_from_large_file
 from app.settings import Config
 
+from app.audit.event_sink import emit
 
 
 class JsonCrud:
@@ -60,9 +61,8 @@ class JsonCrud:
             return None
         return remove_line_from_large_file(self.__class__.filename, to_remove)
 
-    @staticmethod
-    def clear():
-        EmitEvent.emit(event={
+    def clear(self):
+        emit.emit(event={
             "event": "Clearing persistence file",
             "id": JsonCrud.filename,
             "date": datetime.now(UTC),

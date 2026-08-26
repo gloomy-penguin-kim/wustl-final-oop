@@ -12,47 +12,35 @@ class EventSink(ABC):
     def __init__(self, *args, **kwargs):
         pass
 
-    @classmethod
     @abstractmethod
-    def emit(cls, event: dict): ...
+    def emit(self, event: dict): ...
 
-    @classmethod
     @abstractmethod
-    def clear(cls): ...
+    def clear(self): ...
 
 
 class FileEventSink(EventSink):
-    filename = Config.EVENTS_FILE
 
     def __init__(self, filename: str = None, *args, **kwargs):
-        super().__init__(*args, **kwargs) 
-        if filename:
-            FileEventSink.filename = filename
+        super().__init__(*args, **kwargs)
+        self.filename = filename or Config.EVENTS_FILE
 
-    @classmethod
-    def emit(cls, event: dict):
-        with open(cls.filename, "a") as f:
+    def emit(self, event: dict):
+        with open(self.filename, "a") as f:
             f.write(json.dumps(event, default=str) + "\n")
         super().emit(event)
 
-    @classmethod
-    def clear(cls):
-        with open(cls.filename, "w") as f:
+    def clear(self):
+        with open(self.filename, "w") as f:
             f.write("")
         super().clear()
-        EmitEvent.emit(event={
-            "event": "Clearing emit events file",
-            "id": cls.filename,
-            "date": datetime.now(UTC),
-        })
 
         
 class PrintEventSink(EventSink): 
     def __init__(self, *args, **kwargs): 
         super().__init__(*args, **kwargs) 
 
-    @classmethod
-    def emit(cls, event: dict):
+    def emit(self, event: dict):
         print("emit...",
               event.get("date").strftime("%Y-%m-%d %H:%M"),
               event.get("id"),
@@ -60,25 +48,21 @@ class PrintEventSink(EventSink):
               event.get("data") or "")
         super().emit(event)
 
-    @classmethod
-    def clear(cls):
+    def clear(self):
         super().clear()
 
 
-class InMemoryEventSink(EventSink):   
-    events = []
-
+class InMemoryEventSink(EventSink):
     def __init__(self, *args, **kwargs):  
-        super().__init__(*args, **kwargs) 
+        super().__init__(*args, **kwargs)
+        self.events = []
 
-    @classmethod
-    def emit(cls, event: dict):
-        InMemoryEventSink.events.append(event)
+    def emit(self, event: dict):
+        self.events.append(event)
         super().emit(event)
 
-    @classmethod
-    def clear(cls):
-        InMemoryEventSink.events = []
+    def clear(self):
+        self.events = []
         super().clear()
 
 
@@ -87,10 +71,10 @@ class EmitEvent(InMemoryEventSink, FileEventSink, PrintEventSink, EventSink):
     def __init__(self, filename: str = None, *args, **kwargs):
         super().__init__(*args, filename=filename, **kwargs)
 
-    @classmethod
-    def emit(cls, event: dict):
+    def emit(self, event: dict):
         super().emit(event) 
 
-    @classmethod
-    def clear(cls):
+    def clear(self):
         super().clear()
+
+emit = EmitEvent()
